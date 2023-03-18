@@ -230,44 +230,50 @@
                       ? 'success--text'
                       : 'grey--text'"
                   >
-                    6 Caracteres
+                    6 caracteres
                   </span>
                 </div>
               </div>
             </div>
           </v-row>
-          <v-tooltip
-            bottom
-            :disabled="userEntity.passwordsMatch()"
-          >
-            <template #activator="{ on }">
-              <div v-on="on">
-                <v-btn
-                  class="mt-5"
-                  color="primary"
-                  :disabled="disableSignUpButton"
-                  elevation="0"
-                  height="48"
-                  :loading="loading"
-                  width="100%"
-                  @click="register"
+          <div class="d-flex align-center mt-8">
+            <v-btn
+              class="mr-2"
+              color="primary"
+              elevation="0"
+              height="48"
+              text
+              width="calc(50% - 4px)"
+              @click="backToSignIn"
+            >
+              Voltar para login
+            </v-btn>
+            <v-tooltip
+              bottom
+              :disabled="userEntity.passwordsMatch()"
+            >
+              <template #activator="{ on }">
+                <div
+                  class="full-width"
+                  v-on="on"
                 >
-                  Cadastrar
-                </v-btn>
-              </div>
-            </template>
-            Senhas não correspondem
-          </v-tooltip>
+                  <v-btn
+                    color="primary"
+                    :disabled="disableSignUpButton"
+                    elevation="0"
+                    height="48"
+                    :loading="loading"
+                    width="100%"
+                    @click="register"
+                  >
+                    Cadastrar
+                  </v-btn>
+                </div>
+              </template>
+              Senhas não correspondem
+            </v-tooltip>
+          </div>
         </v-form>
-        <v-btn
-          class="mt-4"
-          color="primary"
-          elevation="0"
-          text
-          @click="backToSignIn"
-        >
-          Voltar para login
-        </v-btn>
       </div>
     </div>
   </v-container>
