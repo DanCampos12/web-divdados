@@ -7,8 +7,8 @@ class SingUpHelper {
     return /.+@.+\..+/.test(value) || 'E-mail inválido'
   }
 
-  disableSignUpButton (formValid: boolean, loading: boolean) {
-    return !formValid || loading
+  disableSignUpButton (formValid: boolean, loading: boolean, isValidPassword: boolean) {
+    return !formValid || loading || !isValidPassword
   }
 
   getShowPasswordIcon (showPassword: boolean) {

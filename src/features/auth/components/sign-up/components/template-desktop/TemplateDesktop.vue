@@ -17,60 +17,250 @@
         <v-form
           v-model="formValid"
           class="text-center"
-          style="width: 400px; height: 400px;"
+          style="width: 480px;"
         >
           <div class="text-h5 font-weight-bold mb-8">
-            Acessar minha conta
+            Criar minha conta
           </div>
-          <v-text-field
-            v-model="email"
-            autocomplete="off"
-            class="mb-2"
-            label="E-mail"
-            name="email"
-            outlined
-            :rules="[rules.required, rules.email]"
-          />
-          <v-text-field
-            v-model="password"
-            autocomplete="off"
-            class="mb-2"
-            label="Senha"
-            name="password"
-            outlined
-            :rules="[rules.required]"
-            :type="showPassword ? 'text' : 'password'"
-          >
-            <template #append>
-              <v-btn
-                elevation="0"
-                fab
-                height="24"
-                small
-                tabindex="-1"
-                text
-                width="24"
-                @click.stop="toggleShowPassword"
+          <v-row dense>
+            <v-col md="6">
+              <v-text-field
+                v-model="userEntity.name"
+                autocomplete="off"
+                label="Nome"
+                name="name"
+                outlined
+                :rules="[rules.required]"
+              />
+            </v-col>
+            <v-col md="6">
+              <v-text-field
+                v-model="userEntity.surname"
+                autocomplete="off"
+                label="Sobrenome"
+                name="surname"
+                outlined
+                :rules="[rules.required]"
+              />
+            </v-col>
+            <v-col md="6">
+              <v-text-field
+                v-model.number="userEntity.age"
+                autocomplete="off"
+                label="Idade"
+                name="age"
+                outlined
+                :rules="[rules.required]"
+                type="number"
+              />
+            </v-col>
+            <v-col md="6">
+              <v-autocomplete
+                v-model="userEntity.sex"
+                autocomplete="off"
+                item-text="name"
+                item-value="key"
+                :items="sexlist"
+                label="Sexo"
+                name="sex"
+                outlined
+                :rules="[rules.required]"
+              />
+            </v-col>
+            <v-col md="12">
+              <v-text-field
+                v-model="userEntity.email"
+                autocomplete="off"
+                label="E-mail"
+                name="email"
+                outlined
+                :rules="[rules.required, rules.email]"
+              />
+            </v-col>
+            <v-col md="6">
+              <v-text-field
+                v-model="userEntity.password"
+                autocomplete="off"
+                label="Senha"
+                name="password"
+                outlined
+                :rules="[rules.required]"
+                :type="showPassword ? 'text' : 'password'"
               >
-                <v-icon size="24">
-                  {{ showPasswordIcon }}
-                </v-icon>
-              </v-btn>
-            </template>
-          </v-text-field>
-          <v-btn
-            color="primary"
-            :disabled="disableSignUpButton"
-            elevation="0"
-            height="48"
-            :loading="loading"
-            width="100%"
-            @click="register"
+                <template #append>
+                  <v-btn
+                    elevation="0"
+                    fab
+                    height="24"
+                    small
+                    tabindex="-1"
+                    text
+                    width="24"
+                    @click.stop="toggleShowPassword"
+                  >
+                    <v-icon size="24">
+                      {{ showPasswordIcon }}
+                    </v-icon>
+                  </v-btn>
+                </template>
+              </v-text-field>
+            </v-col>
+            <v-col md="6">
+              <v-text-field
+                v-model="userEntity.confirmPassword"
+                autocomplete="off"
+                label="Confirmar Senha"
+                name="confirmPassword"
+                outlined
+                :rules="[rules.required]"
+                :type="showPassword ? 'text' : 'password'"
+              >
+                <template #append>
+                  <v-btn
+                    elevation="0"
+                    fab
+                    height="24"
+                    small
+                    tabindex="-1"
+                    text
+                    width="24"
+                    @click.stop="toggleShowPassword"
+                  >
+                    <v-icon size="24">
+                      {{ showPasswordIcon }}
+                    </v-icon>
+                  </v-btn>
+                </template>
+              </v-text-field>
+            </v-col>
+            <div class="text-left full-width mt-n3 px-2">
+              <span class="subtitle-1 font-weight-bold">
+                Requisitos mínimos da senha:
+              </span>
+              <div class="validation-grid--layout mt-1">
+                <div>
+                  <div
+                    :style="{
+                      height: '4px',
+                      background: userEntity.passwordContainsUpperCase()
+                        ? 'var(--v-success-base)'
+                        : '#E0E0E0',
+                      borderRadius: '4px'
+                    }"
+                  />
+                  <span
+                    class="text-caption font-weight-medium"
+                    :class="userEntity.passwordContainsUpperCase()
+                      ? 'success--text'
+                      : 'grey--text'"
+                  >
+                    1 Maiúsculo
+                  </span>
+                </div>
+                <div>
+                  <div
+                    :style="{
+                      height: '4px',
+                      background: userEntity.passwordContainsUpperCase()
+                        ? 'var(--v-success-base)'
+                        : '#E0E0E0',
+                      borderRadius: '4px'
+                    }"
+                  />
+                  <span
+                    class="text-caption font-weight-medium"
+                    :class="userEntity.passwordContainsUpperCase()
+                      ? 'success--text'
+                      : 'grey--text'"
+                  >
+                    1 Minúsculo
+                  </span>
+                </div>
+                <div>
+                  <div
+                    :style="{
+                      height: '4px',
+                      background: userEntity.passwordContainsNumber()
+                        ? 'var(--v-success-base)'
+                        : '#E0E0E0',
+                      borderRadius: '4px'
+                    }"
+                  />
+                  <span
+                    class="text-caption font-weight-medium"
+                    :class="userEntity.passwordContainsNumber()
+                      ? 'success--text'
+                      : 'grey--text'"
+                  >
+                    1 Número
+                  </span>
+                </div>
+                <div>
+                  <div
+                    :style="{
+                      height: '4px',
+                      background: userEntity.passwordContainsSpecialChar()
+                        ? 'var(--v-success-base)'
+                        : '#E0E0E0',
+                      borderRadius: '4px'
+                    }"
+                  />
+                  <span
+                    class="text-caption font-weight-medium"
+                    :class="userEntity.passwordContainsSpecialChar()
+                      ? 'success--text'
+                      : 'grey--text'"
+                  >
+                    1 Especial
+                  </span>
+                </div>
+                <div>
+                  <div
+                    :style="{
+                      height: '4px',
+                      background: userEntity.isValidPasswordSize()
+                        ? 'var(--v-success-base)'
+                        : '#E0E0E0',
+                      borderRadius: '4px'
+                    }"
+                  />
+                  <span
+                    class="text-caption font-weight-medium"
+                    :class="userEntity.isValidPasswordSize()
+                      ? 'success--text'
+                      : 'grey--text'"
+                  >
+                    6 Caracteres
+                  </span>
+                </div>
+              </div>
+            </div>
+          </v-row>
+          <v-tooltip
+            bottom
+            :disabled="userEntity.passwordsMatch()"
           >
-            Cadastrar
-          </v-btn>
+            <template #activator="{ on }">
+              <div v-on="on">
+                <v-btn
+                  class="mt-5"
+                  color="primary"
+                  :disabled="disableSignUpButton"
+                  elevation="0"
+                  height="48"
+                  :loading="loading"
+                  width="100%"
+                  @click="register"
+                >
+                  Cadastrar
+                </v-btn>
+              </div>
+            </template>
+            Senhas não correspondem
+          </v-tooltip>
         </v-form>
         <v-btn
+          class="mt-4"
           color="primary"
           elevation="0"
           text
@@ -111,6 +301,12 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+      }
+
+      div.validation-grid--layout {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        column-gap: 8px;
       }
     }
   }

@@ -1,3 +1,4 @@
+import { UserEntity } from '@/models'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import helper from '../../SignUpHelper'
 
@@ -8,18 +9,20 @@ export default class TemplateDesktop extends Vue {
 
   showPassword = false
   formValid = false
-  email = ''
-  password = ''
+  userEntity = new UserEntity()
+
+  sexlist = [
+    { key: 'M', name: 'Masculino' },
+    { key: 'F', name: 'Feminino' }
+  ]
+
   rules: Record<string, (value: string) => string | boolean> = {
     required: helper.rulesRequired,
     email: helper.rulesEmail
   }
 
   register () {
-    this.$emit('signUp', {
-      email: this.email,
-      password: this.password
-    })
+    this.$emit('signUp', this.userEntity)
   }
 
   toggleShowPassword () {
@@ -31,7 +34,7 @@ export default class TemplateDesktop extends Vue {
   }
 
   get disableSignUpButton () {
-    return helper.disableSignUpButton(this.formValid, this.loading)
+    return helper.disableSignUpButton(this.formValid, this.loading, this.userEntity.isValidPassword())
   }
 
   get showPasswordIcon () {
