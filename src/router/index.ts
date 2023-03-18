@@ -27,4 +27,11 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach(async (to, _, next) => {
+  window.document.title = to.meta?.title
+    ? `${to.meta?.title}`
+    : 'DivDados'
+  next()
+})
+
 export default router

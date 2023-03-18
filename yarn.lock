@@ -2370,7 +2370,7 @@ acorn-import-assertions@^1.7.6:
   resolved "https://registry.yarnpkg.com/acorn-import-assertions/-/acorn-import-assertions-1.8.0.tgz#ba2b5939ce62c238db6d93d81c9b111b29b855e9"
   integrity sha512-m7VZ3jwz4eK6A4Vtt8Ew1/mNbP24u0FhdyfA7fSvnJR6LMdfOYnmuIrrJAgrYfYJ10F/otaHTtrtrtmHdMNzEw==
 
-acorn-jsx@^5.3.1, acorn-jsx@^5.3.2:
+acorn-jsx@^5.2.0, acorn-jsx@^5.3.1, acorn-jsx@^5.3.2:
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-5.3.2.tgz#7ed5bb55908b3b2f1bc55c6af1653bada7f07937"
   integrity sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==
@@ -3999,17 +3999,14 @@ eslint-plugin-promise@^5.1.0:
   resolved "https://registry.yarnpkg.com/eslint-plugin-promise/-/eslint-plugin-promise-5.2.0.tgz#a596acc32981627eb36d9d75f9666ac1a4564971"
   integrity sha512-SftLb1pUG01QYq2A/hGAWfDRXqYD82zE7j7TopDOyNdU+7SvvoXREls/+PRTY17vUXzXnZA/zfnyKgRH6x4JJw==
 
-eslint-plugin-vue@^8.0.3:
-  version "8.7.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-8.7.1.tgz#f13c53547a0c9d64588a675cc5ecc6ccaf63703f"
-  integrity sha512-28sbtm4l4cOzoO1LtzQPxfxhQABararUb1JtqusQqObJpWX2e/gmVyeYVfepizPFne0Q5cILkYGiBoV36L12Wg==
+eslint-plugin-vue@^6.1.2:
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-6.2.2.tgz#27fecd9a3a24789b0f111ecdd540a9e56198e0fe"
+  integrity sha512-Nhc+oVAHm0uz/PkJAWscwIT4ijTrK5fqNqz9QB1D35SbbuMG1uB6Yr5AJpvPSWg+WOw7nYNswerYh0kOk64gqQ==
   dependencies:
-    eslint-utils "^3.0.0"
     natural-compare "^1.4.0"
-    nth-check "^2.0.1"
-    postcss-selector-parser "^6.0.9"
-    semver "^7.3.5"
-    vue-eslint-parser "^8.0.1"
+    semver "^5.6.0"
+    vue-eslint-parser "^7.0.0"
 
 eslint-scope@5.1.1, eslint-scope@^5.1.1:
   version "5.1.1"
@@ -4033,13 +4030,6 @@ eslint-utils@^2.0.0, eslint-utils@^2.1.0:
   integrity sha512-w94dQYoauyvlDc43XnGB8lU3Zt713vNChgt4EWwhXAP2XkBvndfxF0AgIqKOOasjPIPzj9JqgwkwbCYD0/V3Zg==
   dependencies:
     eslint-visitor-keys "^1.1.0"
-
-eslint-utils@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-utils/-/eslint-utils-3.0.0.tgz#8aebaface7345bb33559db0a1f13a1d2d48c3672"
-  integrity sha512-uuQC43IGctw68pJA1RgbQS8/NP7rch6Cwd4j3ZBtgo4/8Flj4eGE7ZYSZRN3iq5pVUv6GPdW5Z1RFleo84uLDA==
-  dependencies:
-    eslint-visitor-keys "^2.0.0"
 
 eslint-visitor-keys@^1.1.0, eslint-visitor-keys@^1.3.0:
   version "1.3.0"
@@ -4112,6 +4102,15 @@ eslint@^7.32.0:
     table "^6.0.9"
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
+
+espree@^6.2.1:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/espree/-/espree-6.2.1.tgz#77fc72e1fd744a2052c20f38a5b575832e82734a"
+  integrity sha512-ysCxRQY3WaXJz9tdbWOwuWr5Y/XrPTGX9Kiz3yoUXwW0VZ4w30HTkQLaGx/+ttFjF8i+ACbArnB4ce68a9m5hw==
+  dependencies:
+    acorn "^7.1.1"
+    acorn-jsx "^5.2.0"
+    eslint-visitor-keys "^1.1.0"
 
 espree@^7.3.0, espree@^7.3.1:
   version "7.3.1"
@@ -8508,7 +8507,25 @@ vue-cli-plugin-vuetify@~2.5.8:
     semver "^7.1.2"
     shelljs "^0.8.3"
 
-vue-eslint-parser@^8.0.0, vue-eslint-parser@^8.0.1:
+vue-debounce@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/vue-debounce/-/vue-debounce-4.0.0.tgz#3f584dabc08a841a0182ab68d19f77f70a416fcc"
+  integrity sha512-+BrcKfLpyDpUJ58ZrAvI35irRCgYHFpnF3NJZwwaz8/kkKmEq6TWPXBIhLh2HQAsUZNwo52K/vQyiEFsJ/1RYA==
+
+vue-eslint-parser@^7.0.0:
+  version "7.11.0"
+  resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-7.11.0.tgz#214b5dea961007fcffb2ee65b8912307628d0daf"
+  integrity sha512-qh3VhDLeh773wjgNTl7ss0VejY9bMMa0GoDG2fQVyDzRFdiU3L7fw74tWZDHNQXdZqxO3EveQroa9ct39D2nqg==
+  dependencies:
+    debug "^4.1.1"
+    eslint-scope "^5.1.1"
+    eslint-visitor-keys "^1.1.0"
+    espree "^6.2.1"
+    esquery "^1.4.0"
+    lodash "^4.17.21"
+    semver "^6.3.0"
+
+vue-eslint-parser@^8.0.0:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-8.3.0.tgz#5d31129a1b3dd89c0069ca0a1c88f970c360bd0d"
   integrity sha512-dzHGG3+sYwSf6zFBa0Gi9ZDshD7+ad14DGOdTLjruRVgZXe2J+DcZ9iUhyR48z5g1PqRa20yt3Njna/veLJL/g==
