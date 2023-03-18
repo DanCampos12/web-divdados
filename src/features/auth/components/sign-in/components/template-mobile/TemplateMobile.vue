@@ -17,7 +17,7 @@
         <v-form
           v-model="formValid"
           class="text-center"
-          style="width: calc(100% - 32px)"
+          style="width: calc(100% - 20px)"
         >
           <div class="text-h5 font-weight-bold mb-8">
             Acessar minha conta
@@ -103,10 +103,11 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 340px;
+        height: 308px;
         img {
           margin: 8px 0px;
           width: 112px;
+          height: 112px
         }
       }
 
