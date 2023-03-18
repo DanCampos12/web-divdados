@@ -1,7 +1,5 @@
 <template>
-  <div>
-    DivDados
-  </div>
+  <router-view />
 </template>
 
 <script lang="ts" src="./MainComponent.ts"></script>

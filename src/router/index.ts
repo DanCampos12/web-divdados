@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import MainComponent from '@/features/main/MainComponent.vue'
+import authRoutes from '@/features/auth/routes'
 
 Vue.use(VueRouter)
 
@@ -12,7 +13,11 @@ const routes: RouteConfig[] = [
   {
     path: '/main',
     name: 'Main',
-    component: MainComponent
+    component: MainComponent,
+    redirect: { name: 'Main.Auth' },
+    children: [
+      ...authRoutes
+    ]
   }
 ]
 
