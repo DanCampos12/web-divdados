@@ -8,6 +8,11 @@ type SignInResponse = {
   idToken: string;
 }
 
+type SignUpResponse = {
+  user: User;
+  idToken: string;
+}
+
 export class AuthService extends ApiService {
   static async signInWithCustomToken (idToken: string): Promise<AxiosResponse<SignInResponse>> {
     // return this.httpService.post(`/user-auth/${idToken}`)
@@ -70,5 +75,29 @@ export class AuthService extends ApiService {
         statusText: 'success'
       })
     }, 200))
+  }
+
+  static async signUp (user: UserEntity): Promise<AxiosResponse<SignUpResponse>> {
+    // return this.httpService.post('/user', user)
+    console.log('signUp', user)
+    return new Promise((resolve) => setTimeout(() => {
+      resolve({
+        config: {},
+        headers: {},
+        data: {
+          user: UserEntity.parse({
+            ...user,
+            ...{
+              id: newId(),
+              password: '',
+              confirmPassword: ''
+            }
+          }),
+          idToken: newId()
+        },
+        status: 200,
+        statusText: 'success'
+      })
+    }, 1000))
   }
 }

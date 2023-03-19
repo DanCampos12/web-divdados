@@ -1,4 +1,4 @@
-import { AuthState, RootState } from '@/models'
+import { AuthState, RootState, UserEntity } from '@/models'
 import { ActionTree, Commit } from 'vuex'
 import { AuthService } from '../service/AuthService'
 
@@ -26,6 +26,15 @@ export const actions: ActionTree<AuthState, RootState> = {
     try {
       const response = await AuthService.refreshToken(idToken)
       return response.data || ''
+    } catch (error: any) {
+      throw error.response.data
+    }
+  },
+  async signUp ({ commit }: { commit: Commit }, user: UserEntity) {
+    try {
+      const response = await AuthService.signUp(user)
+      commit('setUser', response.data.user)
+      return response.data.idToken || ''
     } catch (error: any) {
       throw error.response.data
     }
