@@ -4,6 +4,7 @@ export interface User {
   surname: string;
   age: number | null;
   sex: string;
-  password: string;
-  confirmPassword: string;
+  email: string;
+  password?: string;
+  confirmPassword?: string;
 }

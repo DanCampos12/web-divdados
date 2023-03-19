@@ -6,6 +6,7 @@ export class UserEntity implements User {
   surname: string;
   age: number | null;
   sex: string;
+  email: string;
   password: string;
   confirmPassword: string;
 
@@ -14,8 +15,28 @@ export class UserEntity implements User {
     this.surname = ''
     this.age = null
     this.sex = ''
+    this.email = ''
     this.password = ''
     this.confirmPassword = ''
+  }
+
+  static parse (user: User) {
+    const instance = new UserEntity()
+    if (user) {
+      instance.id = user.id
+      instance.name = user.name
+      instance.surname = user.surname
+      instance.age = user.age
+      instance.sex = user.sex
+      instance.email = user.email
+      instance.password = user.password || ''
+      instance.confirmPassword = user.confirmPassword || ''
+    }
+    return instance
+  }
+
+  isLogged () {
+    return !!this.id
   }
 
   isValidPasswordSize () {

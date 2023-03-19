@@ -2,6 +2,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import TemplateDesktop from './components/template-desktop/TemplateDesktop.vue'
 import TemplateMobile from './components/template-mobile/TemplateMobile.vue'
 import { getTemplate } from '@/helpers'
+import { Action } from 'vuex-class'
 
 @Component({
   components: {
@@ -10,14 +11,20 @@ import { getTemplate } from '@/helpers'
   }
 })
 export default class SignInComponent extends Vue {
+  @Action('signInWithEmailAndPassoword', { namespace: 'auth' })
+  readonly signInWithEmailAndPassoword!: ({ email, password }:
+    { email: string, password: string }) => Promise<string>
+
   loading = false
 
-  signIn ($event: { email: string, password: string }) {
+  async signIn ({ email, password }: { email: string, password: string }) {
     try {
       this.loading = true
-      console.log($event)
+      const idToken = await this.signInWithEmailAndPassoword({ email, password })
+      this.$authorizer.setLocalStorageIdToken(idToken)
+      this.$router.replace({ name: 'Main.Home' })
     } finally {
-      setTimeout(() => { this.loading = false }, 1000)
+      this.loading = false
     }
   }
 

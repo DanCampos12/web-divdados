@@ -2,21 +2,22 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import MainComponent from '@/features/main/MainComponent.vue'
 import authRoutes from '@/features/auth/routes'
+import homeRoutes from '@/features/home/routes'
 
 Vue.use(VueRouter)
 
 const routes: RouteConfig[] = [
   {
     path: '/',
-    redirect: { name: 'Main' }
+    redirect: { name: 'Main.Home' }
   },
   {
     path: '/main',
     name: 'Main',
     component: MainComponent,
-    redirect: { name: 'Main.Auth' },
     children: [
-      ...authRoutes
+      ...authRoutes,
+      ...homeRoutes
     ]
   }
 ]

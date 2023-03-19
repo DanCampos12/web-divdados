@@ -1,6 +1,12 @@
 <template>
   <v-app>
-    <router-view />
+    <v-progress-circular
+      v-if="!flowComplete"
+      class="ma-4"
+      color="primary"
+      indeterminate
+    />
+    <router-view v-else />
   </v-app>
 </template>
 <script lang="ts" src="./AppComponent.ts"></script>
