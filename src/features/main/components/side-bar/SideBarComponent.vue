@@ -57,7 +57,7 @@
       </div>
       <v-sheet
         class="menu--item"
-        @click="signOut"
+        @click="showSignOutDialog = true"
       >
         <v-icon size="28">
           mdi-account-arrow-right-outline
@@ -65,6 +65,36 @@
         <span class="ml-2">Sair</span>
       </v-sheet>
     </div>
+    <v-dialog
+      v-model="showSignOutDialog"
+      max-width="340px"
+      persistent
+      transition="dialog-transition"
+    >
+      <v-card>
+        <v-card-title primary-title>
+          Deseja sair do sistema?
+        </v-card-title>
+        <v-card-text>Operações não salvas poderão ser perdidas.</v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            text
+            @click="showSignOutDialog = false"
+          >
+            Cancelar
+          </v-btn>
+          <v-btn
+            class="offset--text"
+            color="action"
+            elevation="0"
+            @click="signOut"
+          >
+            Confirmar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-navigation-drawer>
 </template>
 <script lang="ts" src="./SideBarComponent.ts"></script>
@@ -78,9 +108,19 @@
     font-size: 16px;
     font-weight: 700;
 
-    &:hover {
-      background: #F5F5F5;
-      cursor: pointer;
+    &.theme--dark {
+      background: #363636;
+      &:hover {
+        background: #424242;
+        cursor: pointer;
+      }
+    }
+
+    &.theme--light {
+      &:hover {
+        background: #F5F5F5;
+        cursor: pointer;
+      }
     }
 
     &.selected {

@@ -26,7 +26,7 @@ export default new Vuetify({
       dark: {
         background: '#212121',
         primary: '#17967F',
-        offset: '#B71C1C',
+        offset: '#363636',
         action: '#FF7043',
         success: '#00C853',
         scroll: '#616161'

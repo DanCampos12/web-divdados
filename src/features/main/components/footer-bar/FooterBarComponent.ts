@@ -1,7 +1,5 @@
-import { User, UserEntity } from '@/models'
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { Mutation } from 'vuex-class'
-import helper from './SideBarHelper'
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import helper from './FooterBarHelper'
 
 type MenuOption = {
   key: string;
@@ -11,27 +9,19 @@ type MenuOption = {
 }
 
 @Component
-export default class SideBarComponent extends Vue {
-  @Mutation('setUser', { namespace: 'auth' })
-  readonly setUser!: (user: User) => void
-
-  @Prop({ type: Boolean, default: false })
-  readonly value!: boolean
-
+export default class FooterBarComponent extends Vue {
   @Watch('$route.name')
   onRouteChange () {
     this.setPageSelected()
   }
 
-  showSignOutDialog = false
   pageSelected = ''
   menuOptions = [
     { key: 'home', name: 'Início', to: 'Main.Home', icon: 'mdi-home-circle-outline' },
     { key: 'operation', name: 'Operações', to: 'Main.Operation', icon: 'mdi-finance' },
     { key: 'event', name: 'Eventos', to: 'Main.Event', icon: 'mdi-calendar-check' },
     { key: 'objective', name: 'Objetivos', to: 'Main.Objective', icon: 'mdi-chart-bar-stacked' },
-    { key: 'category', name: 'Categorias', to: 'Main.Category', icon: 'mdi-shape-outline' },
-    { key: 'configuration', name: 'Configurações', to: 'Main.Configuration', icon: 'mdi-cog-outline' }
+    { key: 'category', name: 'Categorias', to: 'Main.Category', icon: 'mdi-shape-outline' }
   ]
 
   onSelectMenu (item: MenuOption) {
@@ -52,13 +42,7 @@ export default class SideBarComponent extends Vue {
     this.setPageSelected()
   }
 
-  signOut () {
-    this.setUser(new UserEntity())
-    this.$authorizer.setLocalStorageIdToken('')
-    this.$router.push({ name: 'Auth.SignIn' })
-  }
-
-  get isMobile () {
-    return this.$vuetify.breakpoint.mobile
+  get isPageConfig () {
+    return this.$route.name === 'Main.Configuration'
   }
 }

@@ -2,6 +2,7 @@
   <v-app-bar
     color="offset"
     elevation="0"
+    fixed
   >
     <div class="d-flex align-center justify-space-between full-height full-width">
       <div
@@ -58,8 +59,19 @@
           fab
           text
           x-small
+          @click="toggleTheme"
         >
-          <v-icon size="24">
+          <v-icon size="26">
+            mdi-invert-colors
+          </v-icon>
+        </v-btn>
+        <v-btn
+          class="mr-2"
+          fab
+          text
+          x-small
+        >
+          <v-icon size="26">
             mdi-bell-outline
           </v-icon>
         </v-btn>
