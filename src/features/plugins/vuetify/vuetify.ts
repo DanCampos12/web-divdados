@@ -15,6 +15,7 @@ export default new Vuetify({
     },
     themes: {
       light: {
+        background: '#F5F5F5',
         primary: '#17967F',
         offset: '#FFFFFF',
         action: '#E86C30',
@@ -23,6 +24,7 @@ export default new Vuetify({
         scroll: '#D1D1D1'
       },
       dark: {
+        background: '#212121',
         primary: '#17967F',
         offset: '#B71C1C',
         action: '#FF7043',

@@ -1,6 +1,6 @@
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component
-export default class HomeComponent extends Vue {
+export default class ObjectiveComponent extends Vue {
 
 }

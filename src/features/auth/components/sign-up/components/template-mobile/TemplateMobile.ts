@@ -30,7 +30,7 @@ export default class TemplateMobile extends Vue {
   }
 
   backToSignIn () {
-    this.$router.push({ name: 'Main.Auth.SignIn' })
+    this.$router.push({ name: 'Auth.SignIn' })
   }
 
   get disableSignUpButton () {

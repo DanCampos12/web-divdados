@@ -1,7 +1,6 @@
 <template>
   <div>
-    Home
+    Início
   </div>
 </template>
-
-<script></script>
+<script lang="ts" src="./HomeComponent.ts"></script>

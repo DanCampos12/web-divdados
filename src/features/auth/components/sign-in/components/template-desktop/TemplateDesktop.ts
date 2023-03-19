@@ -27,7 +27,7 @@ export default class TemplateDesktop extends Vue {
   }
 
   signUp () {
-    this.$router.push({ name: 'Main.Auth.SignUp' })
+    this.$router.push({ name: 'Auth.SignUp' })
   }
 
   get disableAccessButton () {

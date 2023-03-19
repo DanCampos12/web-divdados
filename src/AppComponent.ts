@@ -6,7 +6,7 @@ export default class AppComponent extends Vue {
 
   async created () {
     const isAuthorized = await this.$authorizer.authorize()
-    if (!isAuthorized) this.$router.replace({ name: 'Main.Auth.SignIn' })
+    if (!isAuthorized) this.$router.replace({ name: 'Auth.SignIn' })
     this.flowComplete = true
   }
 }
