@@ -37,6 +37,6 @@ export default class AppComponent extends Vue {
   }
 
   get isMobile () {
-    return this.$vuetify.breakpoint.mobile
+    return this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm
   }
 }

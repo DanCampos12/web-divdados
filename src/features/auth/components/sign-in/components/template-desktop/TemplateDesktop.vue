@@ -108,7 +108,11 @@
         img {
           width: 400px;
           margin: 38px 0px;
+          @media screen and (max-width: 1366px) {
+            width: 240px;
+          }
         }
+
       }
 
       .form {

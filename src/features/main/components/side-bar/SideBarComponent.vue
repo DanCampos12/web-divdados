@@ -124,10 +124,14 @@
     }
 
     &.selected {
-      background: var(--v-primary-base);
+      background: var(--v-primary-base) !important;
       color: var(--v-offset-base);
       .v-icon {
         color: var(--v-offset-base);
+      }
+
+      &:hover {
+        background: inherit;
       }
     }
   }

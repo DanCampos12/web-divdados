@@ -29,6 +29,6 @@ export default class SignInComponent extends Vue {
   }
 
   get template () {
-    return getTemplate(this.$vuetify.breakpoint.mobile)
+    return getTemplate(this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm)
   }
 }
