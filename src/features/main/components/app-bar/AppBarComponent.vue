@@ -4,17 +4,37 @@
     elevation="0"
   >
     <div class="d-flex align-center justify-space-between full-height full-width">
-      <div class="d-flex align-center">
+      <div
+        v-if="isMobile"
+        class="d-flex align-center"
+      >
         <v-btn
-          v-if="isMobile"
+          class="mr-2"
           fab
           small
           text
+          @click="$emit('openSideBar')"
         >
           <v-icon size="24">
             mdi-menu
           </v-icon>
         </v-btn>
+        <div class="d-flex align-center">
+          <img
+            :src="require('@/assets/logo.png')"
+            width="40"
+          >
+          <div class="d-flex flex-column ml-2">
+            <span class="text-h6 font-weight-bold">
+              DivDados
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        v-else
+        class="d-flex align-center"
+      >
         <div class="d-flex flex-column mr-8">
           <span class="text-small text-uppercase font-weight-bold">
             Data Base

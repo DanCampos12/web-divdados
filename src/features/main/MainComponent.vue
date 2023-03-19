@@ -1,9 +1,15 @@
 <template>
-  <v-sheet class="main-container">
-    <side-bar-component />
+  <v-sheet
+    class="main-container"
+    :style="{ gridTemplateColumns: isMobile ? '1fr' : '256px 1fr' }"
+  >
+    <side-bar-component
+      :value="showSideBar"
+      @close="setSideBarVisible(false)"
+    />
     <div>
-      <app-bar-component />
-      <router-view class="d-flex align-center justify-center full-height text-h1 font-weight-thin" />
+      <app-bar-component @openSideBar="setSideBarVisible(true)" />
+      <router-view class="d-flex align-center justify-center full-height text-h3 font-weight-thin" />
     </div>
   </v-sheet>
 </template>
@@ -14,6 +20,5 @@
     background: var(--v-background-base);
     height: 100%;
     display: grid;
-    grid-template-columns: 256px 1fr;
   }
 </style>

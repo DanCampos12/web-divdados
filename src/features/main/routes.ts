@@ -4,6 +4,7 @@ import OperationComponent from '../operation/OperationComponent.vue'
 import EventComponent from '../event/EventComponent.vue'
 import ObjectiveComponent from '../objective/ObjectiveComponent.vue'
 import CategoryComponent from '../category/CategoryComponent.vue'
+import ConfigurationComponent from '../configuration/ConfigurationComponent.vue'
 
 export default [
   {
@@ -36,6 +37,11 @@ export default [
         path: 'category',
         name: 'Main.Category',
         component: CategoryComponent
+      },
+      {
+        path: 'configuration',
+        name: 'Main.Configuration',
+        component: ConfigurationComponent
       }
     ]
   }

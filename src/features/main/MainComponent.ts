@@ -9,5 +9,17 @@ import AppBarComponent from './components/app-bar/AppBarComponent.vue'
   }
 })
 export default class MainComponent extends Vue {
+  sideBarVisible = false
 
+  setSideBarVisible (value: boolean) {
+    this.sideBarVisible = value
+  }
+
+  get isMobile () {
+    return this.$vuetify.breakpoint.mobile
+  }
+
+  get showSideBar () {
+    return !this.isMobile || this.sideBarVisible
+  }
 }
