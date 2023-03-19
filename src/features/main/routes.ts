@@ -1,10 +1,10 @@
 import MainComponent from './MainComponent.vue'
-import HomeComponent from '../home/HomeComponent.vue'
-import OperationComponent from '../operation/OperationComponent.vue'
-import EventComponent from '../event/EventComponent.vue'
-import ObjectiveComponent from '../objective/ObjectiveComponent.vue'
-import CategoryComponent from '../category/CategoryComponent.vue'
-import ConfigurationComponent from '../configuration/ConfigurationComponent.vue'
+import HomeComponent from './pages/home/HomeComponent.vue'
+import OperationComponent from './pages/operation/OperationComponent.vue'
+import EventComponent from './pages/event/EventComponent.vue'
+import ObjectiveComponent from './pages/objective/ObjectiveComponent.vue'
+import CategoryComponent from './pages/category/CategoryComponent.vue'
+import ConfigurationComponent from './pages/configuration/ConfigurationComponent.vue'
 
 export default [
   {
@@ -16,32 +16,38 @@ export default [
       {
         path: 'home',
         name: 'Main.Home',
-        component: HomeComponent
+        component: HomeComponent,
+        meta: { title: 'DivDados - Inicío' }
       },
       {
         path: 'operation',
         name: 'Main.Operation',
-        component: OperationComponent
+        component: OperationComponent,
+        meta: { title: 'DivDados - Operações' }
       },
       {
         path: 'event',
         name: 'Main.Event',
-        component: EventComponent
+        component: EventComponent,
+        meta: { title: 'DivDados - Eventos' }
       },
       {
         path: 'objective',
         name: 'Main.Objective',
-        component: ObjectiveComponent
+        component: ObjectiveComponent,
+        meta: { title: 'DivDados - Objetivos' }
       },
       {
         path: 'category',
         name: 'Main.Category',
-        component: CategoryComponent
+        component: CategoryComponent,
+        meta: { title: 'DivDados - Categorias' }
       },
       {
         path: 'configuration',
         name: 'Main.Configuration',
-        component: ConfigurationComponent
+        component: ConfigurationComponent,
+        meta: { title: 'DivDados - Configurações' }
       }
     ]
   }

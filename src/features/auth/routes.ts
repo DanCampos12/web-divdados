@@ -1,6 +1,6 @@
 import AuthComponent from './AuthComponent.vue'
-import SignInComponent from './components/sign-in/SignInComponent.vue'
-import SignUpComponent from './components/sign-up/SignUpComponent.vue'
+import SignInComponent from './pages/sign-in/SignInComponent.vue'
+import SignUpComponent from './pages/sign-up/SignUpComponent.vue'
 
 export default [
   {
