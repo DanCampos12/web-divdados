@@ -87,7 +87,9 @@
           <v-btn
             class="offset--text"
             color="action"
+            :disabled="loading"
             elevation="0"
+            :loading="loading"
             @click="signOut"
           >
             Confirmar

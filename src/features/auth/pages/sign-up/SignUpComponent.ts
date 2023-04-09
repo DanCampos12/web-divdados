@@ -2,8 +2,8 @@ import { Component, Vue } from 'vue-property-decorator'
 import TemplateDesktop from './components/template-desktop/TemplateDesktop.vue'
 import TemplateMobile from './components/template-mobile/TemplateMobile.vue'
 import { getTemplate } from '@/helpers'
-import { UserEntity } from '@/models'
-import { Action } from 'vuex-class'
+import { Snackbar, UserEntity } from '@/models'
+import { Action, Mutation } from 'vuex-class'
 
 @Component({
   components: {
@@ -15,14 +15,29 @@ export default class SignInComponent extends Vue {
   @Action('signUp', { namespace: 'auth' })
   readonly signUp$!: (user: UserEntity) => Promise<string>
 
+  @Mutation('setSnackbar')
+  readonly setSnackbar!: (snackbar: Snackbar) => void
+
   loading = false
 
   async signUp (user: UserEntity) {
     try {
       this.loading = true
-      const idToken = await this.signUp$(user)
-      this.$authorizer.setLocalStorageIdToken(idToken)
-      this.$router.replace({ name: 'Main.Home' })
+      await this.signUp$(user)
+      this.$router.replace({ name: 'Auth.SignIn' })
+      this.setSnackbar({
+        visible: true,
+        color: 'green lighten-1',
+        icon: 'mdi-check-circle',
+        messages: ['Cadastro efetuado com sucesso']
+      })
+    } catch (errors: any) {
+      this.setSnackbar({
+        visible: true,
+        color: 'red lighten-1',
+        icon: 'mdi-alert-circle',
+        messages: errors.map((e: any) => e.message)
+      })
     } finally {
       this.loading = false
     }

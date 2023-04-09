@@ -1,3 +1,5 @@
-export interface RootState {
+import { Snackbar } from './Snackbar'
 
+export interface RootState {
+  snackbar: Snackbar;
 }

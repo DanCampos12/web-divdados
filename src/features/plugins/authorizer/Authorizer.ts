@@ -2,8 +2,9 @@ import { PluginFunction } from 'vue'
 import store from '@/core/store'
 
 const THIRTY_MINUTES = 30 * 60 * 10000
-const SIGN_IN_WITH_CUSTOM_TOKEN = 'auth/signInWithCustomToken'
 const REFRESH_TOKEN = 'auth/refreshToken'
+
+type AuthConfig = { id: string, idToken: string }
 
 export class Authorizer {
   readonly install: PluginFunction<Authorizer> = (Vue) => {
@@ -11,33 +12,44 @@ export class Authorizer {
     Vue.$authorizer = this
   }
 
-  setLocalStorageIdToken (idToken: string) {
-    localStorage.setItem('idToken', idToken)
-    if (this.getLocalStorageIdToken()) this.initializeValidateTokenTimer()
+  setLocalStorageAuthConfig ({ id, idToken }: AuthConfig) {
+    localStorage.setItem('authConfig', JSON.stringify({ id, idToken }))
+    if (this.getLocalStorageAuthConfig().idToken) this.initializeValidateTokenTimer()
   }
 
-  getLocalStorageIdToken () {
-    return localStorage.getItem('idToken') || ''
+  getLocalStorageAuthConfig () {
+    return JSON.parse(localStorage.getItem('authConfig') || '{}') as AuthConfig
+  }
+
+  clearLocalStorageAuthConfig () {
+    localStorage.setItem('authConfig', JSON.stringify('{}'))
   }
 
   async authorize () {
     try {
-      let idToken = this.getLocalStorageIdToken()
-      if (!idToken) return false
-      idToken = await store.dispatch(SIGN_IN_WITH_CUSTOM_TOKEN, idToken)
-      this.setLocalStorageIdToken(idToken)
+      const authConfig = this.getLocalStorageAuthConfig()
+      if (!authConfig.idToken) return false
+      await store.dispatch(REFRESH_TOKEN, authConfig)
       return true
     } catch {
-      this.setLocalStorageIdToken('')
+      this.clearLocalStorageAuthConfig()
       return false
+    }
+  }
+
+  async refreshToken () {
+    try {
+      const authConfig = this.getLocalStorageAuthConfig()
+      await store.dispatch(REFRESH_TOKEN, authConfig)
+    } catch {
+      this.clearLocalStorageAuthConfig()
+      window.location.reload()
     }
   }
 
   initializeValidateTokenTimer () {
     setInterval(async () => {
-      let idToken = this.getLocalStorageIdToken()
-      idToken = await store.dispatch(REFRESH_TOKEN, idToken)
-      this.setLocalStorageIdToken(idToken)
+      await this.refreshToken()
     }, THIRTY_MINUTES)
   }
 }

@@ -1,7 +1,15 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Mutation, State } from 'vuex-class'
+import { Snackbar } from './models'
 
 @Component
 export default class AppComponent extends Vue {
+  @State('snackbar')
+  readonly snackbar!: Snackbar
+
+  @Mutation('setSnackbar')
+  readonly setSnackbar!: (snackbar: Snackbar) => void
+
   @Watch('isMobile')
   onIsMobileChange () {
     const htmlElement = document.querySelector('html') as HTMLElement
@@ -10,18 +18,6 @@ export default class AppComponent extends Vue {
     this.isMobile
       ? this.applyMobileStyles(scrollDisabled)
       : this.applyDesktopStyles(scrollDisabled)
-  }
-
-  applyMobileStyles (scrollDisabled: boolean) {
-    if (!scrollDisabled) return
-    const htmlElement = document.querySelector('html') as HTMLElement
-    htmlElement.classList.remove('scroll-disabled')
-  }
-
-  applyDesktopStyles (scrollDisabled: boolean) {
-    if (scrollDisabled) return
-    const htmlElement = document.querySelector('html') as HTMLElement
-    htmlElement.classList.add('scroll-disabled')
   }
 
   flowComplete = false
@@ -34,6 +30,18 @@ export default class AppComponent extends Vue {
 
   mounted () {
     this.onIsMobileChange()
+  }
+
+  applyMobileStyles (scrollDisabled: boolean) {
+    if (!scrollDisabled) return
+    const htmlElement = document.querySelector('html') as HTMLElement
+    htmlElement.classList.remove('scroll-disabled')
+  }
+
+  applyDesktopStyles (scrollDisabled: boolean) {
+    if (scrollDisabled) return
+    const htmlElement = document.querySelector('html') as HTMLElement
+    htmlElement.classList.add('scroll-disabled')
   }
 
   get isMobile () {

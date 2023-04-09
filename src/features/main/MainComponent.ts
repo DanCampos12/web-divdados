@@ -2,6 +2,8 @@ import { Component, Vue } from 'vue-property-decorator'
 import SideBarComponent from './components/side-bar/SideBarComponent.vue'
 import AppBarComponent from './components/app-bar/AppBarComponent.vue'
 import FooterBarComponent from './components/footer-bar/FooterBarComponent.vue'
+import { State } from 'vuex-class'
+import { UserEntity } from '@/models'
 
 @Component({
   components: {
@@ -11,6 +13,13 @@ import FooterBarComponent from './components/footer-bar/FooterBarComponent.vue'
   }
 })
 export default class MainComponent extends Vue {
+  @State('user', { namespace: 'auth' })
+  readonly user!: UserEntity
+
+  created () {
+    if (!this.user.isLogged()) this.$router.replace({ name: 'Auth.SignIn' })
+  }
+
   sideBarVisible = false
 
   setSideBarVisible (value: boolean) {

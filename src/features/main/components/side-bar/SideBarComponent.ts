@@ -1,7 +1,7 @@
-import { User, UserEntity } from '@/models'
+import { Snackbar, UserEntity } from '@/models'
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { Mutation } from 'vuex-class'
 import helper from './SideBarHelper'
+import { Action, Mutation, State } from 'vuex-class'
 
 type MenuOption = {
   key: string;
@@ -12,11 +12,17 @@ type MenuOption = {
 
 @Component
 export default class SideBarComponent extends Vue {
-  @Mutation('setUser', { namespace: 'auth' })
-  readonly setUser!: (user: User) => void
+  @Action('signOut', { namespace: 'auth' })
+  readonly signOut$!: (id: string) => Promise<string>
+
+  @State('user', { namespace: 'auth' })
+  readonly user!: UserEntity
 
   @Prop({ type: Boolean, default: false })
   readonly value!: boolean
+
+  @Mutation('setSnackbar')
+  readonly setSnackbar!: (snackbar: Snackbar) => void
 
   @Watch('$route.name')
   onRouteChange () {
@@ -24,6 +30,7 @@ export default class SideBarComponent extends Vue {
   }
 
   showSignOutDialog = false
+  loading = false
   pageSelected = ''
   menuOptions = [
     { key: 'home', name: 'Início', to: 'Main.Home', icon: 'mdi-home-circle-outline' },
@@ -52,10 +59,28 @@ export default class SideBarComponent extends Vue {
     this.setPageSelected()
   }
 
-  signOut () {
-    this.setUser(new UserEntity())
-    this.$authorizer.setLocalStorageIdToken('')
-    this.$router.push({ name: 'Auth.SignIn' })
+  async signOut () {
+    try {
+      this.loading = true
+      await this.signOut$(this.user.id || '')
+      window.location.reload()
+      this.setSnackbar({
+        visible: true,
+        color: 'green lighten-1',
+        icon: 'mdi-check-circle',
+        messages: ['Operação realizada com sucesso']
+      })
+    } catch (errors: any) {
+      this.setSnackbar({
+        visible: true,
+        color: 'red lighten-1',
+        icon: 'mdi-alert-circle',
+        messages: errors.map((e: any) => e.message)
+      })
+    } finally {
+      this.loading = false
+      this.showSignOutDialog = false
+    }
   }
 
   get isMobile () {
