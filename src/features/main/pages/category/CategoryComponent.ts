@@ -1,12 +1,14 @@
-import { Category, UserEntity } from '@/models'
+import { Category, CategoryEntity, UserEntity } from '@/models'
 import { Component, Vue } from 'vue-property-decorator'
 import { Action, State } from 'vuex-class'
 import CategoryTableComponent from './components/category-table/CategoryTableComponent.vue'
+import CategoryFormComponent from './components/category-form/CategoryFormComponent.vue'
 import helper from './CategoryHelper'
 
 @Component({
   components: {
-    CategoryTableComponent
+    CategoryTableComponent,
+    CategoryFormComponent
   }
 })
 export default class CategoryComponent extends Vue {
@@ -19,6 +21,8 @@ export default class CategoryComponent extends Vue {
   @State('user', { namespace: 'auth' })
   readonly user!: UserEntity
 
+  categorySelected = new CategoryEntity()
+  formVisible = false
   searchText = ''
   loading = false
 
@@ -33,6 +37,16 @@ export default class CategoryComponent extends Vue {
 
   created () {
     this.getCategories()
+  }
+
+  setFormVisible (value: boolean) {
+    this.formVisible = value
+    if (!this.formVisible) this.categorySelected = new CategoryEntity()
+  }
+
+  onCategorySelectedToEdit (category: CategoryEntity) {
+    this.categorySelected = CategoryEntity.parse(category)
+    this.setFormVisible(true)
   }
 
   get categoriesFiltered () {

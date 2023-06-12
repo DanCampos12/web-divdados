@@ -8,7 +8,7 @@ export class CategoryEntity implements Category {
 
   constructor () {
     this.name = ''
-    this.color = ''
+    this.color = '#E6E6E6'
     this.userId = ''
   }
 

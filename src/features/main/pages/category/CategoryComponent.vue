@@ -18,6 +18,7 @@
         class="offset--text"
         color="action"
         elevation="0"
+        @click="setFormVisible(true)"
       >
         Adicionar Categoria
       </v-btn>
@@ -25,6 +26,14 @@
     <category-table-component
       :categories="categoriesFiltered"
       :loading="loading"
+      @categorySelectedToEdit="onCategorySelectedToEdit"
+      @operationPerformed="getCategories"
+    />
+    <category-form-component
+      v-model="formVisible"
+      :category-selected="categorySelected"
+      @closeForm="setFormVisible(false)"
+      @operationPerformed="getCategories"
     />
   </div>
 </template>
