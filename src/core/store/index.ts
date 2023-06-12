@@ -2,6 +2,7 @@ import { RootState, Snackbar } from '@/models'
 import Vue from 'vue'
 import Vuex, { StoreOptions } from 'vuex'
 import { auth } from '@/features/auth/store'
+import { category } from '@/features/main/pages/category/store'
 
 Vue.use(Vuex)
 
@@ -20,7 +21,8 @@ const store: StoreOptions<RootState> = {
     }
   },
   modules: {
-    auth
+    auth,
+    category
   }
 }
 

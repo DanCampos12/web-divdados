@@ -1,6 +1,5 @@
 import Axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders } from 'axios'
 import QS from 'qs'
-import axiosRetry from 'axios-retry'
 import { HttpStatusCodeEnum } from '@/enums/HttpStatusCode'
 import Vue from 'vue'
 
@@ -30,11 +29,6 @@ export default class HttpService {
 
       this.$http.interceptors.request.use(this.onRequest)
       this.$http.interceptors.response.use((response) => response, this.interceptError)
-      axiosRetry(this.$http, {
-        retries: 5,
-        retryDelay: (milisecondsTime) => milisecondsTime * 1000,
-        retryCondition: (error) => error.response?.status === HttpStatusCodeEnum.Unauthorized
-      })
     }
 
     return this.$http
@@ -58,10 +52,6 @@ export default class HttpService {
 
     if (error.response.status === HttpStatusCodeEnum.InternalServerError) {
       error.response.data = [{ message: 'Erro ao executar a solicitação' }]
-    }
-
-    if (error.response.status === HttpStatusCodeEnum.Unauthorized) {
-      await Vue.$authorizer.refreshToken()
     }
 
     if (!Array.isArray(error.response.data)) {
