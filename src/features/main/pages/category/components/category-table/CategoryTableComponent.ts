@@ -53,4 +53,8 @@ export default class CategoryTableComponent extends Vue {
       this.finishDeleteCategoryProcess()
     }
   }
+
+  get isMobile () {
+    return this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm
+  }
 }

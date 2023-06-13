@@ -1,7 +1,8 @@
 <template>
   <v-sheet
-    class="category--container scroller rounded"
+    class="category--container rounded"
     color="offset"
+    :style="{ height: isMobile ? 'calc(100vh - 192px)' : 'calc(100vh - 140px)' }"
   >
     <div
       v-if="loading"
@@ -40,45 +41,50 @@
         </div>
       </div>
       <div
-        v-for="(category, index) in categories"
-        :key="index"
-        class="table--body"
+        class="scroller"
+        :style="{ height: isMobile ? 'calc(100vh - 250px)' : 'calc(100vh - 198px)' }"
       >
-        <div class="pl-2 d-flex align-center">
-          <div
-            :style="{
-              height: '24px',
-              width: '4px',
-              borderRadius: '6px',
-              background: category.color,
-              marginRight: '8px'
-            }"
-          />
-          {{ category.name }}
-        </div>
-        <div class="d-flex justify-center">
-          <v-btn
-            class="mr-1"
-            icon
-            small
-            text
-            @click="$emit('categorySelectedToEdit', category)"
-          >
-            <v-icon size="18">
-              mdi-pencil-outline
-            </v-icon>
-          </v-btn>
-          <v-btn
-            class="ml-1"
-            icon
-            small
-            text
-            @click="startDeleteCategory(category)"
-          >
-            <v-icon size="18">
-              mdi-delete-outline
-            </v-icon>
-          </v-btn>
+        <div
+          v-for="(category, index) in categories"
+          :key="index"
+          class="table--body"
+        >
+          <div class="pl-2 d-flex align-center">
+            <div
+              :style="{
+                height: '24px',
+                width: '4px',
+                borderRadius: '6px',
+                background: category.color,
+                marginRight: '8px'
+              }"
+            />
+            {{ category.name }}
+          </div>
+          <div class="d-flex justify-center">
+            <v-btn
+              class="mr-1"
+              icon
+              small
+              text
+              @click="$emit('categorySelectedToEdit', category)"
+            >
+              <v-icon size="18">
+                mdi-pencil-outline
+              </v-icon>
+            </v-btn>
+            <v-btn
+              class="ml-1"
+              icon
+              small
+              text
+              @click="startDeleteCategory(category)"
+            >
+              <v-icon size="18">
+                mdi-delete-outline
+              </v-icon>
+            </v-btn>
+          </div>
         </div>
       </div>
     </div>
@@ -122,7 +128,6 @@
   .v-sheet.category--container {
     margin: 8px;
     padding: 0px 16px 16px 16px;
-    height: calc(100vh - 140px);
 
     div.table--header {
       display: grid;

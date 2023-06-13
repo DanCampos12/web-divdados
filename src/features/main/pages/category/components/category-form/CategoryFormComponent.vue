@@ -62,9 +62,14 @@
                 <v-btn
                   class="on-primary--text"
                   color="primary"
+                  elevation="0"
+                  fab
+                  x-small
                   @click="menuColor = false"
                 >
-                  Confirmar
+                  <v-icon size="20">
+                    mdi-check
+                  </v-icon>
                 </v-btn>
               </v-card-actions>
             </v-card>

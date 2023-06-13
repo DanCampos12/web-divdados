@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="d-flex align-center justify-space-between pa-2">
-      <div style="width: 400px">
+      <div
+        class="mr-2"
+        :style="{ width: isMobile ? '304px' : '400px' }"
+      >
         <v-text-field
           v-model="searchText"
           append-icon="mdi-magnify"
@@ -18,9 +21,17 @@
         class="offset--text"
         color="action"
         elevation="0"
+        :fab="isMobile"
+        :x-small="isMobile"
         @click="setFormVisible(true)"
       >
-        Adicionar Categoria
+        <v-icon
+          v-if="isMobile"
+          size="20"
+        >
+          mdi-plus
+        </v-icon>
+        <span v-else>Adicionar Categoria</span>
       </v-btn>
     </div>
     <category-table-component

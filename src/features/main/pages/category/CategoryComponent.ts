@@ -52,4 +52,8 @@ export default class CategoryComponent extends Vue {
   get categoriesFiltered () {
     return helper.filterCategories(this.categories, this.searchText)
   }
+
+  get isMobile () {
+    return this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm
+  }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="d-flex align-center justify-center full-height text-h3 font-weight-thin">
     Configurações
   </div>
 </template>
