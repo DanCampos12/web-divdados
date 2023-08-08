@@ -19,7 +19,7 @@
     </div>
     <div
       v-else-if="!categories.length"
-      class="full-width full-height d-flex flex-column align-center justify-center font-weight-thin"
+      class="full-width full-height d-flex flex-column align-center justify-center font-weight-thin text-center"
     >
       <v-icon
         class="ma-4"
