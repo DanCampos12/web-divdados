@@ -1,23 +1,25 @@
 import { User } from './User'
+import { UserPreference } from './UserPreference'
+import { UserPreferenceEntity } from './UserPreferenceEntity'
 
 export class UserEntity implements User {
   id?: string;
   name: string;
-  surname: string;
-  age: number | null;
+  birthDate: string;
   sex: string;
   email: string;
   password: string;
   confirmPassword: string;
+  preference: UserPreference;
 
   constructor () {
     this.name = ''
-    this.surname = ''
-    this.age = null
+    this.birthDate = ''
     this.sex = ''
     this.email = ''
     this.password = ''
     this.confirmPassword = ''
+    this.preference = new UserPreferenceEntity()
   }
 
   static parse (user: User) {
@@ -25,12 +27,12 @@ export class UserEntity implements User {
     if (user) {
       instance.id = user.id
       instance.name = user.name
-      instance.surname = user.surname
-      instance.age = user.age
+      instance.birthDate = user.birthDate
       instance.sex = user.sex
       instance.email = user.email
       instance.password = user.password || ''
       instance.confirmPassword = user.confirmPassword || ''
+      instance.preference = UserPreferenceEntity.parse(user.preference)
     }
     return instance
   }

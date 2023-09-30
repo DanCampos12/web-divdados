@@ -1,0 +1,63 @@
+<template>
+  <v-text-field
+    :id="`${_uid}-${time}`"
+    ref="dateInput"
+    :autocomplete="autocomplete"
+    :clearable="clearable"
+    :dense="dense"
+    :disabled="disabled"
+    :flat="flat"
+    :hide-details="hideDetails"
+    :hint="hint"
+    :label="label"
+    :loading="loading"
+    :name="`${_uid}-${time}`"
+    :outlined="outlined"
+    :persistent-hint="persistentHint"
+    :readonly="readonly"
+    :rules="rules"
+    type="text"
+    :value="formattedValue"
+    :width="width"
+    @blur="onBlur"
+    @click:clear="onBlur"
+    @focus="onFocus"
+    @input="onInput"
+  >
+    <template v-slot:prepend-inner>
+      <v-menu
+        v-model="showDatePickerMenu"
+        :close-on-content-click="false"
+        nudge-bottom="8"
+        offset-y
+        permanent
+        transition="slide-y-transition"
+      >
+        <template #activator="{ on }">
+          <v-btn
+            :disabled="disabled || readonly"
+            height="24"
+            icon
+            small
+            tabindex="-1"
+            width="24"
+            v-on="on"
+          >
+            <v-icon
+              class="pa-0"
+              size="23"
+            >
+              mdi-calendar-month-outline
+            </v-icon>
+          </v-btn>
+        </template>
+        <v-date-picker
+          no-title
+          :value="datePickerValue"
+          @change="onDatePickerChange"
+        />
+      </v-menu>
+    </template>
+  </v-text-field>
+</template>
+<script src="./DateInputComponent.ts"></script>

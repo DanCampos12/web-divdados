@@ -1,7 +1,7 @@
-import { Snackbar, UserEntity } from '@/models'
+import { Snackbar } from '@/models'
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import helper from './SideBarHelper'
-import { Action, Mutation, State } from 'vuex-class'
+import { Action, Mutation } from 'vuex-class'
 
 type MenuOption = {
   key: string;
@@ -13,10 +13,7 @@ type MenuOption = {
 @Component
 export default class SideBarComponent extends Vue {
   @Action('signOut', { namespace: 'auth' })
-  readonly signOut$!: (id: string) => Promise<string>
-
-  @State('user', { namespace: 'auth' })
-  readonly user!: UserEntity
+  readonly signOut$!: () => Promise<void>
 
   @Prop({ type: Boolean, default: false })
   readonly value!: boolean
@@ -62,7 +59,7 @@ export default class SideBarComponent extends Vue {
   async signOut () {
     try {
       this.loading = true
-      await this.signOut$(this.user.id || '')
+      this.signOut$()
       window.location.reload()
       this.setSnackbar({
         visible: true,

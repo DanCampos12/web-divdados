@@ -24,10 +24,6 @@ export class AuthService extends ApiService {
 
   static async refreshToken ({ id, idToken }: { id: string; idToken: string }):
     Promise<AxiosResponse<SignInResponse>> {
-    return this.httpService.post('/v1/users/auth/refresh-token', { id, idToken })
-  }
-
-  static async signOut (id: string): Promise<AxiosResponse<string>> {
-    return this.httpService.post(`/v1/users/${id}/auth/sign-out`)
+    return this.httpService.post(`/v1/users/${id}/auth/refresh-token`, { id, idToken })
   }
 }

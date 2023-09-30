@@ -6,6 +6,7 @@ import store from './core/store'
 import vuetify from './features/plugins/vuetify/vuetify'
 import VueDebounce from 'vue-debounce'
 import authorizer from './features/plugins/authorizer'
+import './features/plugins/components/dd-date-input'
 
 Vue.config.productionTip = false
 Vue.use(VueDebounce)

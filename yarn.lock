@@ -1784,6 +1784,11 @@
   resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-9.0.1.tgz#98586dc36aee8dacc98cc396dbca8d0429647aa6"
   integrity sha512-rFT3ak0/2trgvp4yYZo5iKFEPsET7vKydKF+VRCxlQ9bpheehyAJH89dAkaLEq/j/RZXJIqcgsmPJKUP1Z28HA==
 
+"@types/vanilla-masker@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@types/vanilla-masker/-/vanilla-masker-1.2.2.tgz#e7f9baa73c1ad17025b4d16e4c9ef2b262c2b62a"
+  integrity sha512-4x7lk9GN3rhxLfFsZd9zhaT5jPp4Srwz0oHcFhxiiCy252MBWK4iDaeWkxgGFcQ+pmMkKbm3u7PeAKciRIPB0Q==
+
 "@types/webpack-env@^1.15.2":
   version "1.18.0"
   resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.18.0.tgz#ed6ecaa8e5ed5dfe8b2b3d00181702c9925f13fb"
@@ -7064,6 +7069,11 @@ module-alias@^2.2.2:
   resolved "https://registry.yarnpkg.com/module-alias/-/module-alias-2.2.2.tgz#151cdcecc24e25739ff0aa6e51e1c5716974c0e0"
   integrity sha512-A/78XjoX2EmNvppVWEhM2oGk3x4lLxnkEA4jTbaK97QKSDjkIoOsKQlfylt/d3kKKi596Qy3NP5XrXJ6fZIC9Q==
 
+moment@^2.29.4:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
+
 mrmime@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/mrmime/-/mrmime-1.0.1.tgz#5f90c825fad4bdd41dc914eff5d1a8cfdaf24f27"
@@ -9674,6 +9684,11 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
+
+vanilla-masker@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/vanilla-masker/-/vanilla-masker-1.2.0.tgz#c2830e9d994a5fecd2261506477c2707fe589756"
+  integrity sha512-5SQeksiWaRYfbTaLVcqDPlvINGRt7ODbmWqqMMdT4GuZEC01KJm7FxaytscI5GZ9mlkTNQDwqllSHbv1ENxQEA==
 
 vary@~1.1.2:
   version "1.1.2"

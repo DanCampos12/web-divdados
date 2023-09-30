@@ -1,6 +1,8 @@
 export { RootState } from './RootState'
 export { User } from './User'
 export { UserEntity } from './UserEntity'
+export { UserPreference } from './UserPreference'
+export { UserPreferenceEntity } from './UserPreferenceEntity'
 export { AuthState } from './AuthState'
 export { Snackbar } from './Snackbar'
 export { Category } from './Category'

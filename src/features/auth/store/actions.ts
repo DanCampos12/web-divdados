@@ -40,12 +40,10 @@ export const actions: ActionTree<AuthState, RootState> = {
       throw error.response.data
     }
   },
-  async signOut ({ commit }: { commit: Commit }, id: string) {
+  async signOut ({ commit }: { commit: Commit }) {
     try {
-      const response = await AuthService.signOut(id)
       Vue.$authorizer.clearLocalStorageAuthConfig()
       commit('setUser', new UserEntity())
-      return response.data
     } catch (error: any) {
       throw error.response.data
     }

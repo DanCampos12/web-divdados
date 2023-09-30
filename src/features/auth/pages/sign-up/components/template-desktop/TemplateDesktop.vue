@@ -23,7 +23,7 @@
             Criar minha conta
           </div>
           <v-row dense>
-            <v-col md="6">
+            <v-col md="12">
               <v-text-field
                 v-model="userEntity.name"
                 autocomplete="off"
@@ -34,24 +34,13 @@
               />
             </v-col>
             <v-col md="6">
-              <v-text-field
-                v-model="userEntity.surname"
+              <dd-date-input
+                v-model="userEntity.birthDate"
                 autocomplete="off"
-                label="Sobrenome"
-                name="surname"
+                label="Data de nascimento"
+                name="birthDate"
                 outlined
                 :rules="[rules.required]"
-              />
-            </v-col>
-            <v-col md="6">
-              <v-text-field
-                v-model.number="userEntity.age"
-                autocomplete="off"
-                label="Idade"
-                name="age"
-                outlined
-                :rules="[rules.required]"
-                type="number"
               />
             </v-col>
             <v-col md="6">

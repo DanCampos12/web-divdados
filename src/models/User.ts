@@ -1,10 +1,12 @@
+import { UserPreference } from './UserPreference'
+
 export interface User {
   id?: string;
   name: string;
-  surname: string;
-  age: number | null;
+  birthDate: string;
   sex: string;
   email: string;
   password?: string;
   confirmPassword?: string;
+  preference: UserPreference;
 }
