@@ -4,7 +4,7 @@
     elevation="0"
     fixed
   >
-    <div class="d-flex align-center justify-space-between full-height full-width">
+    <div class="d-flex align-center full-height full-width">
       <div
         v-if="isMobile"
         class="d-flex align-center"
@@ -32,59 +32,26 @@
           </div>
         </div>
       </div>
-      <div
-        v-else
-        class="d-flex align-center"
+      <v-spacer />
+      <v-btn
+        class="mr-2"
+        fab
+        text
+        x-small
       >
-        <div class="d-flex flex-column mr-8">
-          <span class="text-small text-uppercase font-weight-bold">
-            Data Base
-          </span>
-          <span class="mt-n1">
-            12/06/2023
-          </span>
-        </div>
-        <div class="d-flex flex-column">
-          <span class="text-small text-uppercase font-weight-bold">
-            Período
-          </span>
-          <span class="mt-n1">
-            Últimos 3 meses
-          </span>
-        </div>
-      </div>
-      <div>
-        <v-btn
-          class="mr-2"
-          fab
-          text
-          x-small
-          @click="toggleTheme"
-        >
-          <v-icon size="26">
-            mdi-invert-colors
-          </v-icon>
-        </v-btn>
-        <v-btn
-          class="mr-2"
-          fab
-          text
-          x-small
-        >
-          <v-icon size="26">
-            mdi-bell-outline
-          </v-icon>
-        </v-btn>
-        <v-btn
-          fab
-          text
-          x-small
-        >
-          <v-icon size="32">
-            mdi-account-circle-outline
-          </v-icon>
-        </v-btn>
-      </div>
+        <v-icon size="26">
+          mdi-bell-outline
+        </v-icon>
+      </v-btn>
+      <v-btn
+        fab
+        text
+        x-small
+      >
+        <v-icon size="32">
+          mdi-account-circle-outline
+        </v-icon>
+      </v-btn>
     </div>
   </v-app-bar>
 </template>

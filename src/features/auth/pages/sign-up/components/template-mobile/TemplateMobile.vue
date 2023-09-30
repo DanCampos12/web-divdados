@@ -26,35 +26,22 @@
             <v-text-field
               v-model="userEntity.name"
               autocomplete="off"
-              class="mr-1"
               label="Nome"
               name="name"
               outlined
               :rules="[rules.required]"
-              style="width: 50%"
-            />
-            <v-text-field
-              v-model="userEntity.surname"
-              autocomplete="off"
-              class="ml-1"
-              label="Sobrenome"
-              name="surname"
-              outlined
-              :rules="[rules.required]"
-              style="width: 50%"
             />
           </div>
           <div class="d-flex align-center">
-            <v-text-field
-              v-model.number="userEntity.age"
+            <dd-date-input
+              v-model="userEntity.birthDate"
               autocomplete="off"
               class="mr-1"
-              label="Idade"
-              name="age"
+              label="Nascimento"
+              name="birthDate"
               outlined
               :rules="[rules.required]"
               style="width: 50%"
-              type="number"
             />
             <v-autocomplete
               v-model="userEntity.sex"

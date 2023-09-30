@@ -9,5 +9,6 @@ export default class AuthComponent extends Vue {
 
   created () {
     if (this.user.isLogged()) this.$router.replace({ name: 'Main.Home' })
+    this.$vuetify.theme.dark = false
   }
 }

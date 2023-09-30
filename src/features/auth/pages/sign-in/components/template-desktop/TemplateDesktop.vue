@@ -40,6 +40,7 @@
             outlined
             :rules="[rules.required]"
             :type="showPassword ? 'text' : 'password'"
+            @keyup.enter="access"
           >
             <template #append>
               <v-btn
@@ -78,7 +79,6 @@
               :loading="loading"
               width="calc(50% - 4px)"
               @click="access"
-              @keyup.enter="access"
             >
               Acessar
             </v-btn>

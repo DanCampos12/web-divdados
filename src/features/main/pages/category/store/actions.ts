@@ -1,12 +1,11 @@
 import { CategoryEntity, CategoryState, RootState } from '@/models'
-import { ActionTree, Commit } from 'vuex'
-import { CategoryService } from '../service/AuthService'
+import { ActionTree } from 'vuex'
+import { CategoryService } from '../service/CategoryService'
 
 export const actions: ActionTree<CategoryState, RootState> = {
-  async getCategories ({ commit }: { commit: Commit }, userId: string) {
+  async getCategories (_, userId: string) {
     try {
       const response = await CategoryService.getCategories(userId)
-      commit('setCategories', response.data)
       return response.data || []
     } catch (error: any) {
       throw error.response.data

@@ -3,6 +3,7 @@ import Vue from 'vue'
 import Vuex, { StoreOptions } from 'vuex'
 import { auth } from '@/features/auth/store'
 import { category } from '@/features/main/pages/category/store'
+import { operation } from '@/features/main/pages/operation/store'
 
 Vue.use(Vuex)
 
@@ -22,7 +23,8 @@ const store: StoreOptions<RootState> = {
   },
   modules: {
     auth,
-    category
+    category,
+    operation
   }
 }
 

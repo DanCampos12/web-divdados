@@ -15,12 +15,10 @@ export default class CategoryComponent extends Vue {
   @Action('getCategories', { namespace: 'category' })
   readonly getCategories$!: (userId: string) => Promise<Category[]>
 
-  @State('categories', { namespace: 'category' })
-  readonly categories!: Category[]
-
   @State('user', { namespace: 'auth' })
   readonly user!: UserEntity
 
+  categories: Category[] = []
   categorySelected = new CategoryEntity()
   formVisible = false
   searchText = ''
@@ -29,7 +27,7 @@ export default class CategoryComponent extends Vue {
   async getCategories () {
     try {
       this.loading = true
-      await this.getCategories$(this.user.id || '')
+      this.categories = await this.getCategories$(this.user.id || '')
     } finally {
       this.loading = false
     }

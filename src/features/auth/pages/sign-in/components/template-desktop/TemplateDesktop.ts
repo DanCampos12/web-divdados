@@ -20,6 +20,7 @@ export default class TemplateDesktop extends Vue {
   }
 
   access () {
+    if (!this.formValid) return
     this.$emit('signIn', {
       email: this.email,
       password: this.password

@@ -18,6 +18,7 @@ export default class MainComponent extends Vue {
 
   created () {
     if (!this.user.isLogged()) this.$router.replace({ name: 'Auth.SignIn' })
+    this.$vuetify.theme.dark = this.user.preference.dark
   }
 
   sideBarVisible = false

@@ -37,7 +37,7 @@
               <dd-date-input
                 v-model="userEntity.birthDate"
                 autocomplete="off"
-                label="Data de nascimento"
+                label="Nascimento"
                 name="birthDate"
                 outlined
                 :rules="[rules.required]"
