@@ -65,9 +65,9 @@
             <v-icon
               class="mr-2"
               :color="operation.type === 'I' ? 'success' : 'error'"
-              size="20"
+              size="22"
             >
-              {{ operation.type === 'I' ? 'mdi-trending-up' : 'mdi-trending-down' }}
+              {{ operation.type === 'I' ? 'mdi-arrow-top-right-bold-box-outline' : 'mdi-arrow-bottom-right-bold-box-outline' }}
             </v-icon>
             {{ operation.description }}
           </div>
@@ -78,10 +78,10 @@
             {{ operation.type === 'I' ? 'Entrada' : 'Saída' }}
           </div>
           <div class="d-flex align-center justify-center">
-            {{ operation.date }}
+            <dd-date :value="operation.date" />
           </div>
           <div class="pr-2 d-flex align-center justify-end">
-            {{ operation.value }}
+            <dd-money :value="operation.value" />
           </div>
           <div class="d-flex justify-center">
             <v-btn
