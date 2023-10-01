@@ -9,7 +9,7 @@
     />
     <div :class="{ 'transform-transalate--0': !isMobile }">
       <app-bar-component @openSideBar="setSideBarVisible(true)" />
-      <router-view style="padding-top: 64px" />
+      <router-view :style="{ paddingTop: isMobile ? '56px' : '64px' }" />
       <footer-bar-component v-if="isMobile" />
     </div>
   </v-sheet>

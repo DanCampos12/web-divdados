@@ -5,6 +5,7 @@
     :loading="loading"
     :operations="operations"
     @addOperation="$emit('addOperation')"
+    @operationSelectedToEdit="$emit('operationSelectedToEdit', $event)"
   />
 </template>
 

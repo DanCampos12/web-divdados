@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-4">
     <div class="d-flex align-center justify-space-between px-2">
       <div
         class="mr-2"

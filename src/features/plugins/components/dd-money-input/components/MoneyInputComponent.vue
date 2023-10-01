@@ -1,0 +1,28 @@
+<template>
+  <v-text-field
+    :id="`${_uid}-${time}`"
+    ref="moneyInput"
+    :autocomplete="autocomplete"
+    :clearable="clearable"
+    :dense="dense"
+    :disabled="disabled"
+    :flat="flat"
+    :hide-details="hideDetails"
+    :hint="hint"
+    :label="label"
+    :loading="loading"
+    :name="`${_uid}-${time}`"
+    :outlined="outlined"
+    :persistent-hint="persistentHint"
+    :readonly="readonly"
+    :rules="rules"
+    type="text"
+    :value="formattedValue"
+    :width="width"
+    @blur="onBlur"
+    @click:clear="onBlur"
+    @focus="onFocus"
+    @input="onInput"
+  />
+</template>
+<script src="./MoneyInputComponent.ts"></script>

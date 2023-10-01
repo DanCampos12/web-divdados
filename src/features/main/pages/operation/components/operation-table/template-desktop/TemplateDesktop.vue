@@ -70,6 +70,22 @@
               {{ operation.type === 'I' ? 'mdi-arrow-top-right-bold-box-outline' : 'mdi-arrow-bottom-right-bold-box-outline' }}
             </v-icon>
             {{ operation.description }}
+            <v-tooltip
+              v-if="operation.eventId"
+              max-width="200"
+              right
+            >
+              <template #activator="{ on }">
+                <v-icon
+                  class="ml-2"
+                  size="16"
+                  v-on="on"
+                >
+                  mdi-information-outline
+                </v-icon>
+              </template>
+              Operações geradas por eventos automáticos não podem ser alteradas.
+            </v-tooltip>
           </div>
           <div class="d-flex align-center justify-center">
             {{ getCategoryName(operation) }}
@@ -89,13 +105,15 @@
               icon
               small
               text
+              @click="$emit('operationSelectedToEdit', operation)"
             >
               <v-icon size="18">
-                mdi-pencil-outline
+                {{ operation.eventId ? 'mdi-eye-outline' : 'mdi-pencil-outline' }}
               </v-icon>
             </v-btn>
             <v-btn
               class="ml-1"
+              :disabled="!!operation.eventId"
               icon
               small
               text

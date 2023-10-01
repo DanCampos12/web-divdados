@@ -22,7 +22,8 @@ export default new Vuetify({
         error: '#B71C1C',
         success: '#00C853',
         scroll: '#D1D1D1',
-        border: '#D6D6D6'
+        border: '#D6D6D6',
+        hover: '#F5F5F5'
       },
       dark: {
         background: '#212121',
@@ -31,7 +32,8 @@ export default new Vuetify({
         action: '#FF7043',
         success: '#00C853',
         scroll: '#616161',
-        border: '#454545'
+        border: '#454545',
+        hover: '#424242'
       }
     }
   },

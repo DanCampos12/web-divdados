@@ -1,14 +1,16 @@
 import { Component, Vue } from 'vue-property-decorator'
-import OperationFilterComponent from './components/operation-filter-component/OperationFilterComponent.vue'
-import OperationTableComponent from './components/operation-table-component/OperationTableComponent.vue'
+import OperationFilterComponent from './components/operation-filter/OperationFilterComponent.vue'
+import OperationTableComponent from './components/operation-table/OperationTableComponent.vue'
+import OperationFormComponent from './components/operation-form/OperationFormComponent.vue'
 import { Action, State } from 'vuex-class'
-import { Category, Operation, UserEntity } from '@/models'
+import { Category, Operation, OperationEntity, UserEntity } from '@/models'
 import helper from './OperationHelper'
 
 @Component({
   components: {
     OperationFilterComponent,
-    OperationTableComponent
+    OperationTableComponent,
+    OperationFormComponent
   }
 })
 export default class OperationComponent extends Vue {
@@ -24,8 +26,10 @@ export default class OperationComponent extends Vue {
   @State('filters', { namespace: 'operation' })
   readonly filters!: { searchText: string; inflow: boolean; outflow: boolean }
 
+  tabSelected = 0
   categories: Category[] = []
   operations: Operation[] = []
+  operationSelected = new OperationEntity()
   formVisible = false
   loading = false
 
@@ -45,8 +49,13 @@ export default class OperationComponent extends Vue {
   }
 
   setFormVisible (value: boolean) {
-    console.log(value)
     this.formVisible = value
+    if (!this.formVisible) this.operationSelected = new OperationEntity()
+  }
+
+  onOperationSelectedToEdit (operation: OperationEntity) {
+    this.operationSelected = OperationEntity.parse(operation)
+    this.setFormVisible(true)
   }
 
   get operationsFiltered () {
@@ -60,6 +69,4 @@ export default class OperationComponent extends Vue {
   get operationsPending () {
     return helper.getOperationsPending(this.operationsFiltered)
   }
-
-  tabSelected = 0
 }

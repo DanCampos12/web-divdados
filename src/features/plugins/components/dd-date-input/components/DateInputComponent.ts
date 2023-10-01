@@ -50,9 +50,6 @@ export default class DateInputComponent extends Vue {
   @Prop({ type: String, default: '' })
   readonly value!: string
 
-  @Prop({ type: String })
-  readonly name!: string
-
   @Prop({ type: Array, default: () => [] })
   readonly rules!: Array<() => string | boolean>
 
@@ -99,7 +96,6 @@ export default class DateInputComponent extends Vue {
   cursorStart = 0
   cursorEnd = 0
   length = 0
-  showWarningTooltip = false
   $refs!: any
 
   mounted () {
