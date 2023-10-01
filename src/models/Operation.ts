@@ -7,5 +7,6 @@ export interface Operation {
   effected: boolean;
   userId: string;
   categoryId: string;
+  categoryName: string;
   eventId?: string;
 }

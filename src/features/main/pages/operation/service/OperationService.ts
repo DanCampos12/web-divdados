@@ -18,4 +18,8 @@ export class OperationService extends ApiService {
   static async deleteOperation (operation: OperationEntity): Promise<AxiosResponse<string>> {
     return this.httpService.delete(`v1/users/${operation.userId}/operations/${operation.id}`)
   }
+
+  static async effectOperation (operation: OperationEntity): Promise<AxiosResponse<Operation>> {
+    return this.httpService.put(`v1/users/${operation.userId}/operations/${operation.id}/effect`)
+  }
 }

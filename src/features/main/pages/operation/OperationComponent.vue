@@ -31,19 +31,19 @@
     <v-fade-transition>
       <operation-table-component
         v-if="tabSelected === 0"
-        :categories="categories"
         :loading="loading"
         :operations="operationsEffected"
         @operationPerformed="getOperations"
         @operationSelectedToEdit="onOperationSelectedToEdit"
+        @sortOperations="sortOperations"
       />
       <operation-table-component
         v-else
-        :categories="categories"
         :loading="loading"
         :operations="operationsPending"
         @operationPerformed="getOperations"
         @operationSelectedToEdit="onOperationSelectedToEdit"
+        @sortOperations="sortOperations"
       />
     </v-fade-transition>
     <operation-form-component

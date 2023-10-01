@@ -58,6 +58,14 @@ export default class OperationComponent extends Vue {
     this.setFormVisible(true)
   }
 
+  sortOperations ({ column, desc }: { column: keyof Operation; desc: boolean }) {
+    this.operations.sort((a, b) => {
+      if (a[column]! > b[column]!) return desc ? -1 : 1
+      if (a[column]! < b[column]!) return desc ? 1 : -1
+      return 0
+    })
+  }
+
   get operationsFiltered () {
     return helper.filterOperations(this.operations, this.filters)
   }

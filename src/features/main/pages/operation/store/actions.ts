@@ -34,5 +34,13 @@ export const actions: ActionTree<OperationState, RootState> = {
     } catch (error: any) {
       throw error.response.data
     }
+  },
+  async effectOperation (_, operation: OperationEntity) {
+    try {
+      const response = await OperationService.effectOperation(operation)
+      return response.data || ''
+    } catch (error: any) {
+      throw error.response.data
+    }
   }
 }

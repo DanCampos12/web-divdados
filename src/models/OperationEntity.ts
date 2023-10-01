@@ -9,6 +9,7 @@ export class OperationEntity implements Operation {
   effected: boolean;
   userId: string;
   categoryId: string;
+  categoryName: string;
   eventId?: string;
 
   constructor () {
@@ -19,6 +20,7 @@ export class OperationEntity implements Operation {
     this.effected = true
     this.userId = ''
     this.categoryId = ''
+    this.categoryName = ''
   }
 
   static parse (operation: Operation) {
@@ -32,6 +34,7 @@ export class OperationEntity implements Operation {
       instance.effected = operation.effected
       instance.userId = operation.userId
       instance.categoryId = operation.categoryId
+      instance.categoryName = operation.categoryName
       instance.eventId = operation.eventId
     }
     return instance

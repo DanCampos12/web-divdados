@@ -1,5 +1,5 @@
 import Debounce from '@/helpers/Debounce'
-import { Category, CategoryEntity, Operation } from '@/models'
+import { Operation } from '@/models'
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 
 @Component
@@ -10,9 +10,6 @@ export default class TemplateDesktop extends Vue {
   @Prop({ type: Boolean, default: false })
   readonly loading!: boolean
 
-  @Prop({ type: Array, default: [] })
-  readonly categories!: Category[]
-
   @Watch('operations', { deep: true })
   onOperationsChange () {
     this.debounce.wait(50, this.setHasScroll)
@@ -20,6 +17,13 @@ export default class TemplateDesktop extends Vue {
 
   hasScroll = false
   debounce = new Debounce()
+  sortConfig = { column: 'date', desc: false }
+
+  setSortConfig (column: string, desc: boolean) {
+    this.sortConfig.column = column
+    this.sortConfig.desc = desc
+    this.$emit('sortOperations', this.sortConfig)
+  }
 
   setHasScroll () {
     const scrollContainer = document.querySelector('.v-virtual-scroll') as HTMLElement
@@ -27,12 +31,6 @@ export default class TemplateDesktop extends Vue {
     this.$nextTick(() => {
       this.hasScroll = scrollContainer.scrollHeight > scrollContainer.clientHeight
     })
-  }
-
-  getCategoryName (operation: Operation) {
-    const category = this.categories.find((category) =>
-      category.id === operation.categoryId) || new CategoryEntity()
-    return category.name
   }
 
   mounted () {

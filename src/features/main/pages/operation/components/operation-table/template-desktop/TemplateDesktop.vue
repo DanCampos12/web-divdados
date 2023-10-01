@@ -36,20 +36,65 @@
         class="table--header"
         :class="{ 'mr-3': hasScroll}"
       >
-        <div class="pl-2">
+        <div
+          class="pl-2 button-sort"
+          @click="setSortConfig('description', !sortConfig.desc)"
+        >
           Descrição
+          <v-icon
+            :class="{ 'rotate-icon': sortConfig.column === 'description' && sortConfig.desc }"
+            size="18"
+          >
+            mdi-chevron-down
+          </v-icon>
         </div>
-        <div class="text-center">
+        <div
+          class="text-center button-sort"
+          @click="setSortConfig('categoryName', !sortConfig.desc)"
+        >
           Categoria
+          <v-icon
+            :class="{ 'rotate-icon': sortConfig.column === 'categoryName' && sortConfig.desc }"
+            size="18"
+          >
+            mdi-chevron-down
+          </v-icon>
         </div>
-        <div class="text-center">
+        <div
+          class="text-center button-sort"
+          @click="setSortConfig('type', !sortConfig.desc)"
+        >
           Operação
+          <v-icon
+            :class="{ 'rotate-icon': sortConfig.column === 'type' && sortConfig.desc }"
+            size="18"
+          >
+            mdi-chevron-down
+          </v-icon>
         </div>
-        <div class="text-center">
+        <div
+          class="text-center  button-sort"
+          @click="setSortConfig('date', !sortConfig.desc)"
+        >
           Data
+          <v-icon
+            :class="{ 'rotate-icon': sortConfig.column === 'date' && sortConfig.desc }"
+            size="18"
+          >
+            mdi-chevron-down
+          </v-icon>
         </div>
-        <div class="text-right pr-2">
+        <div
+          class="text-right pr-2 button-sort"
+          @click="setSortConfig('value', !sortConfig.desc)"
+        >
           Valor
+          <v-icon
+            :class="{ 'rotate-icon': sortConfig.column === 'value' && sortConfig.desc }"
+            size="18"
+          >
+            mdi-chevron-down
+          </v-icon>
         </div>
         <div class="text-center">
           Ações
@@ -91,7 +136,7 @@
               </v-tooltip>
             </div>
             <div class="d-flex align-center justify-center">
-              {{ getCategoryName(item) }}
+              {{ item.categoryName }}
             </div>
             <div class="d-flex align-center justify-center">
               {{ item.type === 'I' ? 'Entrada' : 'Saída' }}
@@ -103,29 +148,64 @@
               <dd-money :value="item.value" />
             </div>
             <div class="d-flex justify-center">
-              <v-btn
-                class="mr-1"
-                icon
-                small
-                text
-                @click="$emit('operationSelectedToEdit', item)"
+              <v-tooltip left>
+                <template #activator="{ on }">
+                  <v-btn
+                    class="mr-1"
+                    icon
+                    small
+                    text
+                    v-on="on"
+                    @click="$emit('operationSelectedToEdit', item)"
+                  >
+                    <v-icon size="20">
+                      {{ item.eventId ? 'mdi-eye-outline' : 'mdi-pencil-outline' }}
+                    </v-icon>
+                  </v-btn>
+                </template>
+                {{ item.eventId ? 'Visualizar' : 'Alterar' }}
+              </v-tooltip>
+              <v-tooltip
+                v-if="!!item.effected"
+                left
               >
-                <v-icon size="18">
-                  {{ item.eventId ? 'mdi-eye-outline' : 'mdi-pencil-outline' }}
-                </v-icon>
-              </v-btn>
-              <v-btn
-                class="ml-1"
-                :disabled="!!item.eventId"
-                icon
-                small
-                text
-                @click="$emit('operationSelectedToDelete', operation)"
+                <template #activator="{ on }">
+                  <v-btn
+                    class="ml-1"
+                    :disabled="!!item.eventId"
+                    icon
+                    small
+                    text
+                    v-on="on"
+                    @click="$emit('operationSelectedToDelete', item)"
+                  >
+                    <v-icon size="20">
+                      mdi-delete-outline
+                    </v-icon>
+                  </v-btn>
+                </template>
+                Excluir
+              </v-tooltip>
+              <v-tooltip
+                v-else
+                left
               >
-                <v-icon size="18">
-                  mdi-delete-outline
-                </v-icon>
-              </v-btn>
+                <template #activator="{ on }">
+                  <v-btn
+                    class="ml-1"
+                    icon
+                    small
+                    text
+                    v-on="on"
+                    @click="$emit('operationSelectedToEffect', item)"
+                  >
+                    <v-icon size="20">
+                      mdi-cash-plus
+                    </v-icon>
+                  </v-btn>
+                </template>
+                Efetuar
+              </v-tooltip>
             </div>
           </div>
         </template>

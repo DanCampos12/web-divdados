@@ -21,3 +21,17 @@ body {
 .text-small {
   font-size: 11px;
 }
+
+.rotate-icon {
+  transition: all 250ms linear;
+  transform: rotate(180deg);
+}
+
+.button-sort {
+  &:hover {
+    background-color: var(--v-hover-base);
+    cursor: pointer;
+    border-radius: 4px;
+    user-select: none;
+  }
+}
