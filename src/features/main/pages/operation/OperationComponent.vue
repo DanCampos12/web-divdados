@@ -34,6 +34,7 @@
         :categories="categories"
         :loading="loading"
         :operations="operationsEffected"
+        @operationPerformed="getOperations"
         @operationSelectedToEdit="onOperationSelectedToEdit"
       />
       <operation-table-component
@@ -41,6 +42,7 @@
         :categories="categories"
         :loading="loading"
         :operations="operationsPending"
+        @operationPerformed="getOperations"
         @operationSelectedToEdit="onOperationSelectedToEdit"
       />
     </v-fade-transition>

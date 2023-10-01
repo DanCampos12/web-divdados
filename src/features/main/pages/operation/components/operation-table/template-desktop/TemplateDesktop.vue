@@ -117,6 +117,7 @@
               icon
               small
               text
+              @click="$emit('operationSelectedToDelete', operation)"
             >
               <v-icon size="18">
                 mdi-delete-outline
