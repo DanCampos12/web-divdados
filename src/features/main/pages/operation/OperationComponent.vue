@@ -9,7 +9,7 @@
       <v-tab
         active-class="primary offset--text"
         class="ml-2"
-        style="width: 100%"
+        :style="{ width: isMobile ? '100%' : '296px' }"
       >
         <v-icon class="mr-2">
           mdi-cash-check
@@ -19,7 +19,7 @@
       <v-tab
         active-class="primary offset--text"
         class="mr-2"
-        style="width: 100%"
+        :style="{ width: isMobile ? '100%' : '296px' }"
       >
         <v-icon class="mr-2">
           mdi-cash-clock

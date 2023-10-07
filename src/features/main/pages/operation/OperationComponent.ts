@@ -77,4 +77,8 @@ export default class OperationComponent extends Vue {
   get operationsPending () {
     return helper.getOperationsPending(this.operationsFiltered)
   }
+
+  get isMobile () {
+    return this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm
+  }
 }

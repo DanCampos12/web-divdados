@@ -1,4 +1,4 @@
-import { Category, Operation } from '@/models'
+import { Operation } from '@/models'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
@@ -8,7 +8,4 @@ export default class TemplateMobile extends Vue {
 
   @Prop({ type: Boolean, default: false })
   readonly loading!: boolean
-
-  @Prop({ type: Array, default: [] })
-  readonly categories!: Category[]
 }

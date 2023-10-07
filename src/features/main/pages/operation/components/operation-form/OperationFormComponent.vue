@@ -61,7 +61,7 @@
               item-text="name"
               item-value="key"
               :items="operationTypes"
-              label="Tipo de operação"
+              label="Tipo"
               name="type"
               outlined
               persistent-hint

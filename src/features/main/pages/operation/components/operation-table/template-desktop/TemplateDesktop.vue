@@ -64,7 +64,7 @@
           class="text-center button-sort"
           @click="setSortConfig('type', !sortConfig.desc)"
         >
-          Operação
+          Tipo
           <v-icon
             :class="{ 'rotate-icon': sortConfig.column === 'type' && sortConfig.desc }"
             size="18"
