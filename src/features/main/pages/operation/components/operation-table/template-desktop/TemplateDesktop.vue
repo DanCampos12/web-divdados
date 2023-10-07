@@ -34,7 +34,7 @@
     <div v-else>
       <div
         class="table--header"
-        :class="{ 'mr-3': hasScroll}"
+        :class="{ 'mr-3': hasScroll }"
       >
         <div
           class="pl-2 button-sort"
