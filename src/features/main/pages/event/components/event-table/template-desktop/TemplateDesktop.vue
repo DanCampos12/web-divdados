@@ -1,8 +1,8 @@
 <template>
   <v-sheet
-    class="operation--container rounded"
+    class="event--container rounded"
     color="offset"
-    :style="{ height: 'calc(100vh - 194px)' }"
+    :style="{ height: 'calc(100vh - 150px)' }"
   >
     <div
       v-if="loading"
@@ -14,11 +14,11 @@
         indeterminate
       />
       <div style="font-size: 32px">
-        Carregando Operações...
+        Carregando Eventos...
       </div>
     </div>
     <div
-      v-else-if="!operations.length"
+      v-else-if="!events.length"
       class="full-width full-height d-flex flex-column align-center justify-center font-weight-thin text-center"
     >
       <v-icon
@@ -73,12 +73,36 @@
           </v-icon>
         </div>
         <div
-          class="text-center  button-sort"
-          @click="setSortConfig('date', !sortConfig.desc)"
+          class="text-center button-sort"
+          @click="setSortConfig('initialDate', !sortConfig.desc)"
         >
-          Data
+          Início
           <v-icon
-            :class="{ 'rotate-icon': sortConfig.column === 'date' && sortConfig.desc }"
+            :class="{ 'rotate-icon': sortConfig.column === 'initialDate' && sortConfig.desc }"
+            size="18"
+          >
+            mdi-chevron-down
+          </v-icon>
+        </div>
+        <div
+          class="text-center button-sort"
+          @click="setSortConfig('finalDate', !sortConfig.desc)"
+        >
+          Fim
+          <v-icon
+            :class="{ 'rotate-icon': sortConfig.column === 'finalDate' && sortConfig.desc }"
+            size="18"
+          >
+            mdi-chevron-down
+          </v-icon>
+        </div>
+        <div
+          class="text-center button-sort"
+          @click="setSortConfig('period', !sortConfig.desc)"
+        >
+          Repetição
+          <v-icon
+            :class="{ 'rotate-icon': sortConfig.column === 'period' && sortConfig.desc }"
             size="18"
           >
             mdi-chevron-down
@@ -96,6 +120,18 @@
             mdi-chevron-down
           </v-icon>
         </div>
+        <div
+          class="text-right pr-2 button-sort"
+          @click="setSortConfig('completed', !sortConfig.desc)"
+        >
+          Status
+          <v-icon
+            :class="{ 'rotate-icon': sortConfig.column === 'completed' && sortConfig.desc }"
+            size="18"
+          >
+            mdi-chevron-down
+          </v-icon>
+        </div>
         <div class="text-center">
           Ações
         </div>
@@ -103,9 +139,9 @@
       <v-virtual-scroll
         class="scroller"
         item-height="42"
-        :items="operations"
-        max-height="calc(100vh - 252px)"
-        min-height="calc(100vh - 252px)"
+        :items="events"
+        max-height="calc(100vh - 208px)"
+        min-height="calc(100vh - 208px)"
       >
         <template v-slot:default="{ item }">
           <div class="table--body">
@@ -118,22 +154,6 @@
                 {{ item.type === 'I' ? 'mdi-arrow-top-right-bold-box-outline' : 'mdi-arrow-bottom-right-bold-box-outline' }}
               </v-icon>
               {{ item.description }}
-              <v-tooltip
-                v-if="item.eventId"
-                max-width="200"
-                right
-              >
-                <template #activator="{ on }">
-                  <v-icon
-                    class="ml-2"
-                    size="16"
-                    v-on="on"
-                  >
-                    mdi-information-outline
-                  </v-icon>
-                </template>
-                Operações geradas por eventos automáticos não podem ser alteradas.
-              </v-tooltip>
             </div>
             <div class="d-flex align-center justify-center">
               {{ item.categoryName }}
@@ -142,10 +162,30 @@
               {{ item.type === 'I' ? 'Entrada' : 'Saída' }}
             </div>
             <div class="d-flex align-center justify-center">
-              <dd-date :value="item.date" />
+              <dd-date :value="item.initialDate" />
+            </div>
+            <div class="d-flex align-center justify-center">
+              <dd-date :value="item.finalDate" />
+            </div>
+            <div class="d-flex align-center justify-center">
+              {{ getPeriodDescription(item.period) }}
             </div>
             <div class="pr-2 d-flex align-center justify-end">
               <dd-money :value="item.value" />
+            </div>
+            <div class="d-flex align-center justify-center">
+              <v-tooltip left>
+                <template #activator="{ on }">
+                  <v-icon
+                    :color="item.completed ? 'success' : 'accent'"
+                    size="22"
+                    v-on="on"
+                  >
+                    {{ item.completed ? 'mdi-progress-check' : 'mdi-progress-clock' }}
+                  </v-icon>
+                </template>
+                {{ item.completed ? 'Finalizado' : 'Em andamento' }}
+              </v-tooltip>
             </div>
             <div class="d-flex justify-center">
               <v-tooltip left>
@@ -156,28 +196,24 @@
                     small
                     text
                     v-on="on"
-                    @click="$emit('operationSelectedToEdit', item)"
+                    @click="$emit('eventSelectedToEdit', item)"
                   >
                     <v-icon size="20">
-                      {{ item.eventId ? 'mdi-eye-outline' : 'mdi-pencil-outline' }}
+                      mdi-pencil-outline
                     </v-icon>
                   </v-btn>
                 </template>
-                {{ item.eventId ? 'Visualizar' : 'Alterar' }}
+                Alterar
               </v-tooltip>
-              <v-tooltip
-                v-if="!!item.effected"
-                left
-              >
+              <v-tooltip left>
                 <template #activator="{ on }">
                   <v-btn
                     class="ml-1"
-                    :disabled="!!item.eventId"
                     icon
                     small
                     text
                     v-on="on"
-                    @click="$emit('operationSelectedToDelete', item)"
+                    @click="$emit('eventSelectedToDelete', item)"
                   >
                     <v-icon size="20">
                       mdi-delete-outline
@@ -185,26 +221,6 @@
                   </v-btn>
                 </template>
                 Excluir
-              </v-tooltip>
-              <v-tooltip
-                v-else
-                left
-              >
-                <template #activator="{ on }">
-                  <v-btn
-                    class="ml-1"
-                    icon
-                    small
-                    text
-                    v-on="on"
-                    @click="$emit('operationSelectedToEffect', item)"
-                  >
-                    <v-icon size="20">
-                      mdi-cash-plus
-                    </v-icon>
-                  </v-btn>
-                </template>
-                Efetuar
               </v-tooltip>
             </div>
           </div>
@@ -215,7 +231,7 @@
 </template>
 <script lang="ts" src="./TemplateDesktop.ts"></script>
 <style lang="scss" scoped>
-  .v-sheet.operation--container {
+  .v-sheet.event--container {
     margin: 8px;
     padding: 0px 16px 16px 16px;
 
@@ -223,7 +239,7 @@
       display: grid;
       align-items: center;
       grid-template-rows: 42px;
-      grid-template-columns: 1fr repeat(5, 120px);
+      grid-template-columns: 1fr repeat(2, 112px) repeat(3, 94px) 112px 72px 112px;
       font-size: 14px;
       font-weight: bold;
       border-bottom: 1px solid var(--v-border-base);
@@ -233,7 +249,7 @@
       display: grid;
       align-items: center;
       grid-template-rows: 42px;
-      grid-template-columns: 1fr repeat(5, 120px);
+      grid-template-columns: 1fr repeat(2, 112px) repeat(3, 94px) 112px 72px 112px;
       font-size: 14px;
       font-weight: light;
       border-bottom: 1px solid var(--v-border-base);

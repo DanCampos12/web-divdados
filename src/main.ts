@@ -10,9 +10,11 @@ import './features/plugins/components/dd-date-input'
 import './features/plugins/components/dd-money-input'
 import './features/plugins/components/dd-date'
 import './features/plugins/components/dd-money'
+import moment from 'moment'
 
 Vue.config.productionTip = false
 Vue.use(VueDebounce)
+moment.locale('pt-br')
 
 new Vue({
   router,

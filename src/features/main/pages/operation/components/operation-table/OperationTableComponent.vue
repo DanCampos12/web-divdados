@@ -4,7 +4,6 @@
       :is="template"
       :loading="loading"
       :operations="operations"
-      @addOperation="$emit('addOperation')"
       @operationSelectedToDelete="startDeleteOperation"
       @operationSelectedToEdit="$emit('operationSelectedToEdit', $event)"
       @operationSelectedToEffect="startEffectOperation"

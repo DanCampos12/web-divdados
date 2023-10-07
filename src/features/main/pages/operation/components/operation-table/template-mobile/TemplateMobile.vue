@@ -34,7 +34,7 @@
     <div v-else>
       <v-virtual-scroll
         class="scroller"
-        item-height="60"
+        item-height="76"
         :items="operations"
         max-height="calc(100vh - 320px)"
         min-height="calc(100vh - 320px)"
@@ -51,7 +51,7 @@
                   {{ item.type === 'I' ? 'mdi-arrow-top-right-bold-box-outline' : 'mdi-arrow-bottom-right-bold-box-outline' }}
                 </v-icon>
               </div>
-              <div class="d-flex align-center justify-space-between pr-2">
+              <div class="d-flex align-center justify-space-between">
                 <div class="d-flex flex-column justify-center">
                   <div class="d-flex align-center font-weight-bold">
                     {{ item.description }}
@@ -72,7 +72,10 @@
                       Operações geradas por eventos automáticos não podem ser alteradas.
                     </v-tooltip>
                   </div>
-                  <div class="mt-n2 text-caption">
+                  <div
+                    class="text-caption"
+                    style="margin-top: -6px"
+                  >
                     {{ item.categoryName }}
                   </div>
                 </div>
@@ -82,71 +85,77 @@
                     :value="item.value"
                   />
                   <dd-date
-                    class="mt-n2 text-caption"
+                    class="text-caption"
+                    style="margin-top: -6px"
                     :value="item.date"
                   />
                 </div>
               </div>
             </div>
-            <div class="d-flex align-center justify-space-between pr-2">
-              <v-tooltip left>
-                <template #activator="{ on }">
-                  <v-btn
-                    class="mr-1"
-                    icon
-                    text
-                    x-small
-                    v-on="on"
-                    @click="$emit('operationSelectedToEdit', item)"
-                  >
-                    <v-icon size="20">
-                      {{ item.eventId ? 'mdi-eye-outline' : 'mdi-pencil-outline' }}
-                    </v-icon>
-                  </v-btn>
-                </template>
-                {{ item.eventId ? 'Visualizar' : 'Alterar' }}
-              </v-tooltip>
-              <v-tooltip
-                v-if="!!item.effected"
-                left
-              >
-                <template #activator="{ on }">
-                  <v-btn
-                    class="ml-1"
-                    :disabled="!!item.eventId"
-                    icon
-                    text
-                    x-small
-                    v-on="on"
-                    @click="$emit('operationSelectedToDelete', item)"
-                  >
-                    <v-icon size="20">
-                      mdi-delete-outline
-                    </v-icon>
-                  </v-btn>
-                </template>
-                Excluir
-              </v-tooltip>
-              <v-tooltip
-                v-else
-                left
-              >
-                <template #activator="{ on }">
-                  <v-btn
-                    class="ml-1"
-                    icon
-                    text
-                    x-small
-                    v-on="on"
-                    @click="$emit('operationSelectedToEffect', item)"
-                  >
-                    <v-icon size="20">
-                      mdi-cash-plus
-                    </v-icon>
-                  </v-btn>
-                </template>
-                Efetuar
-              </v-tooltip>
+            <div class="action--buttons d-flex align-center text-caption justify-space-between">
+              <div>
+                {{ item.type === 'I' ? 'Entrada' : 'Saída' }}
+              </div>
+              <div class="d-flex align-center pr-1">
+                <v-tooltip left>
+                  <template #activator="{ on }">
+                    <v-btn
+                      class="mr-1"
+                      icon
+                      text
+                      x-small
+                      v-on="on"
+                      @click="$emit('operationSelectedToEdit', item)"
+                    >
+                      <v-icon size="20">
+                        {{ item.eventId ? 'mdi-eye-outline' : 'mdi-pencil-outline' }}
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  {{ item.eventId ? 'Visualizar' : 'Alterar' }}
+                </v-tooltip>
+                <v-tooltip
+                  v-if="!!item.effected"
+                  left
+                >
+                  <template #activator="{ on }">
+                    <v-btn
+                      class="ml-1"
+                      :disabled="!!item.eventId"
+                      icon
+                      text
+                      x-small
+                      v-on="on"
+                      @click="$emit('operationSelectedToDelete', item)"
+                    >
+                      <v-icon size="20">
+                        mdi-delete-outline
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  Excluir
+                </v-tooltip>
+                <v-tooltip
+                  v-else
+                  left
+                >
+                  <template #activator="{ on }">
+                    <v-btn
+                      class="ml-1"
+                      icon
+                      text
+                      x-small
+                      v-on="on"
+                      @click="$emit('operationSelectedToEffect', item)"
+                    >
+                      <v-icon size="20">
+                        mdi-cash-plus
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  Efetuar
+                </v-tooltip>
+              </div>
             </div>
           </div>
         </template>
@@ -169,6 +178,15 @@
         grid-template-columns: 26px 1fr;
         font-size: 14px;
         font-weight: light;
+      }
+
+      div.action--buttons {
+        height: 24px;
+        margin-top: 4px;
+        margin-bottom: 8px;
+        border-radius: 4px;
+        padding: 0px 4px;
+        background-color: var(--v-background-base);
       }
     }
   }
