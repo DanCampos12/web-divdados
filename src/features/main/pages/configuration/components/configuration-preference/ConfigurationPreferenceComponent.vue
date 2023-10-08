@@ -27,12 +27,16 @@
       <v-switch
         v-model="userEntity.preference.dark"
         class="mr-4"
+        :disabled="loading"
         label="Modo escuro"
+        @click="save"
       />
       <v-switch
         v-model="userEntity.preference.displayValues"
         class="ml-4"
+        :disabled="loading"
         label="Exibir valores"
+        @click="save"
       />
     </div>
   </div>

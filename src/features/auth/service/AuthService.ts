@@ -1,5 +1,5 @@
 import ApiService from '@/core/services/ApiService'
-import { User, UserEntity } from '@/models'
+import { ChangePasswordDTO, UpdatePreferenceDTO, User, UserEntity } from '@/models'
 import { AxiosResponse } from 'axios'
 
 type SignUpResponse = {
@@ -25,5 +25,17 @@ export class AuthService extends ApiService {
   static async refreshToken ({ id, idToken }: { id: string; idToken: string }):
     Promise<AxiosResponse<SignInResponse>> {
     return this.httpService.post(`/v1/users/${id}/auth/refresh-token`, { id, idToken })
+  }
+
+  static async putUser (user: UserEntity): Promise<AxiosResponse<User>> {
+    return this.httpService.put(`/v1/users/${user.id}`, user)
+  }
+
+  static async changePassword (changePasswordDTO: ChangePasswordDTO): Promise<AxiosResponse<SignInResponse>> {
+    return this.httpService.put(`/v1/users/${changePasswordDTO.userId}/auth/change-password`, changePasswordDTO)
+  }
+
+  static async updatePreferences (updatePreferenceDTO: UpdatePreferenceDTO): Promise<AxiosResponse<User>> {
+    return this.httpService.put(`/v1/users/${updatePreferenceDTO.userId}/preferences`, updatePreferenceDTO)
   }
 }
