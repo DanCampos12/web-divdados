@@ -9,5 +9,6 @@
   div.blur {
     filter: blur(10px);
     user-select: none;
+    font-weight: 400 !important;
   }
 </style>

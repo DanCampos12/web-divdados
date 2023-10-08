@@ -121,7 +121,7 @@
           </v-icon>
         </div>
         <div
-          class="text-right pr-2 button-sort"
+          class="text-center button-sort"
           @click="setSortConfig('completed', !sortConfig.desc)"
         >
           Status
