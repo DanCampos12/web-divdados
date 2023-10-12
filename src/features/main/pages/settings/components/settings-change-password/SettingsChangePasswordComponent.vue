@@ -280,7 +280,7 @@
   </div>
 </template>
 
-<script lang="ts" src="./ConfigurationChangePasswordComponent.ts"></script>
+<script lang="ts" src="./SettingsChangePasswordComponent.ts"></script>
 <style lang="scss" scoped>
   div.validation-grid--layout {
     display: grid;

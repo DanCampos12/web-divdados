@@ -161,4 +161,4 @@
   </div>
 </template>
 
-<script lang="ts" src="./ConfigurationBasicInfoComponent.ts"></script>
+<script lang="ts" src="./SettingsBasicInfoComponent.ts"></script>

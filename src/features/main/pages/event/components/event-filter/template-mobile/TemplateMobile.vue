@@ -6,6 +6,7 @@
         style="width: 304px"
       >
         <v-text-field
+          v-model="filters.searchText"
           append-icon="mdi-magnify"
           autocomplete="off"
           background-color="offset"

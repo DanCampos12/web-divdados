@@ -53,7 +53,7 @@
             <div
               :style="{
                 height: '24px',
-                width: '4px',
+                width: '24px',
                 borderRadius: '6px',
                 background: category.color,
                 marginRight: '8px'

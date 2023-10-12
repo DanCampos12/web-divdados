@@ -3,7 +3,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { Action, State } from 'vuex-class'
 
 @Component
-export default class ConfigurationPreferenceComponent extends Vue {
+export default class SettingsPreferenceComponent extends Vue {
   @Action('updatePreferences', { namespace: 'auth' })
   readonly updatePreferences!: (updatePreferenceDTO: UpdatePreferenceDTO) => Promise<User>
 

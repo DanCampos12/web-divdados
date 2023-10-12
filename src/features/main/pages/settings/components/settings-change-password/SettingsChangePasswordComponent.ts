@@ -1,10 +1,10 @@
 import { ChangePasswordDTO, Snackbar, User, UserEntity } from '@/models'
 import { Component, Vue } from 'vue-property-decorator'
-import helper from './ConfigurationChangePasswordHelper'
+import helper from './SettingsChangePasswordHelper'
 import { Action, Mutation, State } from 'vuex-class'
 
 @Component
-export default class ConfigurationChangePasswordComponent extends Vue {
+export default class SettingsChangePasswordComponent extends Vue {
   @Action('changePassword', { namespace: 'auth' })
   readonly changePassword!: (changePasswordDTO: ChangePasswordDTO) => Promise<{ user: User; idToken: string }>
 

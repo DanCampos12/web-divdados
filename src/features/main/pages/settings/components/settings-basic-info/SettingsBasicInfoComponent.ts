@@ -1,10 +1,10 @@
 import { Snackbar, User, UserEntity } from '@/models'
 import { Component, Vue } from 'vue-property-decorator'
 import { Action, Mutation, State } from 'vuex-class'
-import helper from './ConfigurationBasicInfoHelper'
+import helper from './SettingsBasicInfoHelper'
 
 @Component
-export default class ConfigurationBasicInfoComponent extends Vue {
+export default class SettingsBasicInfoComponent extends Vue {
   @Action('putUser', { namespace: 'auth' })
   readonly putUser!: (user: UserEntity) => Promise<User>
 

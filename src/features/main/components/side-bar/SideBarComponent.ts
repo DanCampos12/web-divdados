@@ -32,10 +32,10 @@ export default class SideBarComponent extends Vue {
   menuOptions = [
     { key: 'home', name: 'Início', to: 'Main.Home', icon: 'mdi-home-circle-outline' },
     { key: 'operation', name: 'Operações', to: 'Main.Operation', icon: 'mdi-finance' },
-    { key: 'event', name: 'Eventos', to: 'Main.Event', icon: 'mdi-calendar-check' },
-    { key: 'objective', name: 'Objetivos', to: 'Main.Objective', icon: 'mdi-chart-bar-stacked' },
+    { key: 'event', name: 'Eventos', to: 'Main.Event', icon: 'mdi-calendar-sync' },
+    { key: 'objective', name: 'Objetivos', to: 'Main.Objective', icon: 'mdi-bullseye-arrow' },
     { key: 'category', name: 'Categorias', to: 'Main.Category', icon: 'mdi-shape-outline' },
-    { key: 'configuration', name: 'Configurações', to: 'Main.Configuration', icon: 'mdi-cog-outline' }
+    { key: 'configuration', name: 'Configurações', to: 'Main.Settings', icon: 'mdi-cog-outline' }
   ]
 
   onSelectMenu (item: MenuOption) {
@@ -50,6 +50,7 @@ export default class SideBarComponent extends Vue {
   setPageSelected () {
     const page = this.menuOptions.find((item) => item.to === this.$route.name)
     this.pageSelected = (page || { key: '' }).key
+    if (this.isMobile) this.$emit('close')
   }
 
   created () {

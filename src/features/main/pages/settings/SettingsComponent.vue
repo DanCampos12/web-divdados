@@ -1,5 +1,5 @@
 <template>
-  <div class="configuration--container scroller">
+  <div class="settings--container scroller">
     <v-sheet
       class="full-width full-height rounded ma-2 scroller"
       color="offset"
@@ -28,17 +28,17 @@
           </span>
         </div>
       </div>
-      <configuration-basic-info-component />
-      <configuration-change-password-component />
-      <configuration-preference-component />
+      <settings-basic-info-component />
+      <settings-change-password-component />
+      <settings-preference-component />
     </v-sheet>
   </div>
 </template>
-<script lang="ts" src="./ConfigurationComponent.ts"></script>
+<script lang="ts" src="./SettingsComponent.ts"></script>
 <style lang="scss" scoped>
-  div.configuration--container {
+  div.settings--container {
     margin: auto;
-    max-width: 600px;
+    max-width: 1080px;
     height: 100%;
     display: flex;
     align-items: center;

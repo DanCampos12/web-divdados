@@ -42,4 +42,4 @@
   </div>
 </template>
 
-<script lang="ts" src="./ConfigurationPreferenceComponent.ts"></script>
+<script lang="ts" src="./SettingsPreferenceComponent.ts"></script>

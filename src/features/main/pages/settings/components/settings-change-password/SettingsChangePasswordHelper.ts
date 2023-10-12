@@ -1,6 +1,6 @@
 import { UserEntity } from '@/models'
 
-class ConfigurationChangePasswordHelper {
+class SettingsChangePasswordHelper {
   rulesRequired (value: string) {
     return !!value || 'Campo obrigatório'
   }
@@ -18,5 +18,5 @@ class ConfigurationChangePasswordHelper {
   }
 }
 
-const instance = new ConfigurationChangePasswordHelper()
+const instance = new SettingsChangePasswordHelper()
 export default instance

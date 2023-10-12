@@ -1,6 +1,6 @@
 import { UserEntity } from '@/models'
 
-class ConfigurationBasicInfoHelper {
+class SettingsBasicInfoHelper {
   rulesRequired (value: string) {
     return !!value || 'Campo obrigatório'
   }
@@ -21,5 +21,5 @@ class ConfigurationBasicInfoHelper {
   }
 }
 
-const instance = new ConfigurationBasicInfoHelper()
+const instance = new SettingsBasicInfoHelper()
 export default instance

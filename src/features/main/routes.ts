@@ -4,7 +4,7 @@ import OperationComponent from './pages/operation/OperationComponent.vue'
 import EventComponent from './pages/event/EventComponent.vue'
 import ObjectiveComponent from './pages/objective/ObjectiveComponent.vue'
 import CategoryComponent from './pages/category/CategoryComponent.vue'
-import ConfigurationComponent from './pages/configuration/ConfigurationComponent.vue'
+import SettingsComponent from './pages/settings/SettingsComponent.vue'
 
 export default [
   {
@@ -44,9 +44,9 @@ export default [
         meta: { title: 'DivDados - Categorias' }
       },
       {
-        path: 'configuration',
-        name: 'Main.Configuration',
-        component: ConfigurationComponent,
+        path: 'settings',
+        name: 'Main.Settings',
+        component: SettingsComponent,
         meta: { title: 'DivDados - Configurações' }
       }
     ]
