@@ -5,6 +5,7 @@ import { auth } from '@/features/auth/store'
 import { category } from '@/features/main/pages/category/store'
 import { operation } from '@/features/main/pages/operation/store'
 import { event } from '@/features/main/pages/event/store'
+import { objective } from '@/features/main/pages/objective/store'
 
 Vue.use(Vuex)
 
@@ -26,7 +27,8 @@ const store: StoreOptions<RootState> = {
     auth,
     category,
     operation,
-    event
+    event,
+    objective
   }
 }
 
