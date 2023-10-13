@@ -5,12 +5,16 @@ class CategoryFormHelper {
     return category.isEdit() ? 'category/putCategory' : 'category/postCategory'
   }
 
-  disableConfirmButton (formValid: boolean, operationInProgress: boolean) {
-    return !formValid || operationInProgress
+  disableConfirmButton (formValid: boolean, operationInProgress: boolean, isAutomaticInput: boolean) {
+    return !formValid || operationInProgress || isAutomaticInput
   }
 
   rulesRequired (value: string) {
     return !!value || 'Campo obrigatório'
+  }
+
+  fieldHintMessage (isAutomaticInput: boolean) {
+    return isAutomaticInput ? 'Campo não editável' : ''
   }
 
   getFormTitle (category: CategoryEntity) {

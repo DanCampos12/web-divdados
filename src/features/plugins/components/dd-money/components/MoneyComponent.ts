@@ -10,10 +10,13 @@ export default class MoneyComponent extends Vue {
   @Prop({ type: Number, default: null })
   readonly value!: number
 
+  @Prop({ type: String, default: '' })
+  readonly zeroText!: string
+
   get valueFormatted () {
     const valueFormatted = this.value
       ? this.value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL', maximumFractionDigits: 2 })
-      : 'R$ 0,00'
+      : this.zeroText || 'R$ 0,00'
 
     return this.user.preference.displayValues ? valueFormatted : '0'.repeat(valueFormatted.length)
   }

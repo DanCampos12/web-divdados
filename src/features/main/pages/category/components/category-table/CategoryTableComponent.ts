@@ -1,8 +1,16 @@
 import { Category, CategoryEntity, Snackbar } from '@/models'
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { Action, Mutation } from 'vuex-class'
+import TemplateDesktop from './template-desktop/TemplateDesktop.vue'
+import TemplateMobile from './template-mobile/TemplateMobile.vue'
+import { getTemplate } from '@/helpers'
 
-@Component
+@Component({
+  components: {
+    TemplateDesktop,
+    TemplateMobile
+  }
+})
 export default class CategoryTableComponent extends Vue {
   @Action('deleteCategory', { namespace: 'category' })
   readonly deleteCategory!: (category: Category) => Promise<string>
@@ -54,7 +62,7 @@ export default class CategoryTableComponent extends Vue {
     }
   }
 
-  get isMobile () {
-    return this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm
+  get template () {
+    return getTemplate(this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm)
   }
 }

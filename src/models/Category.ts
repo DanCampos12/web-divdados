@@ -3,4 +3,7 @@ export interface Category {
   name: string;
   color: string;
   userId: string;
+  allocation: number;
+  maxValueMonthly: number | null;
+  isAutomaticInput: boolean;
 }

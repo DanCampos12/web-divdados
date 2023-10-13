@@ -34,6 +34,7 @@
       @operationPerformed="getObjectives"
     />
     <objective-grid-layout-component
+      :loading="loading"
       @objectiveSelectedToEdit="onObjectiveSelectedToEdit"
       @operationPerformed="getObjectives"
     />

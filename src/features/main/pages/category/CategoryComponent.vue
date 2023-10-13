@@ -2,8 +2,11 @@
   <div>
     <div class="d-flex align-center justify-space-between pa-2">
       <div
-        class="mr-2"
-        :style="{ width: isMobile ? '304px' : '400px' }"
+        :style="{
+          width: isMobile ? '304px' : '400px',
+          marginTop: isMobile ? '8px' : '5px',
+          marginBottom: isMobile ? '8px' : '5px'
+        }"
       >
         <v-text-field
           v-model="searchText"
@@ -39,6 +42,7 @@
       :loading="loading"
       @categorySelectedToEdit="onCategorySelectedToEdit"
       @operationPerformed="getCategories"
+      @sortCategories="sortCategories"
     />
     <category-form-component
       v-model="formVisible"

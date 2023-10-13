@@ -67,7 +67,11 @@ export default class CategoryFormComponent extends Vue {
   }
 
   get disableConfirmButton () {
-    return helper.disableConfirmButton(this.formValid, this.operationInProgress)
+    return helper.disableConfirmButton(this.formValid, this.operationInProgress, this.category.isAutomaticInput)
+  }
+
+  get fieldHintMessage () {
+    return helper.fieldHintMessage(this.category.isAutomaticInput)
   }
 
   get formTitle () {

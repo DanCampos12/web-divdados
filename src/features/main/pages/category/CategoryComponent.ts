@@ -47,6 +47,14 @@ export default class CategoryComponent extends Vue {
     this.setFormVisible(true)
   }
 
+  sortCategories ({ column, desc }: { column: keyof Category; desc: boolean }) {
+    this.categories.sort((a, b) => {
+      if ((a[column] || 0) > (b[column] || 0)) return desc ? -1 : 1
+      if ((a[column] || 0) < (b[column] || 0)) return desc ? 1 : -1
+      return 0
+    })
+  }
+
   get categoriesFiltered () {
     return helper.filterCategories(this.categories, this.searchText)
   }

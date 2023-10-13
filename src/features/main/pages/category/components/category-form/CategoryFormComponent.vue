@@ -6,7 +6,7 @@
     :value="value"
   >
     <v-card
-      height="280"
+      :height="category.isAutomaticInput ? 300 : 340"
       width="320"
     >
       <div
@@ -25,17 +25,36 @@
             autocomplete="off"
             background-color="offset"
             dense
+            :disabled="category.isAutomaticInput"
+            :hint="fieldHintMessage"
             label="Nome"
             name="name"
             outlined
+            persistent-hint
             :rules="[rules.required]"
           />
-          <div @click="menuColor = true">
+          <dd-money-input
+            v-model="category.maxValueMonthly"
+            autocomplete="off"
+            background-color="offset"
+            dense
+            :disabled="category.isAutomaticInput"
+            :hint="fieldHintMessage"
+            label="Valor máximo mensal"
+            name="maxValueMonthly"
+            outlined
+            persistent-hint
+          />
+          <div
+            v-if="!category.isAutomaticInput"
+            @click="menuColor = true"
+          >
             Clique para selecionar uma cor
           </div>
           <v-menu
             v-model="menuColor"
             :close-on-content-click="false"
+            :disabled="category.isAutomaticInput"
             offset-y
           >
             <template #activator="{ on }">
