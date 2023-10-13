@@ -36,8 +36,8 @@
         class="scroller"
         item-height="76"
         :items="categories"
-        max-height="calc(100vh - 240px)"
-        min-height="calc(100vh - 240px)"
+        max-height="calc(100vh - 220px)"
+        min-height="calc(100vh - 220px)"
       >
         <template v-slot:default="{ item }">
           <div class="table--body">
