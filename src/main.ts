@@ -10,6 +10,8 @@ import './features/plugins/components/dd-date-input'
 import './features/plugins/components/dd-money-input'
 import './features/plugins/components/dd-date'
 import './features/plugins/components/dd-money'
+import './features/plugins/components/dd-percent'
+
 import moment from 'moment'
 
 Vue.config.productionTip = false

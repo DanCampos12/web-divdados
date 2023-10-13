@@ -8,6 +8,7 @@ export class ObjectiveGridLayout {
   h: number;
   i: string;
   objective: Objective;
+  progress: number;
 
   constructor (objective: Objective, index: number) {
     this.x = 0
@@ -16,5 +17,6 @@ export class ObjectiveGridLayout {
     this.h = 1
     this.i = index.toString()
     this.objective = ObjectiveEntity.parse(objective)
+    this.progress = (this.objective.progress || 0) * 100
   }
 }

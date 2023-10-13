@@ -92,7 +92,7 @@
               >
                 <v-icon
                   class="mr-1"
-                  :color="item.completed ? 'success' : 'accent'"
+                  :color="item.completed ? 'success' : 'blue lighten-2'"
                   size="14"
                 >
                   {{ item.completed ? 'mdi-progress-check' : 'mdi-progress-clock' }}

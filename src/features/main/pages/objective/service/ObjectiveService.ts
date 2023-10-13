@@ -19,8 +19,11 @@ export class ObjectiveService extends ApiService {
     return this.httpService.delete(`v1/users/${objective.userId}/objectives/${objective.id}`)
   }
 
-  static async completeObjective (objective: ObjectiveEntity): Promise<AxiosResponse<Objective>> {
-    return this.httpService.put(`v1/users/${objective.userId}/objectives/${objective.id}/complete`)
+  static async completeObjective ({ objective, shouldLaunchOperation }: {
+    objective: ObjectiveEntity, shouldLaunchOperation: boolean }): Promise<AxiosResponse<Objective>> {
+    return this.httpService.put(`v1/users/${objective.userId}/objectives/${objective.id}/complete`, {}, {
+      params: { shouldLaunchOperation }
+    })
   }
 
   static async reorderObjectives (reorderObjectiveDTO: ReorderObjectiveDTO): Promise<AxiosResponse<Objective[]>> {

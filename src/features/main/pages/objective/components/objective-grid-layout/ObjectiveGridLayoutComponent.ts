@@ -1,5 +1,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { GridLayout, GridItem } from 'vue-grid-layout'
+import { Objective, ObjectiveEntity, ObjectiveGridLayout, Operation, OperationEntity, Snackbar } from '@/models'
+import { Action, Mutation, State } from 'vuex-class'
 
 @Component({
   components: {
@@ -8,22 +10,108 @@ import { GridLayout, GridItem } from 'vue-grid-layout'
   }
 })
 export default class ObjectiveGridLayoutComponent extends Vue {
+  @Action('deleteObjective', { namespace: 'objective' })
+  readonly deleteObjective!: (objective: ObjectiveEntity) => Promise<string>
+
+  @Action('completeObjective', { namespace: 'objective' })
+  readonly completeObjective!: ({ objective, shouldLaunchOperation }: {
+    objective: ObjectiveEntity, shouldLaunchOperation: boolean }) => Promise<Objective>
+
+  @Action('postOperation', { namespace: 'operation' })
+  readonly postOperation!: (operation: OperationEntity) => Promise<Operation>
+
+  @State('objectiveGridLayout', { namespace: 'objective' })
+  readonly objectiveGridLayout!: ObjectiveGridLayout[]
+
+  @State('isEditMode', { namespace: 'objective' })
+  readonly isEditMode!: boolean
+
+  @Mutation('setSnackbar')
+  readonly setSnackbar!: (snackbar: Snackbar) => void
+
   @Prop({ type: Boolean, default: false })
-  readonly isDraggable!: boolean
+  readonly loading!: boolean
 
-  layout= [
-    { x: 0, y: 0, w: 1, h: 1, i: '0' },
-    { x: 0, y: 1, w: 1, h: 1, i: '1' },
-    { x: 0, y: 2, w: 1, h: 1, i: '2' },
-    { x: 0, y: 3, w: 1, h: 1, i: '3' },
-    { x: 0, y: 4, w: 1, h: 1, i: '5' }
-  ]
+  showDeleteDialog = false
+  objectiveSelected = new ObjectiveEntity()
+  operationInProgress = false
+  showCompleteDialog = false
+  shouldLaunchOperation = true
+  statusConfig: Record<string, { icon: string; description: string; color: string; }> = {
+    inProgress: { icon: 'mdi-progress-clock', description: 'Em progresso', color: 'grey' },
+    completed: { icon: 'mdi-progress-check', description: 'Concluído', color: 'success' },
+    expired: { icon: 'mdi-progress-close', description: 'Expirado', color: 'error' }
+  }
 
-  layoutUpdated () {
-    console.log([...this.layout].sort((a, b) => {
-      if (a.y < b.y) return -1
-      if (a.y > b.y) return 1
-      return 0
-    }).map((x, i) => `Id: ${x.i}- Order: ${i}`))
+  startDeleteObjective (objective: Objective) {
+    this.showDeleteDialog = true
+    this.objectiveSelected = ObjectiveEntity.parse(objective)
+  }
+
+  finishDeleteObjectiveProcess () {
+    this.operationInProgress = false
+    this.showDeleteDialog = false
+    this.objectiveSelected = new ObjectiveEntity()
+  }
+
+  async onDeleteObjective () {
+    try {
+      this.operationInProgress = true
+      await this.deleteObjective(this.objectiveSelected)
+      this.setSnackbar({
+        visible: true,
+        color: 'green lighten-1',
+        icon: 'mdi-check-circle',
+        messages: ['Operação realizada com sucesso']
+      })
+      this.$emit('operationPerformed')
+    } catch (errors: any) {
+      this.setSnackbar({
+        visible: true,
+        color: 'red lighten-1',
+        icon: 'mdi-alert-circle',
+        messages: errors.map((e: any) => e.message)
+      })
+    } finally {
+      this.finishDeleteObjectiveProcess()
+    }
+  }
+
+  startCompleteObjective (objective: Objective) {
+    this.showCompleteDialog = true
+    this.objectiveSelected = ObjectiveEntity.parse(objective)
+  }
+
+  finishCompleteObjectiveProcess () {
+    this.operationInProgress = false
+    this.showCompleteDialog = false
+    this.shouldLaunchOperation = true
+    this.objectiveSelected = new ObjectiveEntity()
+  }
+
+  async onCompleteObjective () {
+    try {
+      this.operationInProgress = true
+      await this.completeObjective({
+        objective: this.objectiveSelected,
+        shouldLaunchOperation: this.shouldLaunchOperation
+      })
+      this.setSnackbar({
+        visible: true,
+        color: 'green lighten-1',
+        icon: 'mdi-check-circle',
+        messages: ['Operação realizada com sucesso']
+      })
+      this.$emit('operationPerformed')
+    } catch (errors: any) {
+      this.setSnackbar({
+        visible: true,
+        color: 'red lighten-1',
+        icon: 'mdi-alert-circle',
+        messages: errors.map((e: any) => e.message)
+      })
+    } finally {
+      this.finishCompleteObjectiveProcess()
+    }
   }
 }

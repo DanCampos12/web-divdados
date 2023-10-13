@@ -35,9 +35,10 @@ export const actions: ActionTree<ObjectiveState, RootState> = {
       throw error.response.data
     }
   },
-  async completeObjective (_, objective: ObjectiveEntity) {
+  async completeObjective (_, { objective, shouldLaunchOperation }: {
+    objective: ObjectiveEntity, shouldLaunchOperation: boolean }) {
     try {
-      const response = await ObjectiveService.completeObjective(objective)
+      const response = await ObjectiveService.completeObjective({ objective, shouldLaunchOperation })
       return response.data || new ObjectiveEntity()
     } catch (error: any) {
       throw error.response.data
