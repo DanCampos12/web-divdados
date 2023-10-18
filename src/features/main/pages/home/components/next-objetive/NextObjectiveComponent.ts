@@ -8,4 +8,8 @@ export default class NextObjectiveComponent extends Vue {
 
   @Prop({ type: Boolean, default: false })
   readonly loading!: boolean
+
+  get progress () {
+    return (this.nextObjective.progress || 0) * 100
+  }
 }

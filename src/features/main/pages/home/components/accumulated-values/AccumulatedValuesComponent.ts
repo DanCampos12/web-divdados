@@ -61,7 +61,8 @@ export default class AccumulatedValuesComponent extends Vue {
         spacingTop: 32,
         spacingBottom: 0,
         spacingLeft: 8,
-        spacingRight: 8
+        spacingRight: 8,
+        zooming: { mouseWheel: { enabled: false } }
       },
       tooltip: {
         enabled: this.user.preference.displayValues,
@@ -151,7 +152,7 @@ export default class AccumulatedValuesComponent extends Vue {
           },
           formatter: function (this: any) {
             if (this.value >= 1000000) return `${(this.value / 1000000).toFixed(1)}M`.replace('.', ',')
-            if (this.value >= 1000) return `${(this.value / 1000).toFixed(1)}K`
+            if (this.value >= 1000) return `${(this.value / 1000).toFixed(1)}K`.replace('.', ',')
             return this.value.toFixed(0)
           }
         }

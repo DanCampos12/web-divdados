@@ -1,6 +1,9 @@
 <template>
-  <div class="full-height full-width offset rounded">
-    {{ operationTypeAllocations }}
+  <div class="full-height full-width offset rounded pa-2">
+    <span class="subtitle-2 font-weight-bold">
+      Alocação por operação
+    </span>
+    <highcharts :options="chartOptions" />
   </div>
 </template>
 <script lang="ts" src="./OperationTypeAllocationComponent.ts"></script>

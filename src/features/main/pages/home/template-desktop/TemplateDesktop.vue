@@ -12,9 +12,9 @@
         />
       </div>
       <div class="second-column">
-        <operation-type-allocation-component
+        <category-allocation-component
+          :category-allocations="overview.categoryAllocations"
           :loading="loading"
-          :operation-type-allocations="overview.operationTypeAllocations"
         />
         <next-objective-component
           :loading="loading"
@@ -27,9 +27,9 @@
         :loading="loading"
         :next-operations="overview.nextOperations"
       />
-      <category-allocation-component
-        :category-allocations="overview.categoryAllocations"
+      <operation-type-allocation-component
         :loading="loading"
+        :operation-type-allocations="overview.operationTypeAllocations"
       />
     </div>
   </v-sheet>
@@ -78,14 +78,7 @@
         row-gap: 8px;
         height: 100%;
         width: 100%;
-
-        @media screen and (min-width: 1366px) {
-          grid-template-rows: 1fr 112px;
-        }
-
-        @media screen and (min-width: 1920px) {
-          grid-template-rows: 1fr 200px;
-        }
+        grid-template-rows: 1fr 132px;
       }
     }
 
