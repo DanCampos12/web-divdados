@@ -2,21 +2,35 @@
   <v-sheet class="home--container rounded">
     <div class="first-row--grid">
       <div class="first-column">
-        <div class="summary">
-          <div class="offset rounded" />
-          <div class="offset rounded" />
-          <div class="offset rounded" />
-        </div>
-        <div class="accumulated-values offset rounded" />
+        <summary-component
+          :loading="loading"
+          :summary="overview.summary"
+        />
+        <accumulated-values-component
+          :accumulated-values="overview.accumulatedValues"
+          :loading="loading"
+        />
       </div>
       <div class="second-column">
-        <div class="operation-type-allocation offset rounded" />
-        <div class="next-objective offset rounded" />
+        <operation-type-allocation-component
+          :loading="loading"
+          :operation-type-allocations="overview.operationTypeAllocations"
+        />
+        <next-objective-component
+          :loading="loading"
+          :next-objective="overview.nextObjective"
+        />
       </div>
     </div>
     <div class="second-row--grid">
-      <div class="next-operations offset rounded" />
-      <div class="category-allocation offset rounded" />
+      <next-operations-component
+        :loading="loading"
+        :next-operations="overview.nextOperations"
+      />
+      <category-allocation-component
+        :category-allocations="overview.categoryAllocations"
+        :loading="loading"
+      />
     </div>
   </v-sheet>
 </template>
@@ -46,7 +60,6 @@
         display: grid;
         grid-template-columns: 1fr;
         row-gap: 8px;
-
         height: 100%;
         width: 100%;
 
@@ -56,19 +69,6 @@
 
         @media screen and (min-width: 1920px) {
           grid-template-rows: 120px 1fr;
-        }
-
-        div.summary {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          column-gap: 8px;
-          height: 100%;
-          width: 100%;
-        }
-
-        div.accumulated-values {
-          height: 100%;
-          width: 100%;
         }
       }
 
@@ -86,16 +86,6 @@
         @media screen and (min-width: 1920px) {
           grid-template-rows: 1fr 200px;
         }
-
-        div.operation-type-allocation {
-          height: 100%;
-          width: 100%;
-        }
-
-        div.next-objective {
-          height: 100%;
-          width: 100%;
-        }
       }
     }
 
@@ -112,16 +102,6 @@
 
       @media screen and (min-width: 1920px) {
         grid-template-columns: 1fr 600px;
-      }
-
-      div.next-operations {
-        height: 100%;
-        width: 100%;
-      }
-
-      div.category-allocation {
-        height: 100%;
-        width: 100%;
       }
     }
   }
