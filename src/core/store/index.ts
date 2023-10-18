@@ -6,6 +6,7 @@ import { category } from '@/features/main/pages/category/store'
 import { operation } from '@/features/main/pages/operation/store'
 import { event } from '@/features/main/pages/event/store'
 import { objective } from '@/features/main/pages/objective/store'
+import { home } from '@/features/main/pages/home/store'
 
 Vue.use(Vuex)
 
@@ -28,7 +29,8 @@ const store: StoreOptions<RootState> = {
     category,
     operation,
     event,
-    objective
+    objective,
+    home
   }
 }
 
