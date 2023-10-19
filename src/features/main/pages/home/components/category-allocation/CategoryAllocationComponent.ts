@@ -13,6 +13,9 @@ export default class CategoryAllocationComponent extends Vue {
   @Prop({ type: Boolean, default: false })
   readonly loading!: boolean
 
+  @Prop({ type: Boolean, default: false })
+  readonly isResizing!: boolean
+
   getChartSeries () {
     return [{
       data: this.categoryAllocations.map((categoryAllocation) => {
@@ -36,7 +39,8 @@ export default class CategoryAllocationComponent extends Vue {
         spacingTop: 0,
         spacingBottom: 0,
         spacingLeft: 0,
-        spacingRight: 0
+        spacingRight: 0,
+        zooming: { mouseWheel: { enabled: false } }
       },
       title: { text: '' },
       xAxis: { labels: { enabled: false } },
@@ -94,7 +98,7 @@ export default class CategoryAllocationComponent extends Vue {
       },
       plotOptions: {
         pie: {
-          size: 320,
+          size: this.$vuetify.breakpoint.xl ? 320 : 280,
           innerSize: '56%',
           dataLabels: { enabled: false },
           borderRadius: 0,

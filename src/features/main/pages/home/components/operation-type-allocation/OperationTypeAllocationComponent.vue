@@ -3,7 +3,10 @@
     <span class="subtitle-2 font-weight-bold">
       Alocação por operação
     </span>
-    <highcharts :options="chartOptions" />
+    <highcharts
+      v-if="!isResizing"
+      :options="chartOptions"
+    />
   </div>
 </template>
 <script lang="ts" src="./OperationTypeAllocationComponent.ts"></script>

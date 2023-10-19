@@ -1,37 +1,42 @@
 <template>
-  <v-sheet class="home--container rounded">
-    <div class="first-row--grid">
-      <div class="first-column">
-        <summary-component
-          :loading="loading"
-          :summary="overview.summary"
-        />
-        <accumulated-values-component
-          :accumulated-values="overview.accumulatedValues"
-          :loading="loading"
-        />
-      </div>
-      <div class="second-column">
-        <category-allocation-component
-          :category-allocations="overview.categoryAllocations"
-          :loading="loading"
-        />
-        <next-objective-component
-          :loading="loading"
-          :next-objective="overview.nextObjective"
-        />
-      </div>
-    </div>
-    <div class="second-row--grid">
+  <v-sheet class="home--container rounded scroller">
+    <div class="first-column">
+      <summary-component
+        :loading="loading"
+        :summary="overview.summary"
+      />
+      <accumulated-values-component
+        :accumulated-values="overview.accumulatedValues"
+        :is-resizing="isResizing"
+        :loading="loading"
+      />
       <next-operations-component
         :loading="loading"
         :next-operations="overview.nextOperations"
       />
+    </div>
+    <div class="second-column">
+      <category-allocation-component
+        :category-allocations="overview.categoryAllocations"
+        :is-resizing="isResizing"
+        :loading="loading"
+      />
+      <next-objective-component
+        v-if="$vuetify.breakpoint.xl"
+        :loading="loading"
+        :next-objective="overview.nextObjective"
+      />
       <operation-type-allocation-component
+        :is-resizing="isResizing"
         :loading="loading"
         :operation-type-allocations="overview.operationTypeAllocations"
       />
     </div>
+    <next-objective-component
+      v-if="!$vuetify.breakpoint.xl"
+      :loading="loading"
+      :next-objective="overview.nextObjective"
+    />
   </v-sheet>
 </template>
 <script lang="ts" src="./TemplateDesktop.ts"></script>
@@ -41,60 +46,44 @@
     padding: 8px;
     background: transparent;
     height: calc(100vh - 8px);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, auto);
+    column-gap: 8px;
+    row-gap: 8px;
 
-    div.first-row--grid {
+    div.first-column {
       display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 112px 440px 1fr;
+      row-gap: 8px;
+    }
+
+    div.second-column {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr);
       column-gap: 8px;
-      height: calc(100% - 288px);
-      width: 100%;
+    }
 
-      @media screen and (min-width: 1366px) {
-        grid-template-columns: 1fr 440px;
-      }
-
-      @media screen and (min-width: 1920px) {
-        grid-template-columns: 1fr 600px;
-      }
+    @media screen and (min-width: 1904px) {
+      display: grid;
+      grid-template-columns: 1fr 600px;
+      grid-template-rows: auto;
+      column-gap: 8px;
+      row-gap: 8px;
 
       div.first-column {
         display: grid;
         grid-template-columns: 1fr;
+        grid-template-rows: 112px 440px 1fr;
         row-gap: 8px;
-        height: 100%;
-        width: 100%;
-
-        @media screen and (min-width: 1366px) {
-          grid-template-rows: 96px 1fr;
-        }
-
-        @media screen and (min-width: 1920px) {
-          grid-template-rows: 120px 1fr;
-        }
       }
 
       div.second-column {
         display: grid;
         grid-template-columns: 1fr;
+        grid-template-rows: 432px 120px 1fr;
         row-gap: 8px;
-        height: 100%;
-        width: 100%;
-        grid-template-rows: 1fr 132px;
-      }
-    }
-
-    div.second-row--grid {
-      display: grid;
-      column-gap: 8px;
-      height: 280px;
-      width: 100%;
-      margin-top: 8px;
-
-      @media screen and (min-width: 1366px) {
-        grid-template-columns: 1fr 440px;
-      }
-
-      @media screen and (min-width: 1920px) {
-        grid-template-columns: 1fr 600px;
       }
     }
   }

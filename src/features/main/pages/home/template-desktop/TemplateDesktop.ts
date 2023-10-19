@@ -6,6 +6,7 @@ import OperationTypeAllocationComponent from '../components/operation-type-alloc
 import NextObjectiveComponent from '../components/next-objetive/NextObjectiveComponent.vue'
 import NextOperationsComponent from '../components/next-operations/NextOperationsComponent.vue'
 import CategoryAllocationComponent from '../components/category-allocation/CategoryAllocationComponent.vue'
+import Debounce from '@/helpers/Debounce'
 
 @Component({
   components: {
@@ -23,4 +24,23 @@ export default class TemplateDesktop extends Vue {
 
   @Prop({ type: Boolean, default: false })
   readonly loading!: boolean
+
+  debounce = new Debounce()
+  isResizing = false
+
+  setIsResizing () {
+    this.isResizing = true
+    this.debounce.wait(200, () => {
+      this.isResizing = false
+    })
+  }
+
+  mounted () {
+    window.addEventListener('resize', this.setIsResizing)
+    this.setIsResizing()
+  }
+
+  beforeDestroy () {
+    window.removeEventListener('resize', this.setIsResizing)
+  }
 }

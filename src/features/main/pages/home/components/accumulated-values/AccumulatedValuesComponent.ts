@@ -15,6 +15,9 @@ export default class AccumulatedValuesComponent extends Vue {
   @Prop({ type: Boolean, default: false })
   readonly loading!: boolean
 
+  @Prop({ type: Boolean, default: false })
+  readonly isResizing!: boolean
+
   getChartSeries () {
     return this.accumulatedValues.map((accumulatedValue, index) => {
       return {

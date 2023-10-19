@@ -3,7 +3,10 @@
     <span class="subtitle-2 font-weight-bold">
       Patrimônio acumulado desde o início
     </span>
-    <highcharts :options="chartOptions" />
+    <highcharts
+      v-if="!isResizing"
+      :options="chartOptions"
+    />
   </div>
 </template>
 <script lang="ts" src="./AccumulatedValuesComponent.ts"></script>

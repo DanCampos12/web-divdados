@@ -13,6 +13,9 @@ export default class OperationTypeAllocationComponent extends Vue {
   @Prop({ type: Boolean, default: false })
   readonly loading!: boolean
 
+  @Prop({ type: Boolean, default: false })
+  readonly isResizing!: boolean
+
   getChartSeries () {
     return [{
       data: this.operationTypeAllocations.map((operationAllocation) => {
@@ -30,12 +33,13 @@ export default class OperationTypeAllocationComponent extends Vue {
   get chartOptions () {
     return {
       chart: {
-        height: 232,
+        height: this.$vuetify.breakpoint.xl ? 232 : 386,
         type: 'pie',
         spacingTop: 0,
         spacingBottom: 0,
         spacingLeft: 0,
-        spacingRight: 0
+        spacingRight: 0,
+        zooming: { mouseWheel: { enabled: false } }
       },
       title: { text: '' },
       xAxis: { labels: { enabled: false } },
@@ -85,14 +89,14 @@ export default class OperationTypeAllocationComponent extends Vue {
       },
       plotOptions: {
         pie: {
-          size: 320,
+          size: this.$vuetify.breakpoint.xl ? 320 : 280,
           innerSize: '56%',
           dataLabels: { enabled: false },
           borderRadius: 0,
           showInLegend: true,
-          startAngle: -90,
-          endAngle: 90,
-          center: ['50%', '88%']
+          startAngle: this.$vuetify.breakpoint.xl ? -90 : 0,
+          endAngle: this.$vuetify.breakpoint.xl ? 90 : 0,
+          center: this.$vuetify.breakpoint.xl ? ['50%', '88%'] : []
         }
       },
       series: this.getChartSeries()
