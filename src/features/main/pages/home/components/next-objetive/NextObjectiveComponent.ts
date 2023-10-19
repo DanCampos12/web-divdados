@@ -12,4 +12,8 @@ export default class NextObjectiveComponent extends Vue {
   get progress () {
     return (this.nextObjective.progress || 0) * 100
   }
+
+  get isMobile () {
+    return this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm
+  }
 }

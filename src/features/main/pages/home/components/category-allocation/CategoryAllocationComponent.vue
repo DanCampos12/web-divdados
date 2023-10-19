@@ -1,5 +1,9 @@
 <template>
-  <div class="full-height full-width offset rounded pa-2">
+  <div
+    :id="_uid"
+    class="full-width offset rounded pa-2"
+    :class="{ 'full-height': !isMobile, 'text-center': isMobile }"
+  >
     <span class="subtitle-2 font-weight-bold">
       Alocação por categoria
     </span>

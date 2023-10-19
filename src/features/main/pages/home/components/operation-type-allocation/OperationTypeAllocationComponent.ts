@@ -33,7 +33,7 @@ export default class OperationTypeAllocationComponent extends Vue {
   get chartOptions () {
     return {
       chart: {
-        height: this.$vuetify.breakpoint.xl ? 232 : 386,
+        height: this.$vuetify.breakpoint.xl ? 232 : this.isMobile ? 312 : 386,
         type: 'pie',
         spacingTop: 0,
         spacingBottom: 0,
@@ -48,10 +48,12 @@ export default class OperationTypeAllocationComponent extends Vue {
         enabled: true,
         backgroundColor: 'transparent',
         itemMarginBottom: 4,
-        width: 200,
-        align: 'right',
-        verticalAlign: 'middle',
-        layout: 'vertical',
+        itemMarginTop: 4,
+        layout: this.isMobile ? 'horizontal' : 'vertical',
+        width: this.isMobile ? null : 200,
+        align: this.isMobile ? 'center' : 'right',
+        verticalAlign: this.isMobile ? 'bottom' : 'middle',
+        alignColumns: false,
         itemStyle: {
           fontSize: '14px',
           fontFamily: 'Roboto',
@@ -89,7 +91,7 @@ export default class OperationTypeAllocationComponent extends Vue {
       },
       plotOptions: {
         pie: {
-          size: this.$vuetify.breakpoint.xl ? 320 : 280,
+          size: this.$vuetify.breakpoint.xl ? 320 : this.isMobile ? 200 : 280,
           innerSize: '56%',
           dataLabels: { enabled: false },
           borderRadius: 0,
@@ -101,5 +103,9 @@ export default class OperationTypeAllocationComponent extends Vue {
       },
       series: this.getChartSeries()
     }
+  }
+
+  get isMobile () {
+    return this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm
   }
 }

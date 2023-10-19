@@ -1,5 +1,5 @@
 import { OverviewCategoryAllocation, UserEntity } from '@/models'
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State } from 'vuex-class'
 
 @Component
@@ -15,6 +15,22 @@ export default class CategoryAllocationComponent extends Vue {
 
   @Prop({ type: Boolean, default: false })
   readonly isResizing!: boolean
+
+  @Watch('isResizing')
+  onIsResizingChange () {
+    if (!this.isResizing) this.setChartHeight()
+  }
+
+  _uid = ''
+  chartHeight = 386
+
+  private setChartHeight () {
+    if (!this.$vuetify.breakpoint.xl) {
+      this.chartHeight = 386
+      return
+    }
+    this.chartHeight = (document.getElementById(this._uid)?.clientHeight || 386) - 56
+  }
 
   getChartSeries () {
     return [{
@@ -34,7 +50,7 @@ export default class CategoryAllocationComponent extends Vue {
   get chartOptions () {
     return {
       chart: {
-        height: 386,
+        height: this.isMobile ? 312 : this.chartHeight,
         type: 'pie',
         spacingTop: 0,
         spacingBottom: 0,
@@ -49,10 +65,12 @@ export default class CategoryAllocationComponent extends Vue {
         enabled: true,
         backgroundColor: 'transparent',
         itemMarginBottom: 4,
-        width: 200,
-        align: 'right',
-        verticalAlign: 'middle',
-        layout: 'vertical',
+        itemMarginTop: 4,
+        layout: this.isMobile ? 'horizontal' : 'vertical',
+        width: this.isMobile ? null : 200,
+        align: this.isMobile ? 'center' : 'right',
+        verticalAlign: this.isMobile ? 'bottom' : 'middle',
+        alignColumns: false,
         itemStyle: {
           fontSize: '14px',
           fontFamily: 'Roboto',
@@ -98,7 +116,7 @@ export default class CategoryAllocationComponent extends Vue {
       },
       plotOptions: {
         pie: {
-          size: this.$vuetify.breakpoint.xl ? 320 : 280,
+          size: this.$vuetify.breakpoint.xl ? 320 : this.isMobile ? 200 : 280,
           innerSize: '56%',
           dataLabels: { enabled: false },
           borderRadius: 0,
@@ -107,5 +125,9 @@ export default class CategoryAllocationComponent extends Vue {
       },
       series: this.getChartSeries()
     }
+  }
+
+  get isMobile () {
+    return this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm
   }
 }

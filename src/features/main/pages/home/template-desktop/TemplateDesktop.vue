@@ -75,14 +75,14 @@
       div.first-column {
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 112px 440px 1fr;
+        grid-template-rows: 112px 1fr 280px;
         row-gap: 8px;
       }
 
       div.second-column {
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 432px 120px 1fr;
+        grid-template-rows: 1fr 120px 280px;
         row-gap: 8px;
       }
     }

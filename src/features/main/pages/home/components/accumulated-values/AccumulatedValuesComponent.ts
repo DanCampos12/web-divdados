@@ -1,7 +1,7 @@
 import { OverviewAccumulatedValue, UserEntity } from '@/models'
 import Highcharts from 'highcharts'
 import moment from 'moment'
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { State } from 'vuex-class'
 
 @Component
@@ -17,6 +17,22 @@ export default class AccumulatedValuesComponent extends Vue {
 
   @Prop({ type: Boolean, default: false })
   readonly isResizing!: boolean
+
+  @Watch('isResizing')
+  onIsResizingChange () {
+    if (!this.isResizing) this.setChartHeight()
+  }
+
+  _uid = ''
+  chartHeight = 400
+
+  private setChartHeight () {
+    if (!this.$vuetify.breakpoint.xl) {
+      this.chartHeight = 400
+      return
+    }
+    this.chartHeight = (document.getElementById(this._uid)?.clientHeight || 400) - 56
+  }
 
   getChartSeries () {
     return this.accumulatedValues.map((accumulatedValue, index) => {
@@ -40,7 +56,7 @@ export default class AccumulatedValuesComponent extends Vue {
     })
     const maxValue = Math.ceil(Math.max.apply(null, values))
     const minValue = Math.floor(Math.min.apply(null, values))
-    const yTickInterval = Math.ceil((maxValue - minValue) / 5)
+    const yTickInterval = Math.ceil((maxValue - minValue) / (this.isMobile ? 3 : 5))
     let currentYTick = minValue
     const yTickPositions = [minValue]
     while (currentYTick < maxValue) yTickPositions.push(currentYTick += yTickInterval)
@@ -51,7 +67,7 @@ export default class AccumulatedValuesComponent extends Vue {
     const maxDate = Math.max.apply(null, dates)
     const minDate = Math.min.apply(null, dates)
     const dateDiff = moment(maxDate).diff(minDate, 'months')
-    const xTickInterval = Math.ceil((maxDate - minDate) / Math.max(2, Math.min(dateDiff, 10)))
+    const xTickInterval = Math.ceil((maxDate - minDate) / Math.max(2, Math.min(dateDiff, (this.isMobile ? 4 : 10))))
     let currentXTick = minDate
     const xTickPositions = [currentXTick]
     while (currentXTick < maxDate) xTickPositions.push(currentXTick += xTickInterval)
@@ -60,7 +76,7 @@ export default class AccumulatedValuesComponent extends Vue {
       series: this.getChartSeries(),
       chart: {
         type: 'spline',
-        height: 400,
+        height: this.isMobile ? 312 : this.chartHeight,
         spacingTop: 32,
         spacingBottom: 0,
         spacingLeft: 8,
@@ -183,5 +199,9 @@ export default class AccumulatedValuesComponent extends Vue {
         }
       }
     }
+  }
+
+  get isMobile () {
+    return this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm
   }
 }

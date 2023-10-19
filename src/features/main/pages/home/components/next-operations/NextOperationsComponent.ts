@@ -8,4 +8,8 @@ export default class NextOperationsComponent extends Vue {
 
   @Prop({ type: Boolean, default: false })
   readonly loading!: boolean
+
+  get isMobile () {
+    return this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm
+  }
 }

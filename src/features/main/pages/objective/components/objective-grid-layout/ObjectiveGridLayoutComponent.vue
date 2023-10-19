@@ -2,7 +2,8 @@
   <div>
     <v-sheet
       class="grid-layout--container rounded scroller"
-      :class="{ 'background--offset': loading || !objectiveGridLayout.length }"
+      :class="{ 'background--offset': loading || !objectiveGridLayout.length, 'hide-scroll': isMobile }"
+      :style="{ height: isMobile ? 'calc(100vh - 220px)' : 'calc(100vh - 172px)' }"
     >
       <div
         v-if="loading"
@@ -238,10 +239,14 @@
 </template>
 <script lang="ts" src="./ObjectiveGridLayoutComponent.ts"></script>
 <style lang="scss" scoped>
+  .scroller.hide-scroll::-webkit-scrollbar {
+    width: 0px;
+    height: 16px;
+  }
+
   .v-sheet.grid-layout--container {
     padding: 0px 8px;
     overflow-x: hidden;
-    height: calc(100vh - 172px);
     background: transparent;
 
     &.background--offset {

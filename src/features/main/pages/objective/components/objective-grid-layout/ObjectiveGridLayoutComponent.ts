@@ -114,4 +114,8 @@ export default class ObjectiveGridLayoutComponent extends Vue {
       this.finishCompleteObjectiveProcess()
     }
   }
+
+  get isMobile () {
+    return this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm
+  }
 }

@@ -144,6 +144,11 @@
 </template>
 <script lang="ts" src="./TemplateMobile.ts"></script>
 <style lang="scss" scoped>
+  .scroller::-webkit-scrollbar {
+    width: 0px;
+    height: 16px;
+  }
+
   .v-sheet.event--container {
     margin: 0px 8px;
     padding: 8px;
