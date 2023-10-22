@@ -1,11 +1,21 @@
 <template>
   <div
     class="summary"
-    :class="{ 'full-height': !isMobile, 'layout--mobile text-center': isMobile }"
+    :class="{ 'full-height': !isMobile, 'layout--mobile': isMobile }"
   >
-    <div class="offset rounded d-flex flex-column justify-center pa-2">
+    <div
+      class="offset rounded d-flex flex-column justify-center pa-2"
+      :class="{ 'align-center': isMobile }"
+    >
       <span class="subtitle-2 font-weight-bold">Patrimônio total</span>
+      <v-progress-circular
+        v-if="loading"
+        class="mt-2"
+        color="primary"
+        indeterminate
+      />
       <dd-money
+        v-else
         class="text-h4 font-weight-thin"
         :value="summary.totalValue"
       />
@@ -15,7 +25,16 @@
       :class="{ 'align-center': isMobile }"
     >
       <span class="subtitle-2 font-weight-bold">Entradas</span>
-      <div class="d-flex align-center text-h4 success--text font-weight-thin">
+      <v-progress-circular
+        v-if="loading"
+        class="mt-2"
+        color="primary"
+        indeterminate
+      />
+      <div
+        v-else
+        class="d-flex align-center text-h4 success--text font-weight-thin"
+      >
         <dd-money :value="summary.inflowValue" />
         <v-icon
           class="ml-2"
@@ -31,7 +50,16 @@
       :class="{ 'align-center': isMobile }"
     >
       <span class="subtitle-2 font-weight-bold">Saídas</span>
-      <div class="d-flex align-center text-h4 error--text font-weight-thin">
+      <v-progress-circular
+        v-if="loading"
+        class="mt-2"
+        color="primary"
+        indeterminate
+      />
+      <div
+        v-else
+        class="d-flex align-center text-h4 error--text font-weight-thin"
+      >
         <dd-money :value="summary.outflowValue" />
         <v-icon
           class="ml-2"

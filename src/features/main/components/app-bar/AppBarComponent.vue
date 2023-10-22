@@ -88,8 +88,8 @@
                 mdi-calendar-month-outline
               </v-icon>
               <div class="d-flex flex-column">
-                <div class="text-small text-uppercase font-weight-bold">
-                  Data:
+                <div class="text-small font-weight-bold">
+                  Data
                 </div>
                 <dd-date
                   class="subtitle-1 mt-n2"

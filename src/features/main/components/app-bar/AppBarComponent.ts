@@ -16,8 +16,7 @@ export default class AppBarComponent extends Vue {
   showDatePicker = false
 
   onDateChange ($event: string) {
-    if ($event === this.date) return
-    this.setDate($event)
+    if ($event !== this.date) this.setDate($event)
     this.showDatePicker = false
   }
 

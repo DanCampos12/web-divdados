@@ -56,13 +56,14 @@
     div.first-column {
       display: grid;
       grid-template-columns: 1fr;
-      grid-template-rows: 112px 440px 1fr;
+      grid-template-rows: 112px 440px 280px;
       row-gap: 8px;
     }
 
     div.second-column {
       display: grid !important;
       grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: 440px;
       column-gap: 8px;
     }
 

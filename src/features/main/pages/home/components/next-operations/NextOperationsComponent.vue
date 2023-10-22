@@ -10,6 +10,41 @@
       Próximas operações
     </div>
     <div
+      v-if="loading"
+      class="full-width d-flex flex-column align-center justify-center font-weight-thin"
+      style="height: calc(100% - 24px)"
+    >
+      <v-progress-circular
+        class="ma-4"
+        color="primary"
+        indeterminate
+      />
+      <div style="font-size: 24px">
+        Carregando próximas operações...
+      </div>
+    </div>
+    <div
+      v-else-if="!nextOperations.length"
+      class="full-width d-flex flex-column align-center justify-center font-weight-thin"
+      style="height: calc(100% - 24px)"
+    >
+      <v-icon
+        class="ma-4"
+        size="80"
+      >
+        mdi-calendar-sync
+      </v-icon>
+      <div style="font-size: 24px">
+        Ainda não há lançamentos futuros.
+      </div>
+      <v-btn
+        text
+        @click="$router.push({ name: 'Main.Event' })"
+      >
+        Ir para eventos
+      </v-btn>
+    </div>
+    <div
       v-for="(item, index) in nextOperations"
       :key="index"
     >

@@ -7,6 +7,44 @@
       Próximo objetivo
     </span>
     <div
+      v-if="loading"
+      class="full-width d-flex flex-column align-center justify-center font-weight-thin"
+      style="height: calc(100% - 24px)"
+    >
+      <v-progress-circular
+        class="ma-4"
+        color="primary"
+        indeterminate
+      />
+      <div style="font-size: 16px">
+        Carregando próximo objetivo...
+      </div>
+    </div>
+    <div
+      v-else-if="!nextObjective.id"
+      class="full-width d-flex flex-column align-center justify-center font-weight-thin"
+      style="height: calc(100% - 24px)"
+    >
+      <div class="d-flex align-center">
+        <div style="font-size: 24px">
+          Ainda não há objetivos em andamento.
+        </div>
+        <v-icon
+          class="mx-2"
+          size="32"
+        >
+          mdi-bullseye-arrow
+        </v-icon>
+      </div>
+      <v-btn
+        text
+        @click="$router.push({ name: 'Main.Objective' })"
+      >
+        Ir para objetivos
+      </v-btn>
+    </div>
+    <div
+      v-else
       class="d-flex flex-column justify-center"
       style="height: calc(100% - 16px)"
     >
