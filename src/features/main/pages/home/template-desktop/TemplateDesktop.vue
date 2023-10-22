@@ -36,6 +36,7 @@
       v-if="!$vuetify.breakpoint.xl"
       :loading="loading"
       :next-objective="overview.nextObjective"
+      style="height: 120px"
     />
   </v-sheet>
 </template>

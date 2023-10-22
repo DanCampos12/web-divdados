@@ -3,9 +3,9 @@ import { ActionTree } from 'vuex'
 import { EventService } from '../service/EventService'
 
 export const actions: ActionTree<EventState, RootState> = {
-  async getEvents (_, userId: string) {
+  async getEvents (_, { userId, date }: { userId: string, date: string }) {
     try {
-      const response = await EventService.getEvents(userId)
+      const response = await EventService.getEvents({ userId, date })
       return response.data || []
     } catch (error: any) {
       throw error.response.data

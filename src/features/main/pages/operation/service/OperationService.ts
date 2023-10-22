@@ -3,8 +3,8 @@ import { Operation, OperationEntity } from '@/models'
 import { AxiosResponse } from 'axios'
 
 export class OperationService extends ApiService {
-  static async getOperations (userId: string): Promise<AxiosResponse<Operation[]>> {
-    return this.httpService.get(`v1/users/${userId}/operations`)
+  static async getOperations ({ userId, date }: { userId: string, date: string }): Promise<AxiosResponse<Operation[]>> {
+    return this.httpService.get(`v1/users/${userId}/operations/${date}`)
   }
 
   static async postOperation (operation: OperationEntity): Promise<AxiosResponse<Operation>> {

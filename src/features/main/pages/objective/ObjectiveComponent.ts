@@ -1,4 +1,4 @@
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import ObjectiveActionsComponent from './components/objective-actions/ObjectiveActionsComponent.vue'
 import ObjectiveGridLayoutComponent from './components/objective-grid-layout/ObjectiveGridLayoutComponent.vue'
 import ObjectiveFormComponent from './components/objective-form/ObjectiveFormComponent.vue'
@@ -15,7 +15,7 @@ import helper from './ObjectiveHelper'
 })
 export default class ObjectiveComponent extends Vue {
   @Action('getObjectives', { namespace: 'objective' })
-  readonly getObjectives$!: (userId: string) => Promise<Objective[]>
+  readonly getObjectives$!: ({ userId, date }: { userId: string, date: string }) => Promise<Objective[]>
 
   @State('user', { namespace: 'auth' })
   readonly user!: UserEntity
@@ -32,6 +32,14 @@ export default class ObjectiveComponent extends Vue {
   @Mutation('setIsEditMode', { namespace: 'objective' })
   readonly setIsEditMode!: (value: boolean) => void
 
+  @State('date', { namespace: 'home' })
+  readonly date!: string
+
+  @Watch('date')
+  onDateChange () {
+    this.getObjectives()
+  }
+
   objectives: Objective[] = []
   loading = false
   formVisible = false
@@ -45,7 +53,10 @@ export default class ObjectiveComponent extends Vue {
   async getObjectives () {
     try {
       this.loading = true
-      this.objectives = await this.getObjectives$(this.user.id || '')
+      this.objectives = await this.getObjectives$({
+        userId: this.user.id || '',
+        date: this.date
+      })
       this.setObjectiveGridLayout(this.objectivesFiltered)
     } finally {
       this.loading = false

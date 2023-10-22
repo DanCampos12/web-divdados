@@ -1,5 +1,5 @@
 import { getTemplate } from '@/helpers'
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import TemplateDesktop from './template-desktop/TemplateDesktop.vue'
 import TemplateMobile from './template-mobile/TemplateMobile.vue'
 import { Action, State } from 'vuex-class'
@@ -20,6 +20,11 @@ export default class HomeComponent extends Vue {
 
   @State('user', { namespace: 'auth' })
   readonly user!: UserEntity
+
+  @Watch('date')
+  onDateChange () {
+    this.getOverview()
+  }
 
   loading = false
   overview = new OverviewEntity()

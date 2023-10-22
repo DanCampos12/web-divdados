@@ -10,7 +10,7 @@
         class="d-flex align-center"
       >
         <v-btn
-          class="mr-2"
+          class="mr-1"
           fab
           small
           text
@@ -23,21 +23,92 @@
         <div class="d-flex align-center">
           <img
             :src="require('@/assets/logo.png')"
-            width="40"
+            width="32"
           >
-          <div class="d-flex flex-column ml-2">
-            <span class="text-h6 font-weight-bold">
-              DivDados
-            </span>
-          </div>
+          <v-menu
+            v-model="showDatePicker"
+            :close-on-content-click="false"
+            offset-y
+            permanent
+            transition="slide-y-transition"
+          >
+            <template #activator="{ on }">
+              <div
+                class="d-flex align-center button-sort"
+                v-on="on"
+              >
+                <v-icon
+                  class="mx-1"
+                  color="dark"
+                  size="22"
+                >
+                  mdi-calendar-month-outline
+                </v-icon>
+                <div class="d-flex flex-column">
+                  <div class="text-small text-uppercase font-weight-bold">
+                    Data:
+                  </div>
+                  <dd-date
+                    class="subtitle-1 mt-n2"
+                    pattern="DD/MM/YYYY"
+                    :value="date"
+                  />
+                </div>
+              </div>
+            </template>
+            <v-date-picker
+              no-title
+              :value="date"
+              @change="onDateChange"
+            />
+          </v-menu>
         </div>
       </div>
-      <div v-else>
-        Bem-vindo, <b>{{ user.name }}</b>!
+      <div
+        v-else
+        class="d-flex align-center"
+      >
+        <v-menu
+          v-model="showDatePicker"
+          :close-on-content-click="false"
+          offset-y
+          permanent
+          transition="slide-y-transition"
+        >
+          <template #activator="{ on }">
+            <div
+              class="d-flex align-center button-sort"
+              v-on="on"
+            >
+              <v-icon
+                class="mx-1"
+                color="dark"
+                size="22"
+              >
+                mdi-calendar-month-outline
+              </v-icon>
+              <div class="d-flex flex-column">
+                <div class="text-small text-uppercase font-weight-bold">
+                  Data:
+                </div>
+                <dd-date
+                  class="subtitle-1 mt-n2"
+                  pattern="DD/MM/YYYY"
+                  :value="date"
+                />
+              </div>
+            </div>
+          </template>
+          <v-date-picker
+            no-title
+            :value="date"
+            @change="onDateChange"
+          />
+        </v-menu>
       </div>
       <div class="d=flex align-center">
         <v-btn
-          class="mr-2"
+          class="mr-1"
           fab
           text
           x-small
@@ -47,13 +118,12 @@
           </v-icon>
         </v-btn>
         <v-btn
+          class="background offset-text"
+          elevation="0"
           fab
-          text
           x-small
         >
-          <v-icon size="32">
-            mdi-account-circle-outline
-          </v-icon>
+          {{ userInitials }}
         </v-btn>
       </div>
     </div>

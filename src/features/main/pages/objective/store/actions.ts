@@ -3,9 +3,9 @@ import { ActionTree } from 'vuex'
 import { ObjectiveService } from '../service/ObjectiveService'
 
 export const actions: ActionTree<ObjectiveState, RootState> = {
-  async getObjectives (_, userId: string) {
+  async getObjectives (_, { userId, date }: { userId: string, date: string }) {
     try {
-      const response = await ObjectiveService.getObjectives(userId)
+      const response = await ObjectiveService.getObjectives({ userId, date })
       return response.data || []
     } catch (error: any) {
       throw error.response.data

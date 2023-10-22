@@ -1,4 +1,4 @@
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import OperationFilterComponent from './components/operation-filter/OperationFilterComponent.vue'
 import OperationTableComponent from './components/operation-table/OperationTableComponent.vue'
 import OperationFormComponent from './components/operation-form/OperationFormComponent.vue'
@@ -18,13 +18,21 @@ export default class OperationComponent extends Vue {
   readonly getCategories$!: (userId: string) => Promise<Category[]>
 
   @Action('getOperations', { namespace: 'operation' })
-  readonly getOperations$!: (userId: string) => Promise<Operation[]>
+  readonly getOperations$!: ({ userId, date }: { userId: string, date: string }) => Promise<Operation[]>
 
   @State('user', { namespace: 'auth' })
   readonly user!: UserEntity
 
   @State('filters', { namespace: 'operation' })
   readonly filters!: { searchText: string; inflow: boolean; outflow: boolean }
+
+  @State('date', { namespace: 'home' })
+  readonly date!: string
+
+  @Watch('date')
+  onDateChange () {
+    this.getOperations()
+  }
 
   tabSelected = 0
   categories: Category[] = []
@@ -36,7 +44,10 @@ export default class OperationComponent extends Vue {
   async getOperations () {
     try {
       this.loading = true
-      this.operations = await this.getOperations$(this.user.id || '')
+      this.operations = await this.getOperations$({
+        userId: this.user.id || '',
+        date: this.date
+      })
     } finally {
       this.loading = false
     }

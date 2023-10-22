@@ -3,8 +3,8 @@ import { Event, EventEntity } from '@/models'
 import { AxiosResponse } from 'axios'
 
 export class EventService extends ApiService {
-  static async getEvents (userId: string): Promise<AxiosResponse<Event[]>> {
-    return this.httpService.get(`v1/users/${userId}/events`)
+  static async getEvents ({ userId, date }: { userId: string, date: string }): Promise<AxiosResponse<Event[]>> {
+    return this.httpService.get(`v1/users/${userId}/events/${date}`)
   }
 
   static async postEvent (event: EventEntity): Promise<AxiosResponse<Event>> {

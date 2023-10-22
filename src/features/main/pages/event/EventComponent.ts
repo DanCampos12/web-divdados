@@ -1,5 +1,5 @@
 import { Category, Event, EventEntity, UserEntity } from '@/models'
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import EventFilterComponent from './components/event-filter/EventFilterComponent.vue'
 import EventTableComponent from './components/event-table/EventTableComponent.vue'
 import EventFormComponent from './components/event-form/EventFormComponent.vue'
@@ -18,13 +18,21 @@ export default class EventComponent extends Vue {
   readonly getCategories$!: (userId: string) => Promise<Category[]>
 
   @Action('getEvents', { namespace: 'event' })
-  readonly getEvents$!: (userId: string) => Promise<Event[]>
+  readonly getEvents$!: ({ userId, date }: { userId: string, date: string }) => Promise<Event[]>
 
   @State('user', { namespace: 'auth' })
   readonly user!: UserEntity
 
   @State('filters', { namespace: 'event' })
   readonly filters!: { searchText: string; inflow: boolean; outflow: boolean }
+
+  @State('date', { namespace: 'home' })
+  readonly date!: string
+
+  @Watch('date')
+  onDateChange () {
+    this.getEvents()
+  }
 
   categories: Category[] = []
   events: Event[] = []
@@ -35,7 +43,10 @@ export default class EventComponent extends Vue {
   async getEvents () {
     try {
       this.loading = true
-      this.events = await this.getEvents$(this.user.id || '')
+      this.events = await this.getEvents$({
+        userId: this.user.id || '',
+        date: this.date
+      })
     } finally {
       this.loading = false
     }

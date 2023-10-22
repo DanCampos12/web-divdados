@@ -3,8 +3,8 @@ import { Objective, ObjectiveEntity, ReorderObjectiveDTO } from '@/models'
 import { AxiosResponse } from 'axios'
 
 export class ObjectiveService extends ApiService {
-  static async getObjectives (userId: string): Promise<AxiosResponse<ObjectiveService[]>> {
-    return this.httpService.get(`v1/users/${userId}/objectives`)
+  static async getObjectives ({ userId, date }: { userId: string, date: string }): Promise<AxiosResponse<ObjectiveService[]>> {
+    return this.httpService.get(`v1/users/${userId}/objectives/${date}`)
   }
 
   static async postObjective (objective: ObjectiveEntity): Promise<AxiosResponse<Objective>> {
