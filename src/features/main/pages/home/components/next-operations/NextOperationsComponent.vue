@@ -4,10 +4,29 @@
     :class="{ 'full-height': !isMobile }"
   >
     <div
-      class="subtitle-2 font-weight-bold mb-2"
+      class="d-flex align-center justify-space-between subtitle-2 font-weight-bold"
       :class="{ 'text-center': isMobile }"
     >
       Próximas operações
+      <v-tooltip
+        v-if="!!nextOperations.length && !loading"
+        left
+      >
+        <template #activator="{ on }">
+          <v-btn
+            fab
+            text
+            x-small
+            v-on="on"
+            @click="$router.push({ name: 'Main.Operation' })"
+          >
+            <v-icon>
+              mdi-open-in-new
+            </v-icon>
+          </v-btn>
+        </template>
+        Ir para operações
+      </v-tooltip>
     </div>
     <div
       v-if="loading"

@@ -16,6 +16,8 @@ export default class OperationTypeAllocationComponent extends Vue {
   @Prop({ type: Boolean, default: false })
   readonly isResizing!: boolean
 
+  selectedLegends: string[] = []
+
   getBarChartSeries () {
     return this.operationTypeAllocations.reverse().map((operationAllocation) => {
       return {
@@ -76,6 +78,15 @@ export default class OperationTypeAllocationComponent extends Vue {
     }
   }
 
+  onLegendClick (legendName: string) {
+    if (this.selectedLegends.includes(legendName)) {
+      const index = this.selectedLegends.indexOf(legendName)
+      this.selectedLegends.splice(index, 1)
+      return
+    }
+    this.selectedLegends.push(legendName)
+  }
+
   get chartOptions () {
     return {
       chart: {
@@ -87,7 +98,26 @@ export default class OperationTypeAllocationComponent extends Vue {
         spacingRight: this.$vuetify.breakpoint.xl ? 24 : 0,
         zooming: { mouseWheel: { enabled: false } }
       },
-      title: { text: '' },
+      title: {
+        verticalAlign: 'middle',
+        floating: true,
+        text: this.$vuetify.breakpoint.xl
+          ? ''
+          : `<div style="text-align: center">
+          <div style="font-size: 14px; font-weight: bold">Nº de operações</div><br>
+          <div style="filter: blur(${this.user.preference.displayValues ? '0px' : '10px'});">${this.totalValueFormatted}</div>
+        </div>`,
+        x: this.isMobile ? -2 : -112,
+        y: this.isMobile ? -8 : 16,
+        style: {
+          fontSize: this.isMobile ? '20px' : '26px',
+          fontFamily: 'Roboto',
+          color: this.$vuetify.theme.dark ? '#FFFFFF' : '#000000',
+          fontWeight: 100,
+          textAlign: 'center',
+          textTransform: 'capitalize'
+        }
+      },
       xAxis: {
         labels: { enabled: false },
         lineWidth: 0,
@@ -143,7 +173,12 @@ export default class OperationTypeAllocationComponent extends Vue {
           innerSize: '82%',
           dataLabels: { enabled: false },
           borderRadius: 0,
-          showInLegend: true
+          showInLegend: true,
+          point: {
+            events: {
+              legendItemClick: (event: any) => { this.onLegendClick(event.target.options.name) }
+            }
+          }
         },
         series: {
           stacking: 'normal',
@@ -159,6 +194,14 @@ export default class OperationTypeAllocationComponent extends Vue {
       },
       series: this.$vuetify.breakpoint.xl ? this.getBarChartSeries() : this.getPieChartSeries()
     }
+  }
+
+  get totalValueFormatted () {
+    const totalValue = this.operationTypeAllocations
+      .filter((item) => !this.selectedLegends.includes(item.description))
+      .reduce((acc, item) => acc + item.count, 0)
+      .toString()
+    return this.user.preference.displayValues ? totalValue : '0'.repeat(totalValue.length)
   }
 
   get isMobile () {

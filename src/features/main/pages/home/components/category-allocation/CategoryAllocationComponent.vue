@@ -4,8 +4,27 @@
     class="full-width offset rounded pa-2"
     :class="{ 'full-height': !isMobile, 'text-center': isMobile }"
   >
-    <span class="subtitle-2 font-weight-bold">
+    <span class="d-flex align-center justify-space-between subtitle-2 font-weight-bold">
       Alocação por categoria
+      <v-tooltip
+        v-if="!!categoryAllocations.length && !loading"
+        left
+      >
+        <template #activator="{ on }">
+          <v-btn
+            fab
+            text
+            x-small
+            v-on="on"
+            @click="$router.push({ name: 'Main.Category' })"
+          >
+            <v-icon>
+              mdi-open-in-new
+            </v-icon>
+          </v-btn>
+        </template>
+        Ir para categorias
+      </v-tooltip>
     </span>
     <div
       v-if="loading"

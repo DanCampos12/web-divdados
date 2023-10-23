@@ -117,17 +117,88 @@
             mdi-bell-outline
           </v-icon>
         </v-btn>
-        <v-btn
-          class="background offset-text"
-          elevation="0"
-          fab
-          x-small
+        <v-menu
+          bottom
+          offset-y
+          permanent
         >
-          {{ userInitials }}
-        </v-btn>
+          <template #activator="{ on }">
+            <v-btn
+              class="background--text"
+              color="primary"
+              elevation="0"
+              fab
+              x-small
+              v-on="on"
+            >
+              <div style="margin-right: 1px">
+                {{ userInitials }}
+              </div>
+            </v-btn>
+          </template>
+          <v-sheet width="260">
+            <v-list :disabled="loading">
+              <v-list-item @click="onThemeChange">
+                <v-icon class="mr-2">
+                  mdi-theme-light-dark
+                </v-icon>
+                Alterar tema
+              </v-list-item>
+              <v-list-item @click="onDisplayValuesChange">
+                <v-icon class="mr-2">
+                  {{ user.preference.displayValues ? 'mdi-eye-off-outline' : 'mdi-eye-outline' }}
+                </v-icon>
+                {{ user.preference.displayValues ? 'Esconder valores' : 'Visualizar valores' }}
+              </v-list-item>
+              <v-list-item @click="$router.push({ name: 'Main.Settings' })">
+                <v-icon class="mr-2">
+                  mdi-account-cog-outline
+                </v-icon>
+                Conta
+              </v-list-item>
+              <v-list-item @click="showSignOutDialog = true">
+                <v-icon class="mr-2">
+                  mdi-account-arrow-right-outline
+                </v-icon>
+                Sair
+              </v-list-item>
+            </v-list>
+          </v-sheet>
+        </v-menu>
       </div>
     </div>
+    <v-dialog
+      v-model="showSignOutDialog"
+      max-width="340px"
+      persistent
+      transition="dialog-transition"
+    >
+      <v-card>
+        <v-card-title primary-title>
+          Deseja sair do sistema?
+        </v-card-title>
+        <v-card-text>Operações não salvas poderão ser perdidas.</v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            text
+            @click="showSignOutDialog = false"
+          >
+            Cancelar
+          </v-btn>
+          <v-btn
+            class="offset--text"
+            color="action"
+            :disabled="loading"
+            elevation="0"
+            :loading="loading"
+            @click="signOut"
+          >
+            Confirmar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-app-bar>
 </template>
-
 <script lang="ts" src="./AppBarComponent.ts"></script>

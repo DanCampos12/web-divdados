@@ -73,4 +73,12 @@ export class UserEntity implements User {
     this.passwordContainsSpecialChar() &&
     this.passwordsMatch()
   }
+
+  toggleTheme () {
+    this.preference.dark = !this.preference.dark
+  }
+
+  toggleDisplayValues () {
+    this.preference.displayValues = !this.preference.displayValues
+  }
 }

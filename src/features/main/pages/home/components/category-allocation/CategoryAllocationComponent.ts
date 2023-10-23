@@ -48,6 +48,15 @@ export default class CategoryAllocationComponent extends Vue {
     }]
   }
 
+  onLegendClick (legendName: string) {
+    if (this.selectedLegends.includes(legendName)) {
+      const index = this.selectedLegends.indexOf(legendName)
+      this.selectedLegends.splice(index, 1)
+      return
+    }
+    this.selectedLegends.push(legendName)
+  }
+
   get chartOptions () {
     return {
       chart: {
@@ -64,12 +73,12 @@ export default class CategoryAllocationComponent extends Vue {
         floating: true,
         text: `<div style="text-align: center">
           <div style="font-size: 14px; font-weight: bold">Total</div><br>
-          <div>${this.totalValueFormatted}</div>
+          <div style="filter: blur(${this.user.preference.displayValues ? '0px' : '10px'});">${this.totalValueFormatted}</div>
         </div>`,
-        x: -114,
-        y: 8,
+        x: this.isMobile ? -2 : -114,
+        y: this.isMobile ? -24 : 8,
         style: {
-          fontSize: '26px',
+          fontSize: this.isMobile ? '20px' : '26px',
           fontFamily: 'Roboto',
           color: this.$vuetify.theme.dark ? '#FFFFFF' : '#000000',
           fontWeight: 100,
@@ -151,20 +160,12 @@ export default class CategoryAllocationComponent extends Vue {
     }
   }
 
-  onLegendClick (legendName: string) {
-    if (this.selectedLegends.includes(legendName)) {
-      const index = this.selectedLegends.indexOf(legendName)
-      this.selectedLegends.splice(index, 1)
-      return
-    }
-    this.selectedLegends.push(legendName)
-  }
-
   get totalValueFormatted () {
     const totalValue = this.categoryAllocations
       .filter((item) => !this.selectedLegends.includes(item.name))
       .reduce((acc, item) => acc + item.value, 0)
-    return totalValue.toLocaleString('pt-br', { style: 'currency', currency: 'BRL', maximumFractionDigits: 2 })
+    const valueFormatted = totalValue.toLocaleString('pt-br', { style: 'currency', currency: 'BRL', maximumFractionDigits: 2 })
+    return this.user.preference.displayValues ? valueFormatted : '0'.repeat(valueFormatted.length)
   }
 
   get isMobile () {
