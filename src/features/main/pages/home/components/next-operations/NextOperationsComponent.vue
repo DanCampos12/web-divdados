@@ -44,16 +44,61 @@
         Ir para eventos
       </v-btn>
     </div>
-    <div
-      v-for="(item, index) in nextOperations"
-      :key="index"
-    >
+    <div v-else>
       <div
-        v-if="isMobile"
-        class="table--body-mobile"
+        v-for="(item, index) in nextOperations"
+        :key="index"
       >
-        <div class="operation--info">
-          <div class="d-flex justify-center">
+        <div
+          v-if="isMobile"
+          class="table--body-mobile"
+        >
+          <div class="operation--info">
+            <div class="d-flex justify-center">
+              <v-icon
+                class="mr-2"
+                :color="item.type === 'I' ? 'success' : 'error'"
+                size="22"
+              >
+                {{ item.type === 'I' ? 'mdi-arrow-top-right-bold-box-outline' : 'mdi-arrow-bottom-right-bold-box-outline' }}
+              </v-icon>
+            </div>
+            <div class="d-flex align-center justify-space-between">
+              <div class="d-flex flex-column justify-center">
+                <span class="d-flex align-center font-weight-bold">
+                  {{ item.description }}
+                </span>
+                <div
+                  class="text-caption"
+                  style="margin-top: -6px"
+                >
+                  {{ item.categoryName }}
+                </div>
+              </div>
+              <div class="d-flex flex-column justify-center text-right">
+                <dd-money
+                  class=" font-weight-bold"
+                  :value="item.value"
+                />
+                <dd-date
+                  class="text-caption"
+                  style="margin-top: -6px"
+                  :value="item.date"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="action--buttons d-flex align-center text-caption justify-space-between">
+            <div>
+              {{ item.type === 'I' ? 'Entrada' : 'Saída' }}
+            </div>
+          </div>
+        </div>
+        <div
+          v-else
+          class="table--body-desktop"
+        >
+          <div class="pl-2 d-flex align-center">
             <v-icon
               class="mr-2"
               :color="item.type === 'I' ? 'success' : 'error'"
@@ -61,63 +106,20 @@
             >
               {{ item.type === 'I' ? 'mdi-arrow-top-right-bold-box-outline' : 'mdi-arrow-bottom-right-bold-box-outline' }}
             </v-icon>
+            {{ item.description }}
           </div>
-          <div class="d-flex align-center justify-space-between">
-            <div class="d-flex flex-column justify-center">
-              <span class="d-flex align-center font-weight-bold">
-                {{ item.description }}
-              </span>
-              <div
-                class="text-caption"
-                style="margin-top: -6px"
-              >
-                {{ item.categoryName }}
-              </div>
-            </div>
-            <div class="d-flex flex-column justify-center text-right">
-              <dd-money
-                class=" font-weight-bold"
-                :value="item.value"
-              />
-              <dd-date
-                class="text-caption"
-                style="margin-top: -6px"
-                :value="item.date"
-              />
-            </div>
+          <div class="d-flex align-center justify-center">
+            {{ item.categoryName }}
           </div>
-        </div>
-        <div class="action--buttons d-flex align-center text-caption justify-space-between">
-          <div>
+          <div class="d-flex align-center justify-center">
             {{ item.type === 'I' ? 'Entrada' : 'Saída' }}
           </div>
-        </div>
-      </div>
-      <div
-        v-else
-        class="table--body-desktop"
-      >
-        <div class="pl-2 d-flex align-center">
-          <v-icon
-            class="mr-2"
-            :color="item.type === 'I' ? 'success' : 'error'"
-            size="22"
-          >
-            {{ item.type === 'I' ? 'mdi-arrow-top-right-bold-box-outline' : 'mdi-arrow-bottom-right-bold-box-outline' }}
-          </v-icon>
-          {{ item.description }}
-        </div>
-        <div class="d-flex align-center justify-center">
-          {{ item.categoryName }}
-        </div>
-        <div class="d-flex align-center justify-center">
-          {{ item.type === 'I' ? 'Entrada' : 'Saída' }}
-        </div>
-        <div class="d-flex align-center justify-center">
-          <dd-date :value="item.date" />
-        </div>
-        <div class="pr-2 d-flex align-center justify-end">
-          <dd-money :value="item.value" />
+          <div class="d-flex align-center justify-center">
+            <dd-date :value="item.date" />
+          </div>
+          <div class="pr-2 d-flex align-center justify-end">
+            <dd-money :value="item.value" />
+          </div>
         </div>
       </div>
     </div>

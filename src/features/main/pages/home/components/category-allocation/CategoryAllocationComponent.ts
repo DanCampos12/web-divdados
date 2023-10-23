@@ -23,6 +23,7 @@ export default class CategoryAllocationComponent extends Vue {
 
   _uid = ''
   chartHeight = 386
+  selectedLegends: string[] = []
 
   private setChartHeight () {
     if (!this.$vuetify.breakpoint.xl) {
@@ -58,7 +59,24 @@ export default class CategoryAllocationComponent extends Vue {
         spacingRight: 0,
         zooming: { mouseWheel: { enabled: false } }
       },
-      title: { text: '' },
+      title: {
+        verticalAlign: 'middle',
+        floating: true,
+        text: `<div style="text-align: center">
+          <div style="font-size: 14px; font-weight: bold">Total</div><br>
+          <div>${this.totalValueFormatted}</div>
+        </div>`,
+        x: -114,
+        y: 8,
+        style: {
+          fontSize: '26px',
+          fontFamily: 'Roboto',
+          color: this.$vuetify.theme.dark ? '#FFFFFF' : '#000000',
+          fontWeight: 100,
+          textAlign: 'center',
+          textTransform: 'capitalize'
+        }
+      },
       xAxis: { labels: { enabled: false } },
       yAxis: { labels: { enabled: false } },
       legend: {
@@ -117,14 +135,36 @@ export default class CategoryAllocationComponent extends Vue {
       plotOptions: {
         pie: {
           size: this.$vuetify.breakpoint.xl ? 320 : this.isMobile ? 200 : 280,
-          innerSize: '56%',
+          innerSize: '82%',
           dataLabels: { enabled: false },
           borderRadius: 0,
-          showInLegend: true
+          showInLegend: true,
+          point: {
+            events: {
+              legendItemClick: (event: any) => { this.onLegendClick(event.target.options.name) }
+            }
+          }
         }
       },
       series: this.getChartSeries()
+
     }
+  }
+
+  onLegendClick (legendName: string) {
+    if (this.selectedLegends.includes(legendName)) {
+      const index = this.selectedLegends.indexOf(legendName)
+      this.selectedLegends.splice(index, 1)
+      return
+    }
+    this.selectedLegends.push(legendName)
+  }
+
+  get totalValueFormatted () {
+    const totalValue = this.categoryAllocations
+      .filter((item) => !this.selectedLegends.includes(item.name))
+      .reduce((acc, item) => acc + item.value, 0)
+    return totalValue.toLocaleString('pt-br', { style: 'currency', currency: 'BRL', maximumFractionDigits: 2 })
   }
 
   get isMobile () {

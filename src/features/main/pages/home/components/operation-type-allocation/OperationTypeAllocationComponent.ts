@@ -140,7 +140,7 @@ export default class OperationTypeAllocationComponent extends Vue {
       plotOptions: {
         pie: {
           size: this.isMobile ? 200 : 280,
-          innerSize: '56%',
+          innerSize: '82%',
           dataLabels: { enabled: false },
           borderRadius: 0,
           showInLegend: true
