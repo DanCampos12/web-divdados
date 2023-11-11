@@ -2,8 +2,8 @@ import { Component, Vue } from 'vue-property-decorator'
 import TemplateDesktop from './components/template-desktop/TemplateDesktop.vue'
 import TemplateMobile from './components/template-mobile/TemplateMobile.vue'
 import { getTemplate } from '@/helpers'
-import { Action, Mutation, State } from 'vuex-class'
-import { Snackbar, User, UserEntity } from '@/models'
+import { ChangePasswordDTO, Snackbar, User, UserEntity } from '@/models'
+import { Action, Mutation } from 'vuex-class'
 
 @Component({
   components: {
@@ -11,30 +11,26 @@ import { Snackbar, User, UserEntity } from '@/models'
     TemplateMobile
   }
 })
-export default class SignInComponent extends Vue {
-  @Action('signIn', { namespace: 'auth' })
-  readonly signIn$!: ({ email, password }:
-    { email: string, password: string }) => Promise<{ user: User; idToken: string }>
-
-  @State('user', { namespace: 'auth' })
-  readonly user!: UserEntity
+export default class ChangePasswordComponent extends Vue {
+  @Action('changePassword', { namespace: 'auth' })
+  readonly changePassword!: (changePasswordDTO: ChangePasswordDTO) => Promise<{ user: User; idToken: string }>
 
   @Mutation('setSnackbar')
   readonly setSnackbar!: (snackbar: Snackbar) => void
 
   loading = false
 
-  async signIn ({ email, password }: { email: string, password: string }) {
+  async save (userEntity: UserEntity) {
     try {
       this.loading = true
-      await this.signIn$({ email, password })
+      await this.changePassword(new ChangePasswordDTO(userEntity, ''))
       this.setSnackbar({
         visible: true,
         color: 'green lighten-1',
         icon: 'mdi-check-circle',
-        messages: ['Login efetuado com sucesso']
+        messages: ['Operação realizada com sucesso']
       })
-      this.$router.replace({ name: this.user.flowComplete ? 'Main.Home' : 'Auth.ChangePassword' })
+      setTimeout(() => { this.$router.replace({ name: 'Main.Home' }) }, 750)
     } catch (errors: any) {
       this.setSnackbar({
         visible: true,

@@ -35,8 +35,8 @@ export default class HttpService {
   }
 
   static async onRequest (requestConfig: Record<string, any>) {
-    const authConfig = Vue.$authorizer.getLocalStorageAuthConfig()
-    if (authConfig.idToken) requestConfig.headers.authorization = `Bearer ${authConfig.idToken}`
+    const idToken = Vue.$authorizer.getLocalStorageIdToken()
+    if (idToken) requestConfig.headers.authorization = `Bearer ${idToken}`
     requestConfig.headers['x-client-id'] = process.env.VUE_APP_CLIENT_ID
     return requestConfig
   }

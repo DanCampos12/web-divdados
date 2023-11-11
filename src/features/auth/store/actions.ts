@@ -24,26 +24,26 @@ export const actions: ActionTree<AuthState, RootState> = {
   async signIn ({ commit }: { commit: Commit }, { email, password }: { email: string, password: string }) {
     try {
       const response = await AuthService.signIn({ email, password })
-      const authConfig = {
-        id: response.data.user.id || '',
-        idToken: response.data.idToken
-      }
-      Vue.$authorizer.setLocalStorageAuthConfig(authConfig)
+      Vue.$authorizer.setLocalStorageIdToken(response.data.idToken)
       commit('setUser', response.data.user)
       return response.data
     } catch (error: any) {
       throw error.response.data
     }
   },
-  async refreshToken ({ commit }: { commit: Commit }, { id, idToken }: { id: string; idToken: string }) {
+  async refreshToken ({ commit }: { commit: Commit }, { idToken }: { idToken: string }) {
     try {
-      const response = await AuthService.refreshToken({ id, idToken })
-      const authConfig = {
-        id: response.data.user.id || '',
-        idToken: response.data.idToken
-      }
-      Vue.$authorizer.setLocalStorageAuthConfig(authConfig)
+      const response = await AuthService.refreshToken({ idToken })
+      Vue.$authorizer.setLocalStorageIdToken(response.data.idToken)
       commit('setUser', response.data.user)
+      return response.data
+    } catch (error: any) {
+      throw error.response.data
+    }
+  },
+  async recoverPassword (_, { email }: { email: string }) {
+    try {
+      const response = await AuthService.recoverPassword({ email })
       return response.data
     } catch (error: any) {
       throw error.response.data
@@ -52,11 +52,7 @@ export const actions: ActionTree<AuthState, RootState> = {
   async changePassword ({ commit }: { commit: Commit }, changePasswordDTO: ChangePasswordDTO) {
     try {
       const response = await AuthService.changePassword(changePasswordDTO)
-      const authConfig = {
-        id: response.data.user.id || '',
-        idToken: response.data.idToken
-      }
-      Vue.$authorizer.setLocalStorageAuthConfig(authConfig)
+      Vue.$authorizer.setLocalStorageIdToken(response.data.idToken)
       commit('setUser', response.data.user)
       return response.data
     } catch (error: any) {
@@ -74,7 +70,7 @@ export const actions: ActionTree<AuthState, RootState> = {
   },
   async signOut ({ commit }: { commit: Commit }) {
     try {
-      Vue.$authorizer.clearLocalStorageAuthConfig()
+      Vue.$authorizer.setLocalStorageIdToken('')
       commit('setUser', new UserEntity())
     } catch (error: any) {
       throw error.response.data

@@ -11,6 +11,7 @@ export class UserEntity implements User {
   password: string;
   confirmPassword: string;
   preference: UserPreference;
+  flowComplete: boolean;
 
   constructor () {
     this.name = ''
@@ -20,6 +21,7 @@ export class UserEntity implements User {
     this.password = ''
     this.confirmPassword = ''
     this.preference = new UserPreferenceEntity()
+    this.flowComplete = false
   }
 
   static parse (user: User) {
@@ -33,6 +35,7 @@ export class UserEntity implements User {
       instance.password = user.password || ''
       instance.confirmPassword = user.confirmPassword || ''
       instance.preference = UserPreferenceEntity.parse(user.preference)
+      instance.flowComplete = user.flowComplete
     }
     return instance
   }

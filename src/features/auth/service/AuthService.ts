@@ -22,13 +22,17 @@ export class AuthService extends ApiService {
     return this.httpService.post('/v1/users/auth/sign-in', { email, password })
   }
 
-  static async refreshToken ({ id, idToken }: { id: string; idToken: string }):
+  static async refreshToken ({ idToken }: { idToken: string }):
     Promise<AxiosResponse<SignInResponse>> {
-    return this.httpService.post(`/v1/users/${id}/auth/refresh-token`, { id, idToken })
+    return this.httpService.post('/v1/users/auth/refresh-token', { idToken })
   }
 
   static async putUser (user: UserEntity): Promise<AxiosResponse<User>> {
     return this.httpService.put(`/v1/users/${user.id}`, user)
+  }
+
+  static async recoverPassword ({ email }: { email: string }): Promise<AxiosResponse<User>> {
+    return this.httpService.post('/v1/users/auth/recover-password', { email })
   }
 
   static async changePassword (changePasswordDTO: ChangePasswordDTO): Promise<AxiosResponse<SignInResponse>> {

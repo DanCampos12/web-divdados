@@ -88,8 +88,8 @@
             <div class="pl-2 d-flex align-center">
               <div
                 :style="{
-                  height: '24px',
-                  width: '24px',
+                  height: '20px',
+                  width: '6px',
                   borderRadius: '6px',
                   background: item.color,
                   marginRight: '8px'

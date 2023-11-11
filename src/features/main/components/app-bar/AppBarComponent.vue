@@ -10,7 +10,6 @@
         class="d-flex align-center"
       >
         <v-btn
-          class="mr-1"
           fab
           small
           text
@@ -21,10 +20,6 @@
           </v-icon>
         </v-btn>
         <div class="d-flex align-center">
-          <img
-            :src="require('@/assets/logo.png')"
-            width="32"
-          >
           <v-menu
             v-model="showDatePicker"
             :close-on-content-click="false"
@@ -38,15 +33,18 @@
                 v-on="on"
               >
                 <v-icon
-                  class="mx-1"
+                  class="mr-1"
                   color="dark"
                   size="22"
                 >
                   mdi-calendar-month-outline
                 </v-icon>
-                <div class="d-flex flex-column">
-                  <div class="text-small text-uppercase font-weight-bold">
-                    Data:
+                <div
+                  class="d-flex flex-column"
+                  style="margin-top: 4px"
+                >
+                  <div class="text-small font-weight-bold">
+                    Data
                   </div>
                   <dd-date
                     class="subtitle-1 mt-n2"
@@ -62,6 +60,17 @@
               @change="onDateChange"
             />
           </v-menu>
+          <div
+            class="full-height full-width d-flex align-center justify-center"
+            style="position: absolute; top: 0; left: 0; z-index: -1"
+          >
+            <img
+              :src="require('@/assets/logo.png')"
+              style="cursor: pointer"
+              width="32"
+              @click="$router.push({ name: 'Main.Home' })"
+            >
+          </div>
         </div>
       </div>
       <div
@@ -83,11 +92,13 @@
               <v-icon
                 class="mx-1"
                 color="dark"
-                size="22"
               >
                 mdi-calendar-month-outline
               </v-icon>
-              <div class="d-flex flex-column">
+              <div
+                class="d-flex flex-column"
+                style="margin-top: 4px"
+              >
                 <div class="text-small font-weight-bold">
                   Data
                 </div>

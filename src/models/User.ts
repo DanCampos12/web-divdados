@@ -9,4 +9,5 @@ export interface User {
   password?: string;
   confirmPassword?: string;
   preference: UserPreference;
+  flowComplete: boolean;
 }

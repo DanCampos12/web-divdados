@@ -10,9 +10,15 @@
     <div class="d-flex align-center pa-4">
       <img
         :src="require('@/assets/logo.png')"
+        style="cursor: pointer"
         width="40"
+        @click="$router.push({ name: 'Main.Home' })"
       >
-      <div class="d-flex flex-column ml-4">
+      <div
+        class="d-flex flex-column ml-4"
+        style="cursor: pointer"
+        @click="$router.push({ name: 'Main.Home' })"
+      >
         <span class="text-h6 font-weight-bold">
           DivDados
         </span>

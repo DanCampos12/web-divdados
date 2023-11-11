@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { Operation } from './Operation'
 
 export class OperationEntity implements Operation {
@@ -16,7 +17,7 @@ export class OperationEntity implements Operation {
     this.type = ''
     this.description = ''
     this.value = null
-    this.date = ''
+    this.date = moment(new Date()).format('YYYY-MM-DD')
     this.effected = true
     this.userId = ''
     this.categoryId = ''

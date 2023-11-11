@@ -82,6 +82,15 @@
             Cadastre-se
           </v-btn>
         </v-form>
+        <v-btn
+          class="mt-12"
+          color="dark"
+          elevation="0"
+          text
+          @click="$router.push({ name: 'Auth.RecoverPassword' })"
+        >
+          Esqueci minha senha
+        </v-btn>
       </div>
     </div>
   </v-container>

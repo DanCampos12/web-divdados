@@ -17,7 +17,6 @@ export default class MainComponent extends Vue {
   readonly user!: UserEntity
 
   created () {
-    if (!this.user.isLogged()) this.$router.replace({ name: 'Auth.SignIn' })
     this.$vuetify.theme.dark = this.user.preference.dark
   }
 
