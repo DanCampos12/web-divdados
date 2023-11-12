@@ -25,7 +25,7 @@
         class="ma-4"
         size="80"
       >
-        mdi-database-remove-outline
+        mdi-database-minus-outline
       </v-icon>
       <div style="font-size: 24px">
         A consulta não retornou dados para serem exibidos.

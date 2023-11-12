@@ -7,6 +7,7 @@ import { operation } from '@/features/main/pages/operation/store'
 import { event } from '@/features/main/pages/event/store'
 import { objective } from '@/features/main/pages/objective/store'
 import { home } from '@/features/main/pages/home/store'
+import { notification } from '@/features/main/components/notification/store'
 
 Vue.use(Vuex)
 
@@ -30,7 +31,8 @@ const store: StoreOptions<RootState> = {
     operation,
     event,
     objective,
-    home
+    home,
+    notification
   }
 }
 

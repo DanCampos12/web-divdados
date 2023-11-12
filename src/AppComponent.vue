@@ -12,7 +12,7 @@
       v-model="snackbar.visible"
       :color="snackbar.color"
       elevation="24"
-      max-width="240"
+      max-width="320"
       :timeout="2000"
       top
       vertical

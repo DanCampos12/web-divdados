@@ -1,8 +1,13 @@
 import { Snackbar, UpdatePreferenceDTO, User, UserEntity } from '@/models'
 import { Component, Vue } from 'vue-property-decorator'
 import { Action, Mutation, State } from 'vuex-class'
+import NotificationComponent from '../notification/NotificationComponent.vue'
 
-@Component
+@Component({
+  components: {
+    NotificationComponent
+  }
+})
 export default class AppBarComponent extends Vue {
   @Action('signOut', { namespace: 'auth' })
   readonly signOut$!: () => Promise<void>

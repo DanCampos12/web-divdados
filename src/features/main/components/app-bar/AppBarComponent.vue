@@ -117,17 +117,8 @@
           />
         </v-menu>
       </div>
-      <div class="d=flex align-center">
-        <v-btn
-          class="mr-1"
-          fab
-          text
-          x-small
-        >
-          <v-icon size="26">
-            mdi-bell-outline
-          </v-icon>
-        </v-btn>
+      <div class="d-flex align-center">
+        <notification-component />
         <v-menu
           bottom
           offset-y
