@@ -76,7 +76,7 @@ export default class CategoryAllocationComponent extends Vue {
           <div style="filter: blur(${this.user.preference.displayValues ? '0px' : '10px'});">${this.totalValueFormatted}</div>
         </div>`,
         x: this.isMobile ? -2 : -114,
-        y: this.isMobile ? -24 : 8,
+        y: this.isMobile ? -32 : 8,
         style: {
           fontSize: this.isMobile ? '20px' : '26px',
           fontFamily: 'Roboto',
@@ -95,9 +95,15 @@ export default class CategoryAllocationComponent extends Vue {
         itemMarginTop: 4,
         layout: this.isMobile ? 'horizontal' : 'vertical',
         width: this.isMobile ? null : 200,
+        maxHeight: this.isMobile ? 74 : null,
         align: this.isMobile ? 'center' : 'right',
         verticalAlign: this.isMobile ? 'bottom' : 'middle',
         alignColumns: false,
+        navigation: {
+          style: {
+            color: this.$vuetify.theme.dark ? '#FFFFFF' : '#000000'
+          }
+        },
         itemStyle: {
           fontSize: '14px',
           fontFamily: 'Roboto',

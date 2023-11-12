@@ -19,7 +19,16 @@
             mdi-menu
           </v-icon>
         </v-btn>
-        <div class="d-flex align-center">
+        <img
+          :src="require('@/assets/logo.png')"
+          style="cursor: pointer"
+          width="32"
+          @click="$router.push({ name: 'Main.Home' })"
+        >
+        <div
+          class="full-height d-flex align-center justify-center"
+          style="position: absolute; top: 0; left: 50%; right: 100%;"
+        >
           <v-menu
             v-model="showDatePicker"
             :close-on-content-click="false"
@@ -39,19 +48,11 @@
                 >
                   mdi-calendar-month-outline
                 </v-icon>
-                <div
-                  class="d-flex flex-column"
-                  style="margin-top: 4px"
-                >
-                  <div class="text-small font-weight-bold">
-                    Data
-                  </div>
-                  <dd-date
-                    class="subtitle-1 mt-n2"
-                    pattern="DD/MM/YYYY"
-                    :value="date"
-                  />
-                </div>
+                <dd-date
+                  class="subtitle-1 font-weight-bold"
+                  pattern="DD/MM/YYYY"
+                  :value="date"
+                />
               </div>
             </template>
             <v-date-picker
@@ -60,17 +61,6 @@
               @change="onDateChange"
             />
           </v-menu>
-          <div
-            class="full-height full-width d-flex align-center justify-center"
-            style="position: absolute; top: 0; left: 0; z-index: -1"
-          >
-            <img
-              :src="require('@/assets/logo.png')"
-              style="cursor: pointer"
-              width="32"
-              @click="$router.push({ name: 'Main.Home' })"
-            >
-          </div>
         </div>
       </div>
       <div

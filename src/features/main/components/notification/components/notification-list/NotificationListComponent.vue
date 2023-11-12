@@ -46,18 +46,29 @@
         </v-icon>
         <div class="d-flex flex-column justify-center">
           <div class="d-flex align-center justify-space-between">
-            <span class="font-weight-bold">
+            <span
+              class="font-weight-bold"
+              :class="{ 'subtitle-2': isMobile }"
+            >
               {{ notification.title }}
             </span>
             <dd-date
-              class="subtitle-2"
+              class="mr-2"
+              :class="{
+                'text-small': isMobile,
+                'subtitle-2': !isMobile
+              }"
               format="DD/MM/YYYY HH:mm"
               :value="notification.date"
             />
           </div>
           <div
-            class="subtitle-2"
-            :class="{ 'font-weight-light': notification.read }"
+            :class="{
+              'font-weight-light': notification.read,
+              'font-weight-medium': !notification.read,
+              'text-small': isMobile,
+              'subtitle-2': !isMobile
+            }"
           >
             {{ notification.message }}
           </div>
@@ -75,7 +86,9 @@
           width="50%"
           @click="$emit('updateNotificationRead', [notification])"
         >
-          Marcar como lida
+          <span :class="{ 'subtitle-2': isMobile }">
+            Marcar como lida
+          </span>
           <v-icon
             right
             size="22"
@@ -92,7 +105,9 @@
           width="50%"
           @click="$emit('removeNotification', [notification])"
         >
-          Apagar notificação
+          <span :class="{ 'subtitle-2': isMobile }">
+            Remover Notificação
+          </span>
           <v-icon
             right
             size="22"

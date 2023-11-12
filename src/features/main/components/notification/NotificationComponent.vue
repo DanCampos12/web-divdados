@@ -3,6 +3,7 @@
     <v-menu
       v-model="showMenu"
       :close-on-content-click="false"
+      min-width="360"
       :nudge-left="isMobile ? 280 : 380"
       offset-y
       permanent
@@ -10,7 +11,6 @@
       <template #activator="{ on }">
         <v-btn
           class="mr-2"
-          color="primary"
           fab
           text
           x-small
@@ -32,16 +32,23 @@
       <v-sheet
         class="notification--container"
         height="600"
-        width="420"
+        :width="isMobile ? '360' : '420'"
       >
         <div class="header">
           <div
             class="d-flex justify-space-between align-center"
             style="height: 48px"
           >
-            <span class="subtitle-1 font-weight-bold">
-              Notificações
-            </span>
+            <v-badge
+              color="orange darken-3"
+              dot
+              inline
+              :value="notificationsUnreadCount"
+            >
+              <span class="subtitle-1 font-weight-bold">
+                Notificações
+              </span>
+            </v-badge>
             <div class="d-flex align-center">
               <v-tooltip
                 v-if="!loading && notificationsFiltered.some((item) => !item.read)"
@@ -88,8 +95,18 @@
                     </v-icon>
                   </v-btn>
                 </template>
-                Apagar tudo
+                Remover tudo
               </v-tooltip>
+              <v-btn
+                fab
+                text
+                x-small
+                @click="showMenu = false"
+              >
+                <v-icon size="22">
+                  mdi-close
+                </v-icon>
+              </v-btn>
             </div>
           </div>
         </div>
@@ -137,16 +154,16 @@
       color="primary"
       elevation="24"
       max-width="320"
-      right
+      :right="!isMobile"
       style="margin-top: 48px"
       :timeout="1500"
       top
       vertical
     >
-      <div class="d-flex align-center offset--text">
+      <div class="d-flex align-center white--text">
         <v-icon
           class="mr-3"
-          color="offset"
+          color="white"
           size="28"
         >
           mdi-bell-alert-outline

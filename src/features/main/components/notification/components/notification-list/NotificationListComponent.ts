@@ -41,4 +41,8 @@ export default class NotificationListComponent extends Vue {
   notificationIsRemoving (notification: Notification) {
     return this.notificationsRemoving.some((item) => item === notification.id)
   }
+
+  get isMobile () {
+    return this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm
+  }
 }
