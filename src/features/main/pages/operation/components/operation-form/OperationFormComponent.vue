@@ -26,8 +26,8 @@
               autocomplete="off"
               class="mr-1"
               dense
-              :disabled="disableForEditing(true)"
-              :hint="fieldHintMessage(true)"
+              :disabled="disableForEditing(false)"
+              :hint="fieldHintMessage(false)"
               label="Data"
               name="date"
               outlined
@@ -56,8 +56,8 @@
               autocomplete="off"
               class="mr-1"
               dense
-              :disabled="disableForEditing(true)"
-              :hint="fieldHintMessage(true)"
+              :disabled="disableForEditing(false)"
+              :hint="fieldHintMessage(false)"
               item-text="name"
               item-value="key"
               :items="operationTypes"

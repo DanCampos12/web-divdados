@@ -41,7 +41,7 @@
           color="success"
           size="22"
         >
-          mdi-arrow-top-right-bold-box-outline
+          mdi-arrow-up-thin-circle-outline
         </v-icon>
       </div>
     </div>
@@ -66,7 +66,7 @@
           color="error"
           size="22"
         >
-          mdi-arrow-bottom-right-bold-box-outline
+          mdi-arrow-down-thin-circle-outline
         </v-icon>
       </div>
     </div>

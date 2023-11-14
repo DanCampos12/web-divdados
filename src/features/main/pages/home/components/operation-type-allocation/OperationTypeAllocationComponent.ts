@@ -107,8 +107,8 @@ export default class OperationTypeAllocationComponent extends Vue {
           <div style="font-size: 14px; font-weight: bold">Nº de operações</div><br>
           <div style="filter: blur(${this.user.preference.displayValues ? '0px' : '10px'});">${this.totalValueFormatted}</div>
         </div>`,
-        x: this.isMobile ? -2 : -112,
-        y: this.isMobile ? -8 : 16,
+        x: this.isMobile ? -72 : -114,
+        y: this.isMobile ? 16 : 8,
         style: {
           fontSize: this.isMobile ? '20px' : '26px',
           fontFamily: 'Roboto',
@@ -140,10 +140,10 @@ export default class OperationTypeAllocationComponent extends Vue {
         backgroundColor: 'transparent',
         itemMarginBottom: 4,
         itemMarginTop: 4,
-        layout: this.isMobile || this.$vuetify.breakpoint.xl ? 'horizontal' : 'vertical',
-        width: this.isMobile || this.$vuetify.breakpoint.xl ? null : 200,
-        align: this.isMobile || this.$vuetify.breakpoint.xl ? 'center' : 'right',
-        verticalAlign: this.isMobile || this.$vuetify.breakpoint.xl ? 'bottom' : 'middle',
+        layout: this.$vuetify.breakpoint.xl ? 'horizontal' : 'vertical',
+        width: this.$vuetify.breakpoint.xl ? null : this.isMobile ? 120 : 200,
+        align: this.$vuetify.breakpoint.xl ? 'center' : 'right',
+        verticalAlign: this.$vuetify.breakpoint.xl ? 'bottom' : 'middle',
         alignColumns: false,
         itemStyle: {
           fontSize: '14px',
@@ -169,7 +169,7 @@ export default class OperationTypeAllocationComponent extends Vue {
       },
       plotOptions: {
         pie: {
-          size: this.isMobile ? 200 : 280,
+          size: this.isMobile ? 180 : 280,
           innerSize: '82%',
           dataLabels: { enabled: false },
           borderRadius: 0,

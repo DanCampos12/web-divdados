@@ -44,7 +44,7 @@
     </div>
     <div
       v-else-if="!nextOperations.length"
-      class="full-width d-flex flex-column align-center justify-center font-weight-thin"
+      class="full-width d-flex flex-column align-center justify-center font-weight-thin text-center"
       style="height: calc(100% - 24px)"
     >
       <v-icon
@@ -76,10 +76,10 @@
             <div class="d-flex justify-center">
               <v-icon
                 class="mr-2"
-                :color="item.type === 'I' ? 'success' : 'error'"
+                :color="item.type === 'I' ? 'success' : 'error lighten-2'"
                 size="22"
               >
-                {{ item.type === 'I' ? 'mdi-arrow-top-right-bold-box-outline' : 'mdi-arrow-bottom-right-bold-box-outline' }}
+                {{ item.type === 'I' ? 'mdi-arrow-up-thin-circle-outline' : 'mdi-arrow-down-thin-circle-outline' }}
               </v-icon>
             </div>
             <div class="d-flex align-center justify-space-between">
@@ -120,10 +120,10 @@
           <div class="pl-2 d-flex align-center">
             <v-icon
               class="mr-2"
-              :color="item.type === 'I' ? 'success' : 'error'"
+              :color="item.type === 'I' ? 'success' : 'error lighten-2'"
               size="22"
             >
-              {{ item.type === 'I' ? 'mdi-arrow-top-right-bold-box-outline' : 'mdi-arrow-bottom-right-bold-box-outline' }}
+              {{ item.type === 'I' ? 'mdi-arrow-up-thin-circle-outline' : 'mdi-arrow-down-thin-circle-outline' }}
             </v-icon>
             {{ item.description }}
           </div>

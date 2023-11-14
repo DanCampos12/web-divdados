@@ -3,7 +3,7 @@
     <v-sheet
       class="grid-layout--container rounded scroller"
       :class="{ 'background--offset': loading || !objectiveGridLayout.length, 'hide-scroll': isMobile }"
-      :style="{ height: isMobile ? 'calc(100vh - 220px)' : 'calc(100vh - 172px)' }"
+      :style="{ height: isMobile ? 'calc(100vh - 230px)' : 'calc(100vh - 180px)' }"
     >
       <div
         v-if="loading"

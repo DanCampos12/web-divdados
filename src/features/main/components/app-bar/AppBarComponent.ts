@@ -89,7 +89,7 @@ export default class AppBarComponent extends Vue {
   get userInitials () {
     const initials = this.user.name.split(' ') || []
     if (initials.length > 1) return `${initials.shift()?.charAt(0)}${initials.pop()?.charAt(0)}`.toUpperCase()
-    return `${initials.shift()?.charAt(0)}}`.toUpperCase() || ''
+    return `${initials.shift()?.charAt(0)}`.toUpperCase() || ''
   }
 
   get isMobile () {

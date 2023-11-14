@@ -61,6 +61,22 @@
               @change="onDateChange"
             />
           </v-menu>
+          <v-tooltip
+            max-width="240"
+            right
+          >
+            <template #activator="{ on }">
+              <v-icon
+                class="ml-2"
+                size="18"
+                style="margin-bottom: 2px"
+                v-on="on"
+              >
+                mdi-information-outline
+              </v-icon>
+            </template>
+            Clique na data para avançar ou retroagir de acordo com o período que deseja visualizar
+          </v-tooltip>
         </div>
       </div>
       <div
@@ -106,6 +122,22 @@
             @change="onDateChange"
           />
         </v-menu>
+        <v-tooltip
+          max-width="240"
+          right
+        >
+          <template #activator="{ on }">
+            <v-icon
+              class="ml-2"
+              size="18"
+              style="margin-top: 7px"
+              v-on="on"
+            >
+              mdi-information-outline
+            </v-icon>
+          </template>
+          Clique na data para avançar ou retroagir de acordo com o período que deseja visualizar
+        </v-tooltip>
       </div>
       <div class="d-flex align-center">
         <notification-component />

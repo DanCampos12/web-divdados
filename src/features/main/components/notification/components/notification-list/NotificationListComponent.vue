@@ -1,5 +1,8 @@
 <template>
-  <div class="body scroller mt-2">
+  <div
+    class="body scroller mt-2"
+    :class="{ 'hide-scroll': isMobile }"
+  >
     <div
       v-if="loading"
       class="full-width full-height d-flex flex-column align-center justify-center font-weight-thin"
@@ -121,6 +124,11 @@
 </template>
 <script lang="ts" src="./NotificationListComponent.ts"></script>
 <style lang="scss" scoped>
+  .scroller.hide-scroll::-webkit-scrollbar {
+    width: 0px;
+    height: 16px;
+  }
+
   div.body {
     height: calc(100% - 104px);
     width: 100%;

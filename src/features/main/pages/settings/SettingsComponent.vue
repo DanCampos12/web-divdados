@@ -1,5 +1,8 @@
 <template>
-  <div class="settings--container scroller">
+  <div
+    class="settings--container scroller"
+    :class="{ 'hide-scroll': isMobile }"
+  >
     <v-sheet
       class="full-width full-height rounded ma-2 scroller"
       color="offset"
@@ -36,6 +39,11 @@
 </template>
 <script lang="ts" src="./SettingsComponent.ts"></script>
 <style lang="scss" scoped>
+  .scroller.hide-scroll::-webkit-scrollbar {
+    width: 0px;
+    height: 16px;
+  }
+
   div.settings--container {
     margin: auto;
     max-width: 1080px;

@@ -5,8 +5,8 @@ class CategoryFormHelper {
     return category.isEdit() ? 'category/putCategory' : 'category/postCategory'
   }
 
-  disableConfirmButton (formValid: boolean, operationInProgress: boolean, isAutomaticInput: boolean) {
-    return !formValid || operationInProgress || isAutomaticInput
+  disableConfirmButton (formValid: boolean, operationInProgress: boolean) {
+    return !formValid || operationInProgress
   }
 
   rulesRequired (value: string) {

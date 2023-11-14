@@ -28,7 +28,7 @@
     </div>
     <div class="d-flex align-center">
       <v-btn
-        v-if="tabSelected === 0"
+        v-if="tabSelected === 0 && !!objectives.length"
         class="offset--text mr-2"
         :color="toggleIsEditButtonConfig[Number(isEditMode)].color"
         elevation="0"

@@ -37,6 +37,7 @@ export default class CategoryFormComponent extends Vue {
       this.operationInProgress = true
       const action = helper.getActionAPI(this.category)
       this.category.userId = this.user.id || ''
+      if (!this.category.maxValueMonthly) this.category.maxValueMonthly = null
       await this.$store.dispatch(action, this.category)
       this.setSnackbar({
         visible: true,
@@ -67,7 +68,7 @@ export default class CategoryFormComponent extends Vue {
   }
 
   get disableConfirmButton () {
-    return helper.disableConfirmButton(this.formValid, this.operationInProgress, this.category.isAutomaticInput)
+    return helper.disableConfirmButton(this.formValid, this.operationInProgress)
   }
 
   get fieldHintMessage () {

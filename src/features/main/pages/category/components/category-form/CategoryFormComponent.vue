@@ -6,7 +6,7 @@
     :value="value"
   >
     <v-card
-      :height="category.isAutomaticInput ? 300 : 340"
+      :height="340"
       width="320"
     >
       <div
@@ -14,6 +14,22 @@
         style="height: 40px"
       >
         {{ formTitle }}
+        <v-tooltip
+          v-if="category.isAutomaticInput"
+          max-width="240"
+          right
+        >
+          <template #activator="{ on }">
+            <v-icon
+              class="ml-2"
+              size="18"
+              v-on="on"
+            >
+              mdi-information-outline
+            </v-icon>
+          </template>
+          Não é possível alterar o nome de uma categoria cadastrada automaticamente
+        </v-tooltip>
       </div>
       <div class="pa-3">
         <v-form
@@ -38,23 +54,17 @@
             autocomplete="off"
             background-color="offset"
             dense
-            :disabled="category.isAutomaticInput"
-            :hint="fieldHintMessage"
             label="Valor máximo mensal"
             name="maxValueMonthly"
             outlined
             persistent-hint
           />
-          <div
-            v-if="!category.isAutomaticInput"
-            @click="menuColor = true"
-          >
+          <div @click="menuColor = true">
             Clique para selecionar uma cor
           </div>
           <v-menu
             v-model="menuColor"
             :close-on-content-click="false"
-            :disabled="category.isAutomaticInput"
             offset-y
           >
             <template #activator="{ on }">
