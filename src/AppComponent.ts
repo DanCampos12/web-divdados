@@ -59,7 +59,9 @@ export default class AppComponent extends Vue {
   }
 
   onTouchStart (event: TouchEvent) {
-    if (window.scrollY !== 0) return
+    const scrollElement = document.querySelector('.scroller') as HTMLElement
+    const scrollY = scrollElement ? scrollElement.scrollTop : window.scrollY
+    if (scrollY !== 0) return
     this.isDragging = true
     this.startY = event.touches[0].clientY
   }
@@ -67,7 +69,7 @@ export default class AppComponent extends Vue {
   onTouchMove (event: TouchEvent) {
     if (!this.isDragging) return
     const currentY = event.touches[0].clientY
-    this.showRefreshButton = (currentY - this.startY) > 80
+    this.showRefreshButton = (currentY - this.startY) > 200
   }
 
   onTouchEnd () {
