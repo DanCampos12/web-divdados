@@ -1,10 +1,13 @@
-import { Category, EventEntity, EventPeriod, Snackbar, UserEntity } from '@/models'
+import { Category, CategoryEntity, EventEntity, EventPeriod, Snackbar, UserEntity } from '@/models'
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { Mutation, State } from 'vuex-class'
+import { Action, Mutation, State } from 'vuex-class'
 import helper from './EventFormHelper'
 
 @Component
 export default class EventFormComponent extends Vue {
+  @Action('postCategory', { namespace: 'category' })
+  readonly postCategory!: (category: CategoryEntity) => Promise<CategoryEntity>
+
   @State('user', { namespace: 'auth' })
   readonly user!: UserEntity
 
@@ -32,6 +35,9 @@ export default class EventFormComponent extends Vue {
   formValid = false
   operationInProgress = false
   event = new EventEntity()
+  isNewCategory = false
+  category = new CategoryEntity()
+  menuColor = false
   operationTypes = [
     { key: 'I', name: 'Entrada' },
     { key: 'O', name: 'Saída' }
@@ -47,6 +53,11 @@ export default class EventFormComponent extends Vue {
       this.operationInProgress = true
       const action = helper.getActionAPI(this.event)
       this.event.userId = this.user.id || ''
+      this.category.userId = this.user.id || ''
+      if (this.isNewCategory) {
+        const category = await this.postCategory(this.category)
+        this.event.categoryId = category.id || ''
+      }
       await this.$store.dispatch(action, this.event)
       this.setSnackbar({
         visible: true,
@@ -72,6 +83,9 @@ export default class EventFormComponent extends Vue {
     this.$emit('closeForm')
     setTimeout(() => {
       this.event = new EventEntity()
+      this.category = new CategoryEntity()
+      this.isNewCategory = false
+      this.menuColor = false
       this.$refs.form.resetValidation()
     }, 250)
   }

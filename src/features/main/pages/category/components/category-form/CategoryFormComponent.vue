@@ -52,7 +52,6 @@
           <dd-money-input
             v-model="category.maxValueMonthly"
             autocomplete="off"
-            background-color="offset"
             dense
             label="Valor máximo mensal"
             name="maxValueMonthly"

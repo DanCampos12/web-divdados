@@ -35,6 +35,24 @@
         </div>
       </div>
     </v-snackbar>
+    <v-scroll-y-transition>
+      <v-btn
+        v-if="showRefreshButton"
+        color="primary"
+        fab
+        fixed
+        style="left: 50%; margin-left: -16px;"
+        top
+        x-small
+      >
+        <v-progress-circular
+          color="offset"
+          indeterminate
+          size="20"
+          width="2"
+        />
+      </v-btn>
+    </v-scroll-y-transition>
   </v-app>
 </template>
 <script lang="ts" src="./AppComponent.ts"></script>

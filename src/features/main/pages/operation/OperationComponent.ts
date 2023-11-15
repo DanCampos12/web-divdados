@@ -44,6 +44,7 @@ export default class OperationComponent extends Vue {
   async getOperations () {
     try {
       this.loading = true
+      this.categories = await this.getCategories$(this.user.id || '')
       this.operations = await this.getOperations$({
         userId: this.user.id || '',
         date: this.date
@@ -55,7 +56,6 @@ export default class OperationComponent extends Vue {
 
   async created () {
     this.loading = true
-    this.categories = await this.getCategories$(this.user.id || '')
     this.getOperations()
   }
 

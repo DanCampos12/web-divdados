@@ -6,7 +6,7 @@
     :value="value"
   >
     <v-card
-      height="320"
+      :height="isNewCategory ? 520 : 360"
       width="400"
     >
       <div
@@ -73,8 +73,8 @@
               autocomplete="off"
               class="ml-1"
               dense
-              :disabled="disableForEditing(false)"
-              :hint="fieldHintMessage(false)"
+              :disabled="disableForEditing(false) || isNewCategory"
+              :hint="fieldHintMessage(false, 'category')"
               item-text="name"
               item-value="id"
               :items="categories"
@@ -82,7 +82,7 @@
               name="category"
               outlined
               persistent-hint
-              :rules="[rules.required]"
+              :rules="isNewCategory ? [] : [rules.required]"
               style="width: 50%"
             />
           </div>
@@ -98,6 +98,77 @@
             persistent-hint
             :rules="[rules.required]"
           />
+          <div
+            v-if="!operation.isEdit()"
+            class="d-flex align-center mb-3"
+            style="cursor: pointer"
+            @click="isNewCategory = !isNewCategory"
+          >
+            <v-simple-checkbox
+              v-model="isNewCategory"
+              color="primary"
+              dense
+            />
+            Nova categoria
+          </div>
+          <div v-if="isNewCategory">
+            <v-text-field
+              v-model="category.name"
+              autocomplete="off"
+              dense
+              :disabled="category.isAutomaticInput"
+              :hint="fieldHintMessage"
+              label="Nome"
+              name="name"
+              outlined
+              persistent-hint
+              :rules="[rules.required]"
+            />
+            <div @click="menuColor = true">
+              Clique para selecionar uma cor
+            </div>
+            <v-menu
+              v-model="menuColor"
+              :close-on-content-click="false"
+              offset-y
+            >
+              <template #activator="{ on }">
+                <v-btn
+                  block
+                  :color="category.color"
+                  elevation="0"
+                  large
+                  v-on="on"
+                />
+              </template>
+              <v-card>
+                <v-card-text>
+                  <v-color-picker
+                    v-model="category.color"
+                    class="elevation-0"
+                    hide-inputs
+                    hide-mode-switch
+                    mode="hexa"
+                  />
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer />
+                  <v-btn
+                    class="on-primary--text"
+                    color="primary"
+                    elevation="0"
+                    fab
+                    x-small
+                    @click="menuColor = false"
+                  >
+                    <v-icon size="20">
+                      mdi-check
+                    </v-icon>
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-menu>
+          </div>
         </v-form>
       </div>
       <div

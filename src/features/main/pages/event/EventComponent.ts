@@ -43,6 +43,7 @@ export default class EventComponent extends Vue {
   async getEvents () {
     try {
       this.loading = true
+      this.categories = await this.getCategories$(this.user.id || '')
       this.events = await this.getEvents$({
         userId: this.user.id || '',
         date: this.date
@@ -54,7 +55,6 @@ export default class EventComponent extends Vue {
 
   async created () {
     this.loading = true
-    this.categories = await this.getCategories$(this.user.id || '')
     this.getEvents()
   }
 

@@ -64,7 +64,27 @@
             name="email"
             outlined
             :rules="[rules.required, rules.email]"
-          />
+          >
+            <template #append>
+              <v-tooltip
+                bottom
+                max-width="320"
+              >
+                <template #activator="{ on }">
+                  <v-icon
+                    color="error lighten-3"
+                    size="22"
+                    v-on="on"
+                  >
+                    mdi-alert-circle-outline
+                  </v-icon>
+                </template>
+                Proteja sua conta! Certifique-se de cadastrar um e-mail válido.
+                Isso não só facilita a recuperação de senha, mas também nos permite entrar em contato para fornecer assistência personalizada.
+                Sua segurança é nossa prioridade.
+              </v-tooltip>
+            </template>
+          </v-text-field>
           <div class="d-flex align-center">
             <v-text-field
               v-model="userEntity.password"

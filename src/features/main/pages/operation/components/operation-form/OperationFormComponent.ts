@@ -1,10 +1,13 @@
-import { Category, OperationEntity, Snackbar, UserEntity } from '@/models'
+import { Category, CategoryEntity, OperationEntity, Snackbar, UserEntity } from '@/models'
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { Mutation, State } from 'vuex-class'
+import { Action, Mutation, State } from 'vuex-class'
 import helper from './OperationFormHelper'
 
 @Component
 export default class OperationFormComponent extends Vue {
+  @Action('postCategory', { namespace: 'category' })
+  readonly postCategory!: (category: CategoryEntity) => Promise<CategoryEntity>
+
   @State('user', { namespace: 'auth' })
   readonly user!: UserEntity
 
@@ -29,14 +32,17 @@ export default class OperationFormComponent extends Vue {
   formValid = false
   operationInProgress = false
   operation = new OperationEntity()
+  isNewCategory = false
+  category = new CategoryEntity()
+  menuColor = false
   operationTypes = [
     { key: 'I', name: 'Entrada' },
     { key: 'O', name: 'Saída' }
   ]
 
   $refs!: any
-  rules: Record<string | number, (value: string) => boolean | string> = {
-    required: (value: string) => !!value || 'Campo obrigatório'
+  rules: Record<string, (value: string) => boolean | string> = {
+    required: helper.rulesRequired
   }
 
   async save () {
@@ -44,6 +50,11 @@ export default class OperationFormComponent extends Vue {
       this.operationInProgress = true
       const action = helper.getActionAPI(this.operation)
       this.operation.userId = this.user.id || ''
+      this.category.userId = this.user.id || ''
+      if (this.isNewCategory) {
+        const category = await this.postCategory(this.category)
+        this.operation.categoryId = category.id || ''
+      }
       await this.$store.dispatch(action, this.operation)
       this.setSnackbar({
         visible: true,
@@ -69,6 +80,9 @@ export default class OperationFormComponent extends Vue {
     this.$emit('closeForm')
     setTimeout(() => {
       this.operation = new OperationEntity()
+      this.category = new CategoryEntity()
+      this.isNewCategory = false
+      this.menuColor = false
       this.$refs.form.resetValidation()
     }, 250)
   }
@@ -77,7 +91,8 @@ export default class OperationFormComponent extends Vue {
     return helper.disableForEditing(this.operation, disableInEdit)
   }
 
-  fieldHintMessage (disableInEdit: boolean) {
+  fieldHintMessage (disableInEdit: boolean, fieldType?: string) {
+    if (fieldType === 'category' && this.isNewCategory) return 'Campo não editável'
     return helper.fieldHintMessage(helper.disableForEditing(this.operation, disableInEdit))
   }
 

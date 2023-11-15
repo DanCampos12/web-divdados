@@ -70,7 +70,7 @@
                         mdi-information-outline
                       </v-icon>
                     </template>
-                    Categorias cadastradas automaticamente não podem ser alteradas
+                    Categorias cadastradas automaticamente não podem ser excluídas
                   </v-tooltip>
                 </div>
                 <dd-money
@@ -105,11 +105,11 @@
                     @click="$emit('categorySelectedToEdit', item)"
                   >
                     <v-icon size="20">
-                      {{ item.isAutomaticInput ? 'mdi-eye-outline' : 'mdi-pencil-outline' }}
+                      mdi-pencil-outline
                     </v-icon>
                   </v-btn>
                 </template>
-                {{ item.isAutomaticInput ? 'Visualizar' : 'Alterar' }}
+                Alterar
               </v-tooltip>
               <v-tooltip left>
                 <template #activator="{ on }">
