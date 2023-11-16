@@ -4,6 +4,9 @@ import { Snackbar, UserEntity } from './models'
 
 @Component
 export default class AppComponent extends Vue {
+  @State('isEditMode', { namespace: 'objective' })
+  readonly isObjectiveEditMode!: boolean
+
   @State('user', { namespace: 'auth' })
   readonly user!: UserEntity
 
@@ -59,9 +62,11 @@ export default class AppComponent extends Vue {
   }
 
   onTouchStart (event: TouchEvent) {
-    const scrollElement = document.querySelector('.scroller') as HTMLElement
-    const scrollY = scrollElement ? scrollElement.scrollTop : window.scrollY
-    if (scrollY !== 0) return
+    const scrollElements = document.querySelectorAll('.scroller')
+    let scrollYTotal = 0
+    scrollElements.forEach((element) => { scrollYTotal += element.scrollTop })
+    const scrollY = scrollElements.length ? scrollYTotal : window.scrollY
+    if (scrollY !== 0 || this.isObjectiveEditMode) return
     this.isDragging = true
     this.startY = event.touches[0].clientY
   }

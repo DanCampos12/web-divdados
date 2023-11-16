@@ -41,8 +41,7 @@
         color="primary"
         fab
         fixed
-        style="left: 50%; margin-left: -16px; z-index: 10"
-        top
+        style="left: 50%; margin-left: -16px; z-index: 10; top: 56px"
         x-small
       >
         <v-progress-circular
