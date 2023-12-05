@@ -31,7 +31,6 @@ export default class OperationTypeAllocationComponent extends Vue {
 
   barChartTooltip () {
     return function (this: any) {
-      console.log(this.series)
       return `
         <div style="display: flex; flex-direction: column; text-transform: capitalize; padding: 6px;">
           <div style="display: grid; align-items: center; grid-template-columns: 4px 1fr; column-gap: 8px; margin-bottom: 8px;">
