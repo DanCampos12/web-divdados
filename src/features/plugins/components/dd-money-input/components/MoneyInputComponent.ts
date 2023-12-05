@@ -1,5 +1,6 @@
 import { Prop, Component, Vue, Watch } from 'vue-property-decorator'
 import helper from './MoneyInputHelper'
+import Debounce from '@/helpers/Debounce'
 
 @Component
 export default class MoneyInputComponent extends Vue {
@@ -49,53 +50,45 @@ export default class MoneyInputComponent extends Vue {
   readonly clearable!: boolean
 
   @Prop({ type: Number, default: 2 })
-  readonly maximumFractionDigits!: number
+  readonly fractionDigits!: number
 
   @Watch('value')
   onValueChange () {
-    const input = this.$refs.moneyInput.$el.querySelector('input')
-    this.formattedValue = helper.formatValueString(this.value, this.maximumFractionDigits)
-    this.$nextTick(() => {
-      if (input.value.length > this.length) {
-        this.cursorStart++
-        this.cursorEnd++
-      }
-      input.setSelectionRange(this.cursorStart, this.cursorEnd)
-    })
+    this.setDisplayValue(!this.isTyping)
   }
 
-  time = new Date().getTime()
-  date = ''
-  formattedValue = ''
+  displayValue = ''
   showDatePickerMenu = false
-  cursorStart = 0
-  cursorEnd = 0
-  length = 0
-  $refs!: any
+  isTyping = false
+  debounce = new Debounce()
 
   mounted () {
     if (!this.value) return
-    this.formattedValue = helper.formatValueString(this.value, this.maximumFractionDigits)
+    this.setDisplayValue(true)
   }
 
-  onBlur ($event: any) {
-    this.$emit('blur', $event)
-    const value = helper.formatValueNumber($event.target.value)
-    this.$emit('input', value)
-  }
-
-  onFocus ($event: any) {
+  onFocus ($event: { target: { value: string, setSelectionRange: (start: number, end: number) => void } }) {
     this.$emit('focus', $event)
     $event.target.setSelectionRange(0, $event.target.value.length)
   }
 
+  onBlur ($event: { target: { value: string } }) {
+    const value = helper.formatValueNumber($event.target.value)
+    this.$emit('blur', value)
+    this.setDisplayValue(true)
+  }
+
   onInput ($event: string) {
-    if (!$event) return
-    const input = this.$refs.moneyInput.$el.querySelector('input')
-    this.cursorStart = input.selectionStart
-    this.cursorEnd = input.selectionEnd
-    this.length = $event.length
+    this.isTyping = true
     const value = helper.formatValueNumber($event)
     this.$emit('input', value)
+    this.setDisplayValue(false, $event)
+    this.debounce.wait(750, () => { this.isTyping = false })
+  }
+
+  setDisplayValue (formatWithZeros: boolean, originalValue?: string) {
+    this.$nextTick(() => {
+      this.displayValue = helper.formatValueString(this.value, this.fractionDigits, formatWithZeros, originalValue)
+    })
   }
 }
