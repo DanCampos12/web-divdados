@@ -1,0 +1,13 @@
+.v-btn {
+  border-radius: 8px;
+  
+  .v-btn__content {
+    text-transform: none;
+    letter-spacing: normal;
+    font-size: 16px;
+  }
+
+  &.v-btn--fab {
+    border-radius: 50% !important;
+  }
+}

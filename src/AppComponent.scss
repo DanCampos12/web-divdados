@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css?family=Dosis:400,500,600,700,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700;900&display=swap');
+
+html,
+body {
+  background: var(--v-background-base) !important;
+}
+
+.scroll-disabled {
+  overflow: hidden !important;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.text-small {
+  font-size: 11px;
+}
+
+.rotate-icon {
+  transition: all 250ms linear;
+  transform: rotate(180deg);
+}
+
+.button-sort {
+  &:hover {
+    background-color: var(--v-hover-base);
+    cursor: pointer;
+    border-radius: 4px;
+    user-select: none;
+  }
+}
+
+.v-snack .v-snack__wrapper .v-snack__action {
+  margin-bottom: 0px !important;
+}

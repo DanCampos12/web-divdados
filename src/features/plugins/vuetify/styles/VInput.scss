@@ -1,0 +1,41 @@
+.v-input {
+  .v-input__control {
+    border-radius: 4px !important;
+    
+    .v-input__slot {        
+      .v-input__icon, .v-btn {
+        color: inherit;
+      }
+    }
+
+    .v-text-field__details .v-messages {
+      margin-left: -12px;
+    }
+  }
+
+  input {
+    text-transform: none !important;
+
+    &:-webkit-autofill {
+      -webkit-text-fill-color: var(--v-primary-base) !important;
+    }
+  }
+
+  &.v-text-field--outlined {
+    fieldset {
+      border: 1px solid !important;
+      border-color: var(--v-placeholder-base) !important;
+    }
+
+    &:hover fieldset {
+      border-color: var(--v-primary-base) !important;
+    }
+
+    &.v-input--is-focused {
+      fieldset {
+        border: 2px solid !important;
+        border-color: var(--v-primary-base) !important;
+      }
+    }
+  }
+}
