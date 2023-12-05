@@ -3,7 +3,7 @@
     <v-sheet
       class="grid-layout--container rounded scroller"
       :class="{ 'background--offset': loading || !objectiveGridLayout.length, 'hide-scroll': isMobile }"
-      :style="{ height: isMobile ? 'calc(100vh - 230px)' : 'calc(100vh - 180px)' }"
+      :style="{ height: isMobile ? 'calc(100vh - 290px)' : 'calc(100vh - 180px)' }"
     >
       <div
         v-if="loading"
@@ -260,7 +260,6 @@
       border-radius: 8px;
       border: 3px solid var(--v-primary-base);
       padding: 8px;
-      touch-action: none;
     }
 
     &.theme--light {
